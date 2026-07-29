@@ -1,5 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { join, relative, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import {
   containsSensitivePattern,
@@ -13,14 +14,25 @@ const CONTENT_DIRECTORIES = [
   "docs/community",
 ];
 
-async function findMarkdownFiles(directory) {
-  const entries = await readdir(directory, { withFileTypes: true });
+function displayPath(path) {
+  return relative(process.cwd(), path) || path;
+}
+
+async function findMarkdownFiles(directory, failures) {
+  let entries;
+  try {
+    entries = await readdir(directory, { withFileTypes: true });
+  } catch (error) {
+    failures.push(`${displayPath(directory)}: ${error.message}`);
+    return [];
+  }
+
   const files = [];
 
-  for (const entry of entries) {
+  for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) {
-      files.push(...(await findMarkdownFiles(path)));
+      files.push(...(await findMarkdownFiles(path, failures)));
     } else if (entry.isFile() && entry.name.endsWith(".md")) {
       files.push(path);
     }
@@ -29,31 +41,43 @@ async function findMarkdownFiles(directory) {
   return files;
 }
 
-async function main() {
-  const files = (
-    await Promise.all(CONTENT_DIRECTORIES.map(findMarkdownFiles))
-  )
-    .flat()
-    .sort();
+export async function validateContentRoots(roots) {
   const failures = [];
+  const files = [];
 
-  for (const file of files) {
-    const source = await readFile(file, "utf8");
-    const displayPath = relative(process.cwd(), file);
+  for (const root of roots) {
+    files.push(...(await findMarkdownFiles(root, failures)));
+  }
+
+  for (const file of files.sort()) {
+    let source;
+    try {
+      source = await readFile(file, "utf8");
+    } catch (error) {
+      failures.push(`${displayPath(file)}: ${error.message}`);
+      continue;
+    }
+    const path = displayPath(file);
 
     try {
       const { attributes } = parseFrontmatter(source);
       for (const error of validatePageMeta(attributes)) {
-        failures.push(`${displayPath}: ${error}`);
+        failures.push(`${path}: ${error}`);
       }
     } catch (error) {
-      failures.push(`${displayPath}: ${error.message}`);
+      failures.push(`${path}: ${error.message}`);
     }
 
     if (containsSensitivePattern(source)) {
-      failures.push(`${displayPath}: 检测到疑似密钥或敏感凭证`);
+      failures.push(`${path}: 检测到疑似密钥或敏感凭证`);
     }
   }
+
+  return failures;
+}
+
+async function runCli() {
+  const failures = await validateContentRoots(CONTENT_DIRECTORIES);
 
   if (failures.length > 0) {
     console.error(failures.join("\n"));
@@ -64,7 +88,12 @@ async function main() {
   console.log("正式内容校验通过");
 }
 
-main().catch((error) => {
-  console.error(`正式内容校验失败：${error.message}`);
-  process.exitCode = 1;
-});
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(resolve(process.argv[1])).href
+) {
+  runCli().catch((error) => {
+    console.error(`正式内容校验失败：${error.message}`);
+    process.exitCode = 1;
+  });
+}

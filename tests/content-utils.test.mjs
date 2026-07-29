@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import {
   containsSensitivePattern,
   parseFrontmatter,
+  REQUIRED_CASE_SECTIONS,
   validateCaseBody,
   validatePageMeta,
 } from "../scripts/content-utils.mjs";
@@ -139,4 +140,27 @@ test("validateCaseBody reports missing required sections", () => {
 
   assert.ok(errors.includes("案例缺少章节：验收标准"));
   assert.ok(errors.includes("案例缺少章节：权限与安全边界"));
+});
+
+test("validateCaseBody ignores required headings inside non-Markdown blocks", () => {
+  const headings = REQUIRED_CASE_SECTIONS.map(
+    (section) => `## ${section}`,
+  ).join("\n");
+  const expectedErrors = REQUIRED_CASE_SECTIONS.map(
+    (section) => `案例缺少章节：${section}`,
+  );
+  const disguisedBodies = [
+    `\`\`\`markdown\n${headings}\n\`\`\``,
+    `~~~markdown\n${headings}\n~~~`,
+    REQUIRED_CASE_SECTIONS.map(
+      (section) => `<!-- ## ${section} -->`,
+    ).join("\n"),
+    `<!--\n${headings}\n-->`,
+    REQUIRED_CASE_SECTIONS.map((section) => `    ## ${section}`).join("\n"),
+    REQUIRED_CASE_SECTIONS.map((section) => `\t## ${section}`).join("\n"),
+  ];
+
+  for (const body of disguisedBodies) {
+    assert.deepEqual(validateCaseBody(body), expectedErrors);
+  }
 });

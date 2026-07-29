@@ -100,12 +100,63 @@ export function validatePageMeta(meta) {
 }
 
 export function validateCaseBody(body) {
-  const headings = new Set(
-    body
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .filter((line) => line.startsWith("## ")),
-  );
+  const headings = new Set();
+  let fence = null;
+  let inHtmlComment = false;
+
+  for (const line of body.split(/\r?\n/)) {
+    if (fence) {
+      const closing = line.match(/^ {0,3}(`+|~+)[ \t]*$/);
+      if (
+        closing &&
+        closing[1][0] === fence.marker &&
+        closing[1].length >= fence.length
+      ) {
+        fence = null;
+      }
+      continue;
+    }
+
+    let visible = "";
+    let cursor = 0;
+    while (cursor < line.length) {
+      if (inHtmlComment) {
+        const end = line.indexOf("-->", cursor);
+        if (end === -1) {
+          cursor = line.length;
+        } else {
+          inHtmlComment = false;
+          cursor = end + 3;
+        }
+      } else {
+        const start = line.indexOf("<!--", cursor);
+        if (start === -1) {
+          visible += line.slice(cursor);
+          cursor = line.length;
+        } else {
+          visible += line.slice(cursor, start);
+          inHtmlComment = true;
+          cursor = start + 4;
+        }
+      }
+    }
+
+    if (visible !== line) continue;
+
+    const opening = line.match(/^ {0,3}(`{3,}|~{3,})/);
+    if (opening) {
+      fence = {
+        marker: opening[1][0],
+        length: opening[1].length,
+      };
+      continue;
+    }
+
+    if (/^(?: {4}|\t)/.test(line)) continue;
+
+    const heading = line.match(/^ {0,3}##[ \t]+(.+?)[ \t]*$/);
+    if (heading) headings.add(`## ${heading[1]}`);
+  }
 
   return REQUIRED_CASE_SECTIONS.filter(
     (section) => !headings.has(`## ${section}`),
