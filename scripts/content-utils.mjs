@@ -8,6 +8,20 @@ const SECRET_PATTERNS = [
   CREDENTIAL_ASSIGNMENT_PATTERN,
 ];
 
+export const REQUIRED_CASE_SECTIONS = [
+  "场景与问题",
+  "适用角色",
+  "输入资料",
+  "使用能力",
+  "任务描述",
+  "执行步骤",
+  "最终产物",
+  "验收标准",
+  "权限与安全边界",
+  "可复现证据",
+  "贡献者与核验日期",
+];
+
 function parseValue(raw) {
   const value = raw.trim();
   if (value === "[]") return [];
@@ -83,6 +97,19 @@ export function validatePageMeta(meta) {
   }
 
   return errors;
+}
+
+export function validateCaseBody(body) {
+  const headings = new Set(
+    body
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line.startsWith("## ")),
+  );
+
+  return REQUIRED_CASE_SECTIONS.filter(
+    (section) => !headings.has(`## ${section}`),
+  ).map((section) => `案例缺少章节：${section}`);
 }
 
 export function containsSensitivePattern(source) {

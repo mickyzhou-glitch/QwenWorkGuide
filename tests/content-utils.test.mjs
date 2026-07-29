@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import {
   containsSensitivePattern,
   parseFrontmatter,
+  validateCaseBody,
   validatePageMeta,
 } from "../scripts/content-utils.mjs";
 
@@ -121,4 +122,21 @@ test("parseFrontmatter supports closing delimiters at EOF", () => {
 
   assert.equal(attributes.title, "EOF");
   assert.equal(body, "");
+});
+
+test("validateCaseBody accepts a complete case", async () => {
+  const content = await readFile(
+    new URL("valid-case.md", fixturesDirectory),
+    "utf8",
+  );
+  const { body } = parseFrontmatter(content);
+
+  assert.deepEqual(validateCaseBody(body), []);
+});
+
+test("validateCaseBody reports missing required sections", () => {
+  const errors = validateCaseBody("# 不完整案例\n\n## 场景与问题");
+
+  assert.ok(errors.includes("案例缺少章节：验收标准"));
+  assert.ok(errors.includes("案例缺少章节：权限与安全边界"));
 });
