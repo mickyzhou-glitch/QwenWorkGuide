@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: 安全或隐私问题
-    url: https://github.com/mickyzhou-glitch
-    about: 请勿公开敏感细节；请按 SECURITY.md 的说明私下联系维护者。
+    url: https://github.com/mickyzhou-glitch/QwenWorkGuide/security
+    about: 请勿公开敏感细节；仓库发布后，请在 Security 页面选择“Report a vulnerability”私密提交。该渠道尚不可用时，请勿公开披露。
