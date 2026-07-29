@@ -19,8 +19,8 @@ sources:
 
 ## 离线版下载
 
-- [下载 Word 离线版](/downloads/qwen-work-bluebook-v1.0.docx)
-- [下载 PDF 离线版](/downloads/qwen-work-bluebook-v1.0.pdf)
+- [下载 Word 离线版](/downloads/qwenwork-bluebook-v1.docx)
+- [下载 PDF 离线版](/downloads/qwenwork-bluebook-v1.pdf)
 
 ## 目录
 
