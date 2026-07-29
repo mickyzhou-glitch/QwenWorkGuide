@@ -1,8 +1,11 @@
+const CREDENTIAL_ASSIGNMENT_PATTERN =
+  /(?:api[\s_-]?key|token|secret|password)\s*[:=]\s*["']?([^\s"']{12,})/i;
+
 const SECRET_PATTERNS = [
   /gh[pousr]_[A-Za-z0-9]{16,}/,
   /AKIA[0-9A-Z]{16}/,
   /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
-  /(?:api[_-]?key|token|secret|password)\s*[:=]\s*["']?[^\s"']{12,}/i,
+  CREDENTIAL_ASSIGNMENT_PATTERN,
 ];
 
 function parseValue(raw) {
@@ -14,22 +17,27 @@ function parseValue(raw) {
 }
 
 export function parseFrontmatter(source) {
-  if (!source.startsWith("---\n")) {
+  const opening = source.match(/^---\r?\n/);
+  if (!opening) {
     return { attributes: {}, body: source };
   }
 
-  const end = source.indexOf("\n---\n", 4);
-  if (end === -1) {
+  const remainder = source.slice(opening[0].length);
+  const closing = remainder.match(/(?:^|\r?\n)---(?:\r?\n|$)/);
+  if (!closing) {
     throw new Error("Frontmatter 未闭合");
   }
 
-  const block = source.slice(4, end).split("\n");
+  const block = remainder.slice(0, closing.index).split(/\r?\n/);
   const attributes = {};
   let activeList = null;
 
   for (const line of block) {
     const listItem = line.match(/^\s+-\s+(.+)$/);
     if (listItem && activeList) {
+      if (!Array.isArray(attributes[activeList])) {
+        attributes[activeList] = [];
+      }
       attributes[activeList].push(parseValue(listItem[1]));
       continue;
     }
@@ -38,7 +46,7 @@ export function parseFrontmatter(source) {
     if (!pair) continue;
     const [, key, raw] = pair;
     if (raw === "") {
-      attributes[key] = [];
+      attributes[key] = "";
       activeList = key;
     } else {
       attributes[key] = parseValue(raw);
@@ -48,14 +56,16 @@ export function parseFrontmatter(source) {
 
   return {
     attributes,
-    body: source.slice(end + 5),
+    body: remainder.slice(closing.index + closing[0].length),
   };
 }
 
 export function validatePageMeta(meta) {
   const errors = [];
   for (const key of ["title", "description", "status", "verifiedAt"]) {
-    if (!meta[key]) errors.push(`缺少 Frontmatter 字段：${key}`);
+    if (typeof meta[key] !== "string" || meta[key].trim() === "") {
+      errors.push(`缺少 Frontmatter 字段：${key}`);
+    }
   }
 
   if (
@@ -76,5 +86,14 @@ export function validatePageMeta(meta) {
 }
 
 export function containsSensitivePattern(source) {
-  return SECRET_PATTERNS.some((pattern) => pattern.test(source));
+  if (SECRET_PATTERNS.slice(0, -1).some((pattern) => pattern.test(source))) {
+    return true;
+  }
+
+  const assignment = source.match(CREDENTIAL_ASSIGNMENT_PATTERN);
+  if (!assignment) return false;
+
+  const value = assignment[1];
+  return !/^YOUR_[A-Z0-9_]+$/i.test(value) &&
+    !/^replace-with-your-[a-z0-9-]+$/i.test(value);
 }
