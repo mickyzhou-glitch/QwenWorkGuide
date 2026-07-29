@@ -1,13 +1,16 @@
 import { defineConfig } from 'vitepress'
 
+const isCloudflarePages = process.env.CF_PAGES === '1'
+const siteBase = isCloudflarePages ? '/' : '/QwenWorkGuide/'
+
 export default defineConfig({
   lang: 'zh-CN',
   title: 'QwenWorkGuide',
   description: '非官方、开源、社区共创的千问办公实践指南',
-  base: '/QwenWorkGuide/',
+  base: siteBase,
   head: [
-    ['meta', { name: 'theme-color', content: '#102a43' }],
-    ['link', { rel: 'icon', href: '/QwenWorkGuide/q-logo.svg', type: 'image/svg+xml' }]
+    ['meta', { name: 'theme-color', content: '#4ce285' }],
+    ['link', { rel: 'icon', href: `${siteBase}q-logo.svg`, type: 'image/svg+xml' }]
   ],
   cleanUrls: true,
   lastUpdated: true,

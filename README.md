@@ -23,6 +23,20 @@ npm run dev
 npm run check
 ```
 
+## Cloudflare Pages
+
+推荐使用 Cloudflare Pages 的 GitHub 集成，连接仓库
+`mickyzhou-glitch/QwenWorkGuide`。构建配置如下：
+
+- 生产分支：`main`
+- 框架预设：VitePress
+- 构建命令：`npm run build`
+- 构建输出目录：`docs/.vitepress/dist`
+- 根目录：留空
+
+Cloudflare Pages 构建环境会自动注入 `CF_PAGES=1`，站点据此使用根路径 `/`；
+GitHub Pages 构建继续使用 `/QwenWorkGuide/`，两种托管方式可以并存。
+
 ## 参与共创
 
 你可以提交勘误、补充经过来源核验的内容，或投稿已脱敏、可复现的案例。详细流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，案例正文从 [.github/CASE_TEMPLATE.md](.github/CASE_TEMPLATE.md) 开始。
