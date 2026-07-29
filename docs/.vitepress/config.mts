@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/QwenWorkGuide/',
   head: [
     ['meta', { name: 'theme-color', content: '#102a43' }],
-    ['link', { rel: 'icon', href: '/QwenWorkGuide/favicon.svg', type: 'image/svg+xml' }]
+    ['link', { rel: 'icon', href: '/QwenWorkGuide/q-logo.svg', type: 'image/svg+xml' }]
   ],
   cleanUrls: true,
   lastUpdated: true,
@@ -18,7 +18,7 @@ export default defineConfig({
     '/downloads/qwenwork-bluebook-v1.pdf'
   ],
   themeConfig: {
-    logo: '/favicon.svg',
+    logo: '/q-logo.svg',
     nav: [
       { text: '蓝皮书', link: '/bluebook/' },
       { text: '案例库', link: '/cases/' },

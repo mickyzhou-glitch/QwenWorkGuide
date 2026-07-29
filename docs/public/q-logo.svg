@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">QwenWorkGuide</title>
+  <rect width="64" height="64" rx="12" fill="#102a43"/>
+  <path fill="#4ee4a1" d="M32 13c-10.5 0-19 8.5-19 19s8.5 19 19 19c3.4 0 6.6-.9 9.3-2.4l4.1 4.1 4.2-4.2-3.8-3.8A18.9 18.9 0 0 0 51 32c0-10.5-8.5-19-19-19Zm0 7c6.6 0 12 5.4 12 12 0 2.4-.7 4.7-2 6.6l-3.7-3.7-4.2 4.2 3.5 3.5A12 12 0 1 1 32 20Z"/>
+</svg>
