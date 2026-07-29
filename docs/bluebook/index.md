@@ -17,6 +17,11 @@ sources:
 - **已有具体任务**：从[办公交付](./part-3/07-office-delivery)、[岗位路线](./part-3/08-role-roadmaps)或[场景速查](./appendices/scenario-index)进入。
 - **准备团队落地**：阅读[组织落地](./part-4/09-organization-rollout)、[安全治理](./part-4/10-security-governance)与[上线验收](./appendices/launch-checklist)。
 
+## 离线版下载
+
+- [下载 Word 离线版](/downloads/qwen-work-bluebook-v1.0.docx)
+- [下载 PDF 离线版](/downloads/qwen-work-bluebook-v1.0.pdf)
+
 ## 目录
 
 ### 第一篇：重新理解 AI 办公（个人与团队）

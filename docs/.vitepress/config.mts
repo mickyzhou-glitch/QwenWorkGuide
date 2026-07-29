@@ -7,6 +7,11 @@ export default defineConfig({
   base: '/QwenWorkGuide/',
   cleanUrls: true,
   lastUpdated: true,
+  // 离线蓝皮书文件在构建文档后由发布流程放入 public/downloads。
+  ignoreDeadLinks: [
+    '/downloads/qwen-work-bluebook-v1.0.docx',
+    '/downloads/qwen-work-bluebook-v1.0.pdf'
+  ],
   themeConfig: {
     search: {
       provider: 'local'
