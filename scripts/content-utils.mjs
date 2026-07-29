@@ -22,6 +22,9 @@ export const REQUIRED_CASE_SECTIONS = [
   "贡献者与核验日期",
 ];
 
+const RAW_HTML_BLOCK_TAG_PATTERN =
+  /^(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)$/i;
+
 function parseValue(raw) {
   const value = raw.trim();
   if (value === "[]") return [];
@@ -103,6 +106,7 @@ export function validateCaseBody(body) {
   const headings = new Set();
   let fence = null;
   let inHtmlComment = false;
+  let rawHtmlBlock = null;
 
   for (const line of body.split(/\r?\n/)) {
     if (fence) {
@@ -117,31 +121,23 @@ export function validateCaseBody(body) {
       continue;
     }
 
-    let visible = "";
-    let cursor = 0;
-    while (cursor < line.length) {
-      if (inHtmlComment) {
-        const end = line.indexOf("-->", cursor);
-        if (end === -1) {
-          cursor = line.length;
-        } else {
-          inHtmlComment = false;
-          cursor = end + 3;
-        }
-      } else {
-        const start = line.indexOf("<!--", cursor);
-        if (start === -1) {
-          visible += line.slice(cursor);
-          cursor = line.length;
-        } else {
-          visible += line.slice(cursor, start);
-          inHtmlComment = true;
-          cursor = start + 4;
-        }
+    if (inHtmlComment) {
+      const closing = line.indexOf("-->");
+      if (closing !== -1) {
+        inHtmlComment = line.indexOf("<!--", closing + 3) !== -1;
       }
+      continue;
     }
 
-    if (visible !== line) continue;
+    if (rawHtmlBlock) {
+      if (
+        (rawHtmlBlock.untilBlank && line.trim() === "") ||
+        (rawHtmlBlock.end && rawHtmlBlock.end.test(line))
+      ) {
+        rawHtmlBlock = null;
+      }
+      continue;
+    }
 
     const opening = line.match(/^ {0,3}(`{3,}|~{3,})/);
     if (opening) {
@@ -152,10 +148,68 @@ export function validateCaseBody(body) {
       continue;
     }
 
-    if (/^(?: {4}|\t)/.test(line)) continue;
+    const htmlStart = line.match(
+      /^ {0,3}<(script|pre|style|textarea)(?:[ \t]|>|$)/i,
+    );
+    if (htmlStart) {
+      const end = new RegExp(`</${htmlStart[1]}\\s*>`, "i");
+      if (!end.test(line)) rawHtmlBlock = { end };
+      continue;
+    }
 
-    const heading = line.match(/^ {0,3}##[ \t]+(.+?)[ \t]*$/);
-    if (heading) headings.add(`## ${heading[1]}`);
+    const processingInstruction = line.match(/^ {0,3}<\?/);
+    if (processingInstruction) {
+      if (!/\?>/.test(line)) rawHtmlBlock = { end: /\?>/ };
+      continue;
+    }
+
+    if (/^ {0,3}<!\[CDATA\[/i.test(line)) {
+      if (!/\]\]>/.test(line)) rawHtmlBlock = { end: /\]\]>/ };
+      continue;
+    }
+
+    if (/^ {0,3}<![A-Z]/.test(line)) {
+      if (!/>/.test(line)) rawHtmlBlock = { end: />/ };
+      continue;
+    }
+
+    const blockTag = line.match(/^ {0,3}<\/?([A-Za-z][A-Za-z0-9-]*)/);
+    if (blockTag && RAW_HTML_BLOCK_TAG_PATTERN.test(blockTag[1])) {
+      rawHtmlBlock = { untilBlank: true };
+      continue;
+    }
+
+    if (/^ {0,3}<!--/.test(line)) {
+      inHtmlComment = !/-->/.test(line);
+      continue;
+    }
+
+    let visible = "";
+    let cursor = 0;
+    while (cursor < line.length) {
+      const start = line.indexOf("<!--", cursor);
+      if (start === -1) {
+        visible += line.slice(cursor);
+        cursor = line.length;
+      } else {
+        visible += line.slice(cursor, start);
+        const end = line.indexOf("-->", start + 4);
+        if (end === -1) {
+          inHtmlComment = true;
+          cursor = line.length;
+        } else {
+          cursor = end + 3;
+        }
+      }
+    }
+
+    if (/^(?: {4}|\t)/.test(visible)) continue;
+
+    const heading = visible.match(/^ {0,3}##[ \t]+(.+?)[ \t]*$/);
+    if (heading) {
+      const title = heading[1].replace(/[ \t]+#+[ \t]*$/, "");
+      headings.add(`## ${title}`);
+    }
   }
 
   return REQUIRED_CASE_SECTIONS.filter(

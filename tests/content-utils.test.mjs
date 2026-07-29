@@ -164,3 +164,35 @@ test("validateCaseBody ignores required headings inside non-Markdown blocks", ()
     assert.deepEqual(validateCaseBody(body), expectedErrors);
   }
 });
+
+test("validateCaseBody ignores fenced headings when info contains an HTML comment", () => {
+  const headings = REQUIRED_CASE_SECTIONS.map(
+    (section) => `## ${section}`,
+  ).join("\n");
+  const body = `\`\`\`markdown <!-- example -->\n${headings}\n\`\`\``;
+
+  assert.deepEqual(
+    validateCaseBody(body),
+    REQUIRED_CASE_SECTIONS.map((section) => `案例缺少章节：${section}`),
+  );
+});
+
+test("validateCaseBody ignores headings inside raw HTML blocks", () => {
+  const headings = REQUIRED_CASE_SECTIONS.map(
+    (section) => `## ${section}`,
+  ).join("\n");
+  const body = `<script>\n${headings}\n</script>`;
+
+  assert.deepEqual(
+    validateCaseBody(body),
+    REQUIRED_CASE_SECTIONS.map((section) => `案例缺少章节：${section}`),
+  );
+});
+
+test("validateCaseBody normalizes ATX closing sequences", () => {
+  const body = REQUIRED_CASE_SECTIONS.map(
+    (section) => `## ${section} ##`,
+  ).join("\n");
+
+  assert.deepEqual(validateCaseBody(body), []);
+});
