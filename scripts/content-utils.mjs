@@ -1,5 +1,5 @@
 const CREDENTIAL_ASSIGNMENT_PATTERN =
-  /(?:api[\s_-]?key|token|secret|password)\s*[:=]\s*["']?([^\s"']{12,})/i;
+  /(?:api[\s_-]?key|token|secret|password)\s*[:=]\s*["']?([^\s"']{12,})/gi;
 
 const SECRET_PATTERNS = [
   /gh[pousr]_[A-Za-z0-9]{16,}/,
@@ -90,10 +90,12 @@ export function containsSensitivePattern(source) {
     return true;
   }
 
-  const assignment = source.match(CREDENTIAL_ASSIGNMENT_PATTERN);
-  if (!assignment) return false;
+  for (const [, value] of source.matchAll(CREDENTIAL_ASSIGNMENT_PATTERN)) {
+    const isPlaceholder =
+      /^YOUR_[A-Z0-9_]+$/i.test(value) ||
+      /^replace-with-your-[a-z0-9-]+$/i.test(value);
+    if (!isPlaceholder) return true;
+  }
 
-  const value = assignment[1];
-  return !/^YOUR_[A-Z0-9_]+$/i.test(value) &&
-    !/^replace-with-your-[a-z0-9-]+$/i.test(value);
+  return false;
 }

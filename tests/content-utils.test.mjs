@@ -96,6 +96,15 @@ test("containsSensitivePattern ignores safe credential placeholders", () => {
   );
 });
 
+test("containsSensitivePattern checks every credential assignment", () => {
+  assert.equal(
+    containsSensitivePattern(
+      "token=YOUR_TOKEN_HERE\npassword=actual-secret-value-123",
+    ),
+    true,
+  );
+});
+
 test("parseFrontmatter supports CRLF line endings", () => {
   const content =
     "---\r\ntitle: Windows\r\nsources: []\r\n---\r\n# Body\r\n";
