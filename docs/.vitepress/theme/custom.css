@@ -1,29 +1,29 @@
 :root {
-  --vp-c-brand-1: #1468a8;
-  --vp-c-brand-2: #0f5b94;
-  --vp-c-brand-3: #0b4c7d;
-  --vp-c-brand-soft: rgba(20, 104, 168, 0.12);
-  --vp-c-tip-1: #0f766e;
-  --vp-c-tip-2: #0f766e;
-  --vp-c-tip-3: #115e59;
-  --qwg-navy: #102a43;
-  --qwg-teal: #168f82;
-  --qwg-paper: #fbfcfd;
-  --qwg-border: #d9e2ec;
+  --vp-c-brand-1: #47cc71;
+  --vp-c-brand-2: #4ddf7b;
+  --vp-c-brand-3: #4ce285;
+  --vp-c-brand-soft: rgba(76, 226, 133, 0.16);
+  --vp-c-tip-1: #2d9e57;
+  --vp-c-tip-2: #47cc71;
+  --vp-c-tip-3: #1f7a43;
+  --qwg-navy: #171a17;
+  --qwg-teal: #4ce285;
+  --qwg-paper: #fbfdfb;
+  --qwg-border: #dce8df;
 }
 
 .dark {
-  --vp-c-brand-1: #6db8e9;
-  --vp-c-brand-2: #91ccef;
-  --vp-c-brand-3: #b6ddf5;
-  --vp-c-brand-soft: rgba(109, 184, 233, 0.16);
-  --vp-c-tip-1: #5eead4;
-  --vp-c-tip-2: #99f6e4;
-  --vp-c-tip-3: #ccfbf1;
-  --qwg-navy: #e8f1f8;
-  --qwg-teal: #5eead4;
-  --qwg-paper: #111b27;
-  --qwg-border: #334e68;
+  --vp-c-brand-1: #4ce285;
+  --vp-c-brand-2: #72f0a4;
+  --vp-c-brand-3: #a5f6c5;
+  --vp-c-brand-soft: rgba(76, 226, 133, 0.18);
+  --vp-c-tip-1: #4ce285;
+  --vp-c-tip-2: #72f0a4;
+  --vp-c-tip-3: #b8f8cf;
+  --qwg-navy: #f2f8f3;
+  --qwg-teal: #4ce285;
+  --qwg-paper: #161a17;
+  --qwg-border: #3a493d;
 }
 
 html {
@@ -35,7 +35,7 @@ body {
 }
 
 ::selection {
-  background: rgba(22, 143, 130, 0.24);
+  background: rgba(76, 226, 133, 0.32);
 }
 
 :focus-visible {
@@ -78,24 +78,25 @@ body {
 }
 
 .VPButton.brand {
-  background: var(--qwg-navy);
-  border-color: var(--qwg-navy);
+  color: #171a17;
+  background: var(--qwg-teal);
+  border-color: var(--qwg-teal);
 }
 
 .VPButton.brand:hover {
-  background: #173d5e;
-  border-color: #173d5e;
+  background: #4ddf7b;
+  border-color: #4ddf7b;
 }
 
 .dark .VPButton.brand {
-  color: #092033;
+  color: #171a17;
   background: var(--qwg-teal);
   border-color: var(--qwg-teal);
 }
 
 .dark .VPButton.brand:hover {
-  background: #77e5d9;
-  border-color: #77e5d9;
+  background: #72f0a4;
+  border-color: #72f0a4;
 }
 
 .VPFeatures {
@@ -195,13 +196,13 @@ body {
 }
 
 .qwg-status--fact {
-  background: #e6f4ff;
-  color: #075985;
+  background: #e4f9eb;
+  color: #1f7a43;
 }
 
 .qwg-status--practice {
-  background: #e8f8f5;
-  color: #0f5c52;
+  background: #ecfaef;
+  color: #287f49;
 }
 
 .qwg-status--review {
@@ -210,13 +211,13 @@ body {
 }
 
 .dark .qwg-status--fact {
-  background: #12364f;
-  color: #bae6fd;
+  background: #1f4d2f;
+  color: #a5f6c5;
 }
 
 .dark .qwg-status--practice {
-  background: #13443e;
-  color: #b6f2e9;
+  background: #244d31;
+  color: #b8f8cf;
 }
 
 .dark .qwg-status--review {
