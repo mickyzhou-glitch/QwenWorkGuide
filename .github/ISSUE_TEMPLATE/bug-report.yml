@@ -1,0 +1,34 @@
+name: 站点或工具问题
+description: 报告构建、导航、搜索或页面显示异常
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 请勿粘贴账号、Cookie、令牌、客户信息或其他敏感资料。
+  - type: input
+    id: page
+    attributes:
+      label: 页面或命令
+      description: 请提供页面链接或复现时执行的命令。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果与复现步骤
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: 使用环境
+      options: [网页桌面端, 网页移动端, 本地开发, GitHub Actions, 其他]
+    validations:
+      required: true

@@ -1,0 +1,45 @@
+name: 案例投稿提案
+description: 在提交完整案例 PR 前，先说明任务与公开边界
+title: "[案例]: "
+labels: [case-submission]
+body:
+  - type: markdown
+    attributes:
+      value: 请勿上传客户资料、个人信息、内部文件、密钥或未授权截图。
+  - type: input
+    id: role
+    attributes:
+      label: 使用角色
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: 真实任务
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: 输入资料
+      description: 仅描述已脱敏、可公开的资料类型。
+    validations:
+      required: true
+  - type: textarea
+    id: deliverable
+    attributes:
+      label: 期望交付
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 可公开证据
+    validations:
+      required: true
+  - type: textarea
+    id: handling
+    attributes:
+      label: 敏感信息处理方式
+    validations:
+      required: true

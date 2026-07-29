@@ -75,7 +75,30 @@ export default defineConfig({
       ]
     },
     search: {
-      provider: 'local'
+      provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档'
+          },
+          modal: {
+            displayDetails: '显示详情',
+            resetButtonTitle: '清除查询条件',
+            backButtonTitle: '关闭搜索',
+            noResultsText: '未找到相关结果',
+            footer: {
+              selectText: '选择',
+              selectKeyAriaLabel: '回车',
+              navigateText: '切换',
+              navigateUpKeyAriaLabel: '向上箭头',
+              navigateDownKeyAriaLabel: '向下箭头',
+              closeText: '关闭',
+              closeKeyAriaLabel: 'Esc'
+            }
+          }
+        }
+      }
     },
     editLink: {
       pattern: 'https://github.com/mickyzhou-glitch/QwenWorkGuide/edit/main/docs/:path',

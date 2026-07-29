@@ -1,0 +1,38 @@
+name: 内容勘误或更新
+description: 报告错误、失效链接或需要核验的产品信息
+title: "[内容]: "
+labels: [content]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: 页面链接
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: 当前内容
+      description: 请引用必要的最小片段，不要粘贴受限或敏感材料。
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 建议修正
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: 证据来源
+      description: 优先提供官方一手公开链接。
+    validations:
+      required: true
+  - type: input
+    id: verified_at
+    attributes:
+      label: 核验日期
+      placeholder: YYYY-MM-DD
+    validations:
+      required: true
