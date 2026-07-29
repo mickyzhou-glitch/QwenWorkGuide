@@ -196,3 +196,24 @@ test("validateCaseBody normalizes ATX closing sequences", () => {
 
   assert.deepEqual(validateCaseBody(body), []);
 });
+
+test("validateCaseBody ignores headings inside type-7 HTML blocks", () => {
+  const headings = REQUIRED_CASE_SECTIONS.map(
+    (section) => `## ${section}`,
+  ).join("\n");
+  const body = `<custom-panel>\n${headings}\n</custom-panel>\n`;
+
+  assert.deepEqual(
+    validateCaseBody(body),
+    REQUIRED_CASE_SECTIONS.map((section) => `案例缺少章节：${section}`),
+  );
+});
+
+test("validateCaseBody lets type-7 tags continue an active paragraph", () => {
+  const headings = REQUIRED_CASE_SECTIONS.map(
+    (section) => `## ${section}`,
+  ).join("\n");
+  const body = `段落正文\n<custom-panel>\n${headings}\n</custom-panel>\n`;
+
+  assert.deepEqual(validateCaseBody(body), []);
+});

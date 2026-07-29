@@ -24,6 +24,8 @@ export const REQUIRED_CASE_SECTIONS = [
 
 const RAW_HTML_BLOCK_TAG_PATTERN =
   /^(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)$/i;
+const COMPLETE_HTML_TAG_PATTERN =
+  /^ {0,3}(?:<\/[A-Za-z][A-Za-z0-9-]*[ \t]*>|<[A-Za-z][A-Za-z0-9-]*(?:[ \t]+[A-Za-z_:][A-Za-z0-9_.:-]*(?:[ \t]*=[ \t]*(?:[^ "'=<>`]+|'[^']*'|"[^"]*"))?)*[ \t]*\/?>)[ \t]*$/;
 
 function parseValue(raw) {
   const value = raw.trim();
@@ -107,6 +109,7 @@ export function validateCaseBody(body) {
   let fence = null;
   let inHtmlComment = false;
   let rawHtmlBlock = null;
+  let inParagraph = false;
 
   for (const line of body.split(/\r?\n/)) {
     if (fence) {
@@ -139,8 +142,14 @@ export function validateCaseBody(body) {
       continue;
     }
 
+    if (line.trim() === "") {
+      inParagraph = false;
+      continue;
+    }
+
     const opening = line.match(/^ {0,3}(`{3,}|~{3,})/);
     if (opening) {
+      inParagraph = false;
       fence = {
         marker: opening[1][0],
         length: opening[1].length,
@@ -152,6 +161,7 @@ export function validateCaseBody(body) {
       /^ {0,3}<(script|pre|style|textarea)(?:[ \t]|>|$)/i,
     );
     if (htmlStart) {
+      inParagraph = false;
       const end = new RegExp(`</${htmlStart[1]}\\s*>`, "i");
       if (!end.test(line)) rawHtmlBlock = { end };
       continue;
@@ -159,27 +169,37 @@ export function validateCaseBody(body) {
 
     const processingInstruction = line.match(/^ {0,3}<\?/);
     if (processingInstruction) {
+      inParagraph = false;
       if (!/\?>/.test(line)) rawHtmlBlock = { end: /\?>/ };
       continue;
     }
 
     if (/^ {0,3}<!\[CDATA\[/i.test(line)) {
+      inParagraph = false;
       if (!/\]\]>/.test(line)) rawHtmlBlock = { end: /\]\]>/ };
       continue;
     }
 
     if (/^ {0,3}<![A-Z]/.test(line)) {
+      inParagraph = false;
       if (!/>/.test(line)) rawHtmlBlock = { end: />/ };
       continue;
     }
 
     const blockTag = line.match(/^ {0,3}<\/?([A-Za-z][A-Za-z0-9-]*)/);
     if (blockTag && RAW_HTML_BLOCK_TAG_PATTERN.test(blockTag[1])) {
+      inParagraph = false;
+      rawHtmlBlock = { untilBlank: true };
+      continue;
+    }
+
+    if (!inParagraph && COMPLETE_HTML_TAG_PATTERN.test(line)) {
       rawHtmlBlock = { untilBlank: true };
       continue;
     }
 
     if (/^ {0,3}<!--/.test(line)) {
+      inParagraph = false;
       inHtmlComment = !/-->/.test(line);
       continue;
     }
@@ -209,6 +229,9 @@ export function validateCaseBody(body) {
     if (heading) {
       const title = heading[1].replace(/[ \t]+#+[ \t]*$/, "");
       headings.add(`## ${title}`);
+      inParagraph = false;
+    } else if (visible.trim() !== "") {
+      inParagraph = true;
     }
   }
 
