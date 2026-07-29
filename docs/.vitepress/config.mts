@@ -23,7 +23,8 @@ export default defineConfig({
       { text: '蓝皮书', link: '/bluebook/' },
       { text: '案例库', link: '/cases/' },
       { text: '阅读指南', link: '/reading-guide' },
-      { text: '参与共创', link: '/community/contributing' }
+      { text: '参与共创', link: '/community/contributing' },
+      { text: '联系我', link: '/contact' }
     ],
     sidebar: {
       '/bluebook/': [

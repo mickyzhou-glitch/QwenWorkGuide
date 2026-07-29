@@ -225,6 +225,37 @@ body {
   color: #fce7b0;
 }
 
+.qwg-contact-card {
+  border: 1px solid var(--qwg-border);
+  border-radius: 16px;
+  margin: 32px 0;
+  max-width: 520px;
+  padding: 24px;
+  text-align: center;
+  background: var(--qwg-paper);
+}
+
+.qwg-contact-card img {
+  border-radius: 12px;
+  display: block;
+  height: auto;
+  margin: 0 auto 18px;
+  max-width: 100%;
+  width: 420px;
+}
+
+.qwg-contact-card strong {
+  color: var(--qwg-navy);
+  display: block;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.qwg-contact-card p {
+  color: var(--vp-c-text-2);
+  margin: 0;
+}
+
 .vp-doc table {
   display: table;
   width: 100%;
@@ -253,6 +284,10 @@ body {
 
   .qwg-reading-path {
     min-height: auto;
+  }
+
+  .qwg-contact-card {
+    padding: 16px;
   }
 
   .vp-doc table {
