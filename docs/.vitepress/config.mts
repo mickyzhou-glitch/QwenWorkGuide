@@ -41,14 +41,16 @@ export default defineConfig({
           items: [
             { text: '完成第一项任务', link: '/bluebook/part-2/04-first-task' },
             { text: 'Skill、连接器与专家套件', link: '/bluebook/part-2/05-skills-connectors-experts' },
-            { text: '自动化', link: '/bluebook/part-2/06-automation' }
+            { text: '自动化', link: '/bluebook/part-2/06-automation' },
+            { text: '任务拆解与交付协议', link: '/bluebook/part-2/13-task-delivery-protocol' }
           ]
         },
         {
           text: '第三篇 真实工作流案例',
           items: [
             { text: '办公交付', link: '/bluebook/part-3/07-office-delivery' },
-            { text: '岗位路线', link: '/bluebook/part-3/08-role-roadmaps' }
+            { text: '岗位路线', link: '/bluebook/part-3/08-role-roadmaps' },
+            { text: '研究与证据链', link: '/bluebook/part-3/14-research-evidence-chain' }
           ]
         },
         {
@@ -57,7 +59,9 @@ export default defineConfig({
             { text: '组织落地', link: '/bluebook/part-4/09-organization-rollout' },
             { text: '安全与治理', link: '/bluebook/part-4/10-security-governance' },
             { text: '价值度量', link: '/bluebook/part-4/11-value-measurement' },
-            { text: '产品与生态建议', link: '/bluebook/part-4/12-product-ecosystem' }
+            { text: '产品与生态建议', link: '/bluebook/part-4/12-product-ecosystem' },
+            { text: '团队工作流运营', link: '/bluebook/part-4/15-team-workflow-operations' },
+            { text: '价值度量实战', link: '/bluebook/part-4/16-value-measurement-playbook' }
           ]
         },
         {

@@ -16,6 +16,8 @@ sources:
 - **第一次使用**：依次阅读[第 1 章](./part-1/01-from-answer-to-delivery)、[第 4 章](./part-2/04-first-task)与[快速开始](../guides/quick-start)。
 - **已有具体任务**：从[办公交付](./part-3/07-office-delivery)、[岗位路线](./part-3/08-role-roadmaps)或[场景速查](./appendices/scenario-index)进入。
 - **准备团队落地**：阅读[组织落地](./part-4/09-organization-rollout)、[安全治理](./part-4/10-security-governance)与[上线验收](./appendices/launch-checklist)。
+- **想把一次任务做扎实**：使用[任务拆解与交付协议](./part-2/13-task-delivery-protocol)；研究类任务配合[研究与证据链](./part-3/14-research-evidence-chain)。
+- **已经在团队试点**：用[团队工作流运营](./part-4/15-team-workflow-operations)和[价值度量实战](./part-4/16-value-measurement-playbook)做持续复盘。
 
 ## 离线版下载
 
@@ -35,18 +37,22 @@ sources:
 4. [完成第一项任务](./part-2/04-first-task)
 5. [Skill、连接器与专家套件](./part-2/05-skills-connectors-experts)
 6. [自动化](./part-2/06-automation)
+7. [任务拆解与交付协议](./part-2/13-task-delivery-protocol)
 
 ### 第三篇：真实工作流案例（专业岗位）
 
-7. [办公交付：Word、Excel、PPT 与网页](./part-3/07-office-delivery)
-8. [岗位路线：从个人提效到专业套件](./part-3/08-role-roadmaps)
+8. [办公交付：Word、Excel、PPT 与网页](./part-3/07-office-delivery)
+9. [岗位路线：从个人提效到专业套件](./part-3/08-role-roadmaps)
+10. [研究与证据链](./part-3/14-research-evidence-chain)
 
 ### 第四篇：企业落地与商业化（负责人和生态伙伴）
 
-9. [组织落地](./part-4/09-organization-rollout)
-10. [安全、权限与人机责任](./part-4/10-security-governance)
-11. [如何衡量价值](./part-4/11-value-measurement)
-12. [产品与生态路线建议](./part-4/12-product-ecosystem)
+11. [组织落地](./part-4/09-organization-rollout)
+12. [安全、权限与人机责任](./part-4/10-security-governance)
+13. [如何衡量价值](./part-4/11-value-measurement)
+14. [产品与生态路线建议](./part-4/12-product-ecosystem)
+15. [团队工作流运营](./part-4/15-team-workflow-operations)
+16. [价值度量实战](./part-4/16-value-measurement-playbook)
 
 ### 附录
 

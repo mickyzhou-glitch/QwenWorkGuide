@@ -27,11 +27,11 @@ features:
     details: Word、Excel、PPT、网页、会议与岗位工作流。
     link: /bluebook/part-3/07-office-delivery
   - title: 进阶方法
-    details: Skill、连接器、专家套件、定时任务与自动化治理。
-    link: /bluebook/part-2/05-skills-connectors-experts
+    details: 从任务拆解、交付协议到研究证据链，把一次任务做成可靠闭环。
+    link: /bluebook/part-2/13-task-delivery-protocol
   - title: 企业落地
-    details: 30/60/90 天路线、安全、价值度量与生态建议。
-    link: /bluebook/part-4/09-organization-rollout
+    details: 30/60/90 天路线、安全、工作流运营与可复算的价值度量。
+    link: /bluebook/part-4/15-team-workflow-operations
 ---
 
 ::: warning 非官方项目
@@ -52,6 +52,10 @@ features:
   <a class="qwg-reading-path" href="./bluebook/part-4/09-organization-rollout">
     <strong>准备团队落地</strong>
     <span>重点阅读组织落地、安全治理与上线验收。</span>
+  </a>
+  <a class="qwg-reading-path" href="./bluebook/part-2/13-task-delivery-protocol">
+    <strong>要交付一个重要任务</strong>
+    <span>先写任务卡，再用交付协议、验收表和研究证据链减少返工。</span>
   </a>
 </div>
 
