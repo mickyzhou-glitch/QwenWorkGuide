@@ -197,6 +197,17 @@ test("validateCaseBody normalizes ATX closing sequences", () => {
   assert.deepEqual(validateCaseBody(body), []);
 });
 
+test("validateCaseBody rejects closing sequences followed by HTML comments", () => {
+  const body = REQUIRED_CASE_SECTIONS.map(
+    (section) => `## ${section} ## <!-- suffix -->`,
+  ).join("\n");
+
+  assert.deepEqual(
+    validateCaseBody(body),
+    REQUIRED_CASE_SECTIONS.map((section) => `案例缺少章节：${section}`),
+  );
+});
+
 test("validateCaseBody ignores headings inside type-7 HTML blocks", () => {
   const headings = REQUIRED_CASE_SECTIONS.map(
     (section) => `## ${section}`,

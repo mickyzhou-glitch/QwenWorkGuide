@@ -227,7 +227,9 @@ export function validateCaseBody(body) {
 
     const heading = visible.match(/^ {0,3}##[ \t]+(.+?)[ \t]*$/);
     if (heading) {
-      const title = heading[1].replace(/[ \t]+#+[ \t]*$/, "");
+      const title = /[ \t]+#+[ \t]*$/.test(line)
+        ? heading[1].replace(/[ \t]+#+[ \t]*$/, "")
+        : heading[1];
       headings.add(`## ${title}`);
       inParagraph = false;
     } else if (visible.trim() !== "") {
