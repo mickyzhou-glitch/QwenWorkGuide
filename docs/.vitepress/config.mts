@@ -14,7 +14,6 @@ export default defineConfig({
   srcExclude: ['superpowers/**'],
   // 离线蓝皮书文件在构建文档后由发布流程放入 public/downloads。
   ignoreDeadLinks: [
-    '/downloads/qwenwork-bluebook-v1.docx',
     '/downloads/qwenwork-bluebook-v1.pdf'
   ],
   themeConfig: {
