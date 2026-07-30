@@ -53,7 +53,8 @@ export default defineConfig({
           items: [
             { text: '办公交付', link: '/bluebook/part-3/07-office-delivery' },
             { text: '岗位路线', link: '/bluebook/part-3/08-role-roadmaps' },
-            { text: '研究与证据链', link: '/bluebook/part-3/14-research-evidence-chain' }
+            { text: '研究与证据链', link: '/bluebook/part-3/14-research-evidence-chain' },
+            { text: '公开案例图谱', link: '/bluebook/part-3/17-public-case-atlas' }
           ]
         },
         {

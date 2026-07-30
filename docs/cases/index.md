@@ -2,14 +2,17 @@
 title: 社区案例库
 description: 面向真实任务、可公开复现和可验收的千问办公实践案例
 status: community-practice
-verifiedAt: 2026-07-29
+verifiedAt: 2026-07-30
 sources:
   - https://qwenwork.cn/docs/getting-started/privacy-security
+  - https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4
 ---
 
 # 社区案例库
 
 案例库收录从真实工作任务中提炼出的、可公开复现的实践。量化结果如无独立审计，均以客户陈述方式呈现；请结合自身数据、权限和人工复核要求使用。
+
+**当前收录：2 个具名客户深度案例（4 个业务场景）+ 32 个公开场景案例。**
 
 ## 已收录案例
 
@@ -22,6 +25,11 @@ sources:
 
 - [场景一：产品研发](./submissions/youkela-product-rd-payroll#场景一产品研发)：从大量用户评论中提取痛点、痒点和卖点，形成研发需求报告。
 - [场景二：考勤算薪](./submissions/youkela-product-rd-payroll#场景二考勤算薪)：将考勤数据清洗、薪资规则计算和异常复核整理为可重复执行的流程。
+
+### 千问办公公开案例图谱
+
+- [32 个公开场景案例](./submissions/qwenwork-public-case-atlas)：覆盖数据研究、电商与闪购、网站与营销、教育、组织协同和人才管理。
+- [蓝皮书完整案例矩阵](/bluebook/part-3/17-public-case-atlas)：可按任务、角色和示例产物检索，并附复用步骤与证据边界。
 
 ## 什么是合格案例
 
