@@ -6,6 +6,7 @@ verifiedAt: 2026-07-30
 sources:
   - https://qwenwork.cn/
   - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
+  - https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4
 ---
 
 # 来源与延伸阅读
@@ -51,6 +52,10 @@ AlephAITech，[WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide)，
 ## R10
 
 阿里巴巴知识库，[千问办公 · 职场 AI 三千问—基础必修课](https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq)，访问于 2026-07-30。该知识库用于理解产品定位、操作语境和企业功能目录；实际可用范围、权益与管理策略仍以账号实测和正式产品页面为准。
+
+## R11
+
+阿里巴巴知识库，[千问办公 · 案例库](https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4)，访问于 2026-07-30。用于核验案例名称、任务标签、角色标签与公开产物链接；多数条目未披露客户名称或量化成效。
 
 ## 版权与边界
 
