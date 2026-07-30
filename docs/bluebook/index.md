@@ -2,14 +2,17 @@
 title: 千问办公蓝皮书
 description: 从一句话到可交付工作系统的开源实践指南
 status: community-practice
-verifiedAt: 2026-07-29
+verifiedAt: 2026-07-30
 sources:
   - https://qwenwork.cn/docs/product-introduction
+  - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
 ---
 
 # 千问办公蓝皮书
 
 > 非官方、开源、社区共创的实践指南。产品能力以[官方来源](./appendices/sources)为准；方法、判断与路线图属于社区实践。
+
+**当前版本：V1.1｜研究快照：2026 年 7 月 30 日**
 
 ## 从这里开始
 
@@ -21,7 +24,7 @@ sources:
 
 ## 离线版下载
 
-- [下载 PDF 离线版](/downloads/qwenwork-bluebook-v1.pdf)
+- [下载 V1.1 PDF 离线版](/downloads/qwenwork-bluebook-v1.pdf)
 
 ## 目录
 

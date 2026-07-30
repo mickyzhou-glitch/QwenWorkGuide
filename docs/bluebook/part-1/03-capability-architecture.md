@@ -2,10 +2,11 @@
 title: 六层能力架构
 description: 用六层模型定位任务中的能力、上下文和治理问题
 status: verified
-verifiedAt: 2026-07-29
+verifiedAt: 2026-07-30
 sources:
   - https://qwenwork.cn/docs/product-introduction
   - https://qwenwork.cn/docs/features/connectors
+  - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
 ---
 
 # 六层能力架构
@@ -37,3 +38,15 @@ sources:
 ::: info 社区实践
 模型决定“能不能做”，上下文与工具决定“能不能做对”，流程与治理决定“能不能长期稳定地做”。
 :::
+
+## 模型与能力选择：按任务而不是按热度
+
+知识库把模型能力分为文字、图片、视频、语音与音乐等类型。[来源](../appendices/sources#r10) 在真实办公中，应先判断交付物和风险，再选择模型或能力组合：
+
+- **文字与推理任务**：检查事实边界、引用和长文一致性；
+- **图片与视觉任务**：先确定用途、尺寸、品牌规范和版权边界；
+- **视频、语音与音乐任务**：先明确时长、平台、角色授权和素材来源；
+- **数据与 Office 任务**：模型之外还要配置表格处理、文件生成和校验工具；
+- **高风险专业任务**：无论模型多强，都要保留具备相应职责或资质的人审。
+
+选择标准不是“榜单最强”，而是 **任务适配度 × 结果稳定性 × 可验证性 ÷ 时间与资源成本**。
