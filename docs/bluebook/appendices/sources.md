@@ -2,9 +2,10 @@
 title: 来源与延伸阅读
 description: 本蓝皮书的公开来源、核验边界与阅读入口
 status: verified
-verifiedAt: 2026-07-29
+verifiedAt: 2026-07-30
 sources:
   - https://qwenwork.cn/
+  - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
 ---
 
 # 来源与延伸阅读
@@ -46,6 +47,10 @@ AlephAITech，[WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide)，
 ## R9
 
 千问办公官方帮助中心，[隐私与安全](https://qwenwork.cn/docs/getting-started/privacy-security)，访问于 2026-07-29。
+
+## R10
+
+阿里巴巴知识库，[千问办公 · 职场 AI 三千问—基础必修课](https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq)，访问于 2026-07-30。该知识库用于理解产品定位、操作语境和企业功能目录；实际可用范围、权益与管理策略仍以账号实测和正式产品页面为准。
 
 ## 版权与边界
 
