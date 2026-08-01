@@ -10,7 +10,7 @@ sources: []
 
 > 本页由结构化数据自动生成，请修改 `docs/bluebook/data/evidence-ledger.json`。本文件及其 JSON 源均为公开内容。
 
-已发布主张：13；待核验线索：0。
+已发布主张：18；待核验线索：0。
 
 ## 已发布主张
 
@@ -99,6 +99,40 @@ sources: []
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 编辑复核者 |
 
+## claim-demo-boundary-01
+
+公开演示只能证明可观察的交付形态，不能据此推导客户身份、实施成本、生产稳定性或业务效果。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | first-party-disclosure |
+| 来源定位 | [千问办公·案例库](https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4) |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-3/08-research-evidence-chain.md#claim-demo-boundary-01](/bluebook/part-3/08-research-evidence-chain#claim-demo-boundary-01) |
+| 统计口径 | 不适用：公开材料证据边界判断 |
+| 适用范围 | 公开网页、看板、报告和其他示例产物的引用 |
+| 局限 | R11 提供案例库入口；对示例产物可支持范围的界定是本书编辑判断。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 案例证据复核者 |
+
+## claim-evidence-card-fields-01
+
+研究证据卡唯一规范由主张、来源原文、来源类型、日期、统计口径、适用范围、限制、冲突、状态九个字段组成。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 证据卡 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-3/08-research-evidence-chain.md#claim-evidence-card-fields-01](/bluebook/part-3/08-research-evidence-chain#claim-evidence-card-fields-01) |
+| 统计口径 | 不适用：研究工作记录规范 |
+| 适用范围 | 需要形成可复核事实、推断和建议的研究任务 |
+| 局限 | 字段完整只能提高可复核性，不能保证来源真实、口径正确或结论成立。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 研究方法负责人 |
+
 ## claim-expert-kit-release-01
 
 专家套件只能组合已经通过岗位阶段门的工作流，不能用套件名称替代组成资产的测试、权限和责任记录。
@@ -115,6 +149,23 @@ sources: []
 | 局限 | 该阶段门映射是本书治理建议，不代表官方产品对专家套件的发布条件。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 工作流资产负责人 |
+
+## claim-office-delivery-acceptance-01
+
+文档、数据、汇报和网页任务都按输入、处理、产物、验收、风险、人工确认设计，不能把文件成功生成当成交付通过。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 办公交付规范 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-3/06-office-delivery.md#claim-office-delivery-acceptance-01](/bluebook/part-3/06-office-delivery#claim-office-delivery-acceptance-01) |
+| 统计口径 | 不适用：办公任务验收规范 |
+| 适用范围 | 文档、数据、汇报和网页类企业办公任务 |
+| 局限 | 各专业领域仍需追加法务、财务、品牌、隐私和无障碍等强制标准。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 办公交付方法负责人 |
 
 ## claim-product-delivery-forms-01
 
@@ -149,6 +200,40 @@ sources: []
 | 局限 | R10 提供产品方的定位语境；本书将比较范围收窄到使用方式，不据此推出整个产品类别的普遍优劣。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 编辑复核者 |
+
+## claim-research-question-tree-01
+
+研究先把决策问题拆成可由证据回答的问题树，再检索和写作。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 研究问题树 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-3/08-research-evidence-chain.md#claim-research-question-tree-01](/bluebook/part-3/08-research-evidence-chain#claim-research-question-tree-01) |
+| 统计口径 | 不适用：研究流程建议 |
+| 适用范围 | 行业扫描、竞品分析、客户研究、政策跟踪和内部立项 |
+| 局限 | 问题树帮助限定研究范围，但不能代替新证据出现后的假设修正。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 研究方法负责人 |
+
+## claim-role-scenario-card-01
+
+岗位 AI 场景统一使用业务问题、角色、输入、当前步骤、交付物、验收、禁做动作、指标、风险、基线十个字段登记。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 岗位场景卡 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-3/07-role-roadmaps.md#claim-role-scenario-card-01](/bluebook/part-3/07-role-roadmaps#claim-role-scenario-card-01) |
+| 统计口径 | 不适用：岗位场景登记规范 |
+| 适用范围 | HR、销售与商务、产品与项目、财务与法务、内容与市场场景 |
+| 局限 | 场景卡用于任务选型和基线采集，不是岗位绩效评价，也不代表固定优先级。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 岗位场景方法负责人 |
 
 ## claim-six-layer-diagnosis-01
 
