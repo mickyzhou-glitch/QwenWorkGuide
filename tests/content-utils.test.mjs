@@ -1,17 +1,27 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+
+import { resolveConfig } from "vitepress";
 
 import validCaseMap from "./fixtures/evidence/case-map-valid-32.mjs";
 
 import {
   containsSensitivePattern,
+  extractClaimMarkers,
+  normalizeSourceUrl,
   parseFrontmatter,
   REQUIRED_CASE_SECTIONS,
   validateCaseBody,
   validateCaseSourceMap,
+  validateClaimReferences,
   validateEvidenceLedger,
   validatePageMeta,
+  validatePublicCaseCountReferences,
+  validatePublicCaseMembership,
+  validateSourceCatalog,
+  validateSourceReferences,
 } from "../scripts/content-utils.mjs";
 
 const fixturesDirectory = new URL("./fixtures/", import.meta.url);
@@ -525,5 +535,291 @@ test("validateCaseSourceMap requires public snapshot paths and hashes", () => {
     validateCaseSourceMap(caseMap).some((error) =>
       error.includes("snapshot_path 要求 content_hash"),
     ),
+  );
+});
+
+test("extractClaimMarkers accepts only the standard claim span", () => {
+  const valid =
+    '<span id="claim-a-01" data-claim-id="claim-a-01"></span>';
+  assert.deepEqual(extractClaimMarkers(valid, "docs/page.md"), {
+    markers: [{ claimId: "claim-a-01", contentPath: "docs/page.md" }],
+    errors: [],
+  });
+  const invalid =
+    '<span data-claim-id="claim-a-01" id="claim-b-01"></span>';
+  assert.ok(extractClaimMarkers(invalid, "docs/page.md").errors.length > 0);
+});
+
+test("validateClaimReferences requires summary paragraphs and table rows to be marked", async () => {
+  const ledger = await readJsonFixture("ledger-valid.json");
+  ledger.claims.push({
+    ...structuredClone(ledger.claims[0]),
+    claim_id: "claim-workflow-action-01",
+    content_anchor: "claim-workflow-action-01",
+    claim_text: "先定义验收，再启动任务。",
+  });
+  const valid = await readFile(
+    new URL("executive-summary-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  assert.deepEqual(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([["docs/bluebook/executive-summary.md", valid]]),
+      executiveSummaryPath: "docs/bluebook/executive-summary.md",
+    }),
+    [],
+  );
+
+  const invalid = `${valid}\n这个段落没有主张标记。\n`;
+  assert.ok(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([["docs/bluebook/executive-summary.md", invalid]]),
+      executiveSummaryPath: "docs/bluebook/executive-summary.md",
+    }).some((error) => error.includes("执行摘要未关联 claim_id")),
+  );
+
+  const unlabeledJudgment = valid.replace("本书主张：", "");
+  assert.ok(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([
+        ["docs/bluebook/executive-summary.md", unlabeledJudgment],
+      ]),
+      executiveSummaryPath: "docs/bluebook/executive-summary.md",
+    }).some((error) => error.includes("本书主张/本书建议")),
+  );
+
+  ledger.claims[0].verification_status = "limited";
+  assert.ok(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([["docs/bluebook/executive-summary.md", valid]]),
+      executiveSummaryPath: "docs/bluebook/executive-summary.md",
+    }).some((error) => error.includes("limited 主张必须同块披露局限")),
+  );
+  const disclosed = valid.replace(
+    "工作流。",
+    "工作流。（局限：这是限定范围内的判断。）",
+  );
+  assert.equal(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([["docs/bluebook/executive-summary.md", disclosed]]),
+      executiveSummaryPath: "docs/bluebook/executive-summary.md",
+    }).some((error) => error.includes("limited 主张必须同块披露局限")),
+    false,
+  );
+});
+
+test("validateClaimReferences enforces claim and page publication states", async () => {
+  const ledger = await readJsonFixture("ledger-valid.json");
+  const source = await readFile(
+    new URL("executive-summary-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const oneClaimSource = source.replace(/\n\| 判断[\s\S]*$/, "\n");
+  ledger.claims[0].verification_status = "pending";
+  ledger.claims[0].summary_eligible = false;
+  ledger.claims[0].blocks_release = false;
+  assert.ok(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([
+        ["docs/bluebook/executive-summary.md", oneClaimSource],
+      ]),
+      executiveSummaryPath: "docs/bluebook/other-summary.md",
+    }).some((error) =>
+      error.includes("pending 或 stale 主张不得出现在发布正文"),
+    ),
+  );
+
+  ledger.claims[0].verification_status = "editor-reviewed";
+  const verifiedPage = oneClaimSource.replace(
+    "status: community-practice",
+    "status: verified",
+  );
+  assert.ok(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([
+        ["docs/bluebook/executive-summary.md", verifiedPage],
+      ]),
+      executiveSummaryPath: "docs/bluebook/other-summary.md",
+    }).some((error) => error.includes("verified 页面")),
+  );
+
+  ledger.claims[0].content_path = "docs/bluebook/missing.md";
+  assert.ok(
+    validateClaimReferences({
+      ledger,
+      documents: new Map([
+        ["docs/bluebook/executive-summary.md", oneClaimSource],
+      ]),
+      executiveSummaryPath: "docs/bluebook/other-summary.md",
+    }).some((error) => error.includes("正文路径不存在")),
+  );
+});
+
+test("normalizeSourceUrl removes tracking and normalizes host and trailing slash", () => {
+  assert.equal(
+    normalizeSourceUrl(
+      "HTTPS://QWENWORK.CN/docs/features/skills/?utm_source=test#intro",
+    ),
+    "https://qwenwork.cn/docs/features/skills",
+  );
+});
+
+test("validateSourceCatalog permits only the R14 and R15 aliases", async () => {
+  const source = await readFile(
+    new URL("sources-valid-aliases.md", evidenceFixtures),
+    "utf8",
+  );
+  assert.deepEqual(
+    validateSourceCatalog(source, {
+      allowedAliases: new Map([
+        ["R14", "R8"],
+        ["R15", "R4"],
+      ]),
+    }),
+    [],
+  );
+  const duplicate = `${source}\n## R16\n\n[重复](https://qwenwork.cn/docs/features/skills/)\n`;
+  assert.ok(
+    validateSourceCatalog(duplicate, {
+      allowedAliases: new Map([
+        ["R14", "R8"],
+        ["R15", "R4"],
+      ]),
+    }).some((error) => error.includes("来源 URL 重复")),
+  );
+
+  const withoutClickableEntries = source.replace(/^兼容编号入口：.*\n\n/m, "");
+  assert.ok(
+    validateSourceCatalog(withoutClickableEntries, {
+      allowedAliases: new Map([
+        ["R14", "R8"],
+        ["R15", "R4"],
+      ]),
+    }).some((error) => error.includes("缺少可点击兼容编号入口")),
+  );
+
+  const duplicateId = `${source}\n## R8\n\n[另一来源](https://example.com/r8)\n`;
+  assert.ok(
+    validateSourceCatalog(duplicateId, {
+      allowedAliases: new Map([
+        ["R14", "R8"],
+        ["R15", "R4"],
+      ]),
+    }).some((error) => error.includes("R8: 来源 ID 重复")),
+  );
+
+  const emptyCanonical = `${source}\n## R99\n`;
+  assert.ok(
+    validateSourceCatalog(emptyCanonical, {
+      allowedAliases: new Map([
+        ["R14", "R8"],
+        ["R15", "R4"],
+      ]),
+    }).some((error) => error.includes("R99: canonical 来源必须包含有效 URL")),
+  );
+
+  const unapprovedAlias = `${source}\n<span id="r98"></span>`;
+  assert.ok(
+    validateSourceCatalog(unapprovedAlias, {
+      allowedAliases: new Map([
+        ["R14", "R8"],
+        ["R15", "R4"],
+      ]),
+    }).some((error) => error.includes("R98: 未允许的来源别名")),
+  );
+});
+
+test("validateSourceReferences requires every R id to exist in the catalog", async () => {
+  const source = await readFile(
+    new URL("sources-valid-aliases.md", evidenceFixtures),
+    "utf8",
+  );
+  const ledger = await readJsonFixture("ledger-valid.json");
+  ledger.claims[0].source.source_ref = "R8";
+  assert.deepEqual(
+    validateSourceReferences({ ledger, caseMap: validCaseMap, source }),
+    [],
+  );
+  ledger.claims[0].source.source_ref = "R99";
+  assert.ok(
+    validateSourceReferences({ ledger, caseMap: validCaseMap, source }).some(
+      (error) => error.includes("R99"),
+    ),
+  );
+  const fakeSources = `${source}\n## R99\n\n<span id="r98"></span>`;
+  assert.ok(
+    validateSourceReferences({
+      ledger,
+      caseMap: validCaseMap,
+      source: fakeSources,
+    }).some((error) => error.includes("R99")),
+  );
+  ledger.claims[0].source.source_ref = "R14";
+  assert.ok(
+    validateSourceReferences({ ledger, caseMap: validCaseMap, source }).some(
+      (error) => error.includes("R14"),
+    ),
+  );
+  const invalidCaseMap = structuredClone(validCaseMap);
+  invalidCaseMap.cases[0].source_ref = "R98";
+  assert.ok(
+    validateSourceReferences({
+      ledger: { claims: [] },
+      caseMap: invalidCaseMap,
+      source,
+    }).some((error) => error.includes("R98")),
+  );
+});
+
+test("validatePublicCaseCountReferences matches every count marker", () => {
+  const documents = new Map([
+    [
+      "docs/cases/index.md",
+      '<span data-public-case-count="3">3</span> 个公开案例',
+    ],
+  ]);
+  assert.deepEqual(validatePublicCaseCountReferences(documents, 3), []);
+  assert.ok(
+    validatePublicCaseCountReferences(documents, 2)[0].includes(
+      "公开案例计数",
+    ),
+  );
+});
+
+test("validatePublicCaseMembership requires the exact published case set", () => {
+  const caseMap = structuredClone(validCaseMap);
+  const publicId = caseMap.cases[0].case_id;
+  caseMap.cases[0].included_in_public_count = true;
+  const valid = `<span data-public-case-id="${publicId}"></span>`;
+  assert.deepEqual(validatePublicCaseMembership(valid, caseMap), []);
+  assert.ok(
+    validatePublicCaseMembership("", caseMap).some((error) =>
+      error.includes(`缺少公开案例 ${publicId}`),
+    ),
+  );
+  assert.ok(
+    validatePublicCaseMembership(`${valid}\n${valid}`, caseMap).some((error) =>
+      error.includes("重复"),
+    ),
+  );
+  const pendingId = caseMap.cases[1].case_id;
+  assert.ok(
+    validatePublicCaseMembership(
+      `${valid}\n<span data-public-case-id="${pendingId}"></span>`,
+      caseMap,
+    ).some((error) => error.includes("未通过发布门")),
+  );
+  assert.ok(
+    validatePublicCaseMembership(
+      `${valid}\n<span data-public-case-id="bad"></span>`,
+      caseMap,
+    ).some((error) => error.includes("非标准")),
   );
 });

@@ -39,6 +39,8 @@ export const VERIFICATION_STATUSES = new Set([
 const CLAIM_ID_PATTERN = /^claim-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const CASE_ID_PATTERN = /^case-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const CLAIM_MARKER_PATTERN =
+  /<span id="(claim-[a-z0-9]+(?:-[a-z0-9]+)*)" data-claim-id="(claim-[a-z0-9]+(?:-[a-z0-9]+)*)"><\/span>/g;
 
 function isNonEmptyString(value) {
   return typeof value === "string" && value.trim() !== "";
@@ -702,6 +704,336 @@ export function validateCaseSourceMap(caseMap) {
         errors.push(`${label}: 示例产物链接不能代替来源定位`);
       }
     }
+  }
+  return errors;
+}
+
+export function extractClaimMarkers(markdown, contentPath) {
+  const markers = [];
+  const errors = [];
+  for (const match of markdown.matchAll(CLAIM_MARKER_PATTERN)) {
+    if (match[1] !== match[2]) {
+      errors.push(`${contentPath}: claim span 两个属性值不一致`);
+    }
+    markers.push({ claimId: match[1], contentPath });
+  }
+  for (const match of markdown.matchAll(/data-claim-id="([^"]+)"/g)) {
+    if (!markers.some((marker) => marker.claimId === match[1])) {
+      errors.push(`${contentPath}: 非标准 claim span：${match[1]}`);
+    }
+  }
+  return { markers, errors };
+}
+
+function summaryBlocks(body) {
+  const blocks = [];
+  let fence = null;
+  const lines = body.split(/\r?\n/);
+  for (const [index, line] of lines.entries()) {
+    const fenceMatch = line.match(/^ {0,3}(`{3,}|~{3,})/);
+    if (fenceMatch) {
+      fence = fence ? null : fenceMatch[1][0];
+      continue;
+    }
+    const nextLineIsTableDivider =
+      /^\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)+\|?$/.test(
+        lines[index + 1] ?? "",
+      );
+    if (
+      fence ||
+      line.trim() === "" ||
+      /^#{1,6}\s/.test(line) ||
+      /^:::/.test(line) ||
+      /^\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)+\|?$/.test(line) ||
+      (/^\|/.test(line) && nextLineIsTableDivider) ||
+      /^\s*\[[^\]]+\]\([^)]+\)\s*$/.test(line)
+    ) {
+      continue;
+    }
+    blocks.push({ line: index + 1, source: line });
+  }
+  return blocks;
+}
+
+export function validateClaimReferences({
+  ledger,
+  documents,
+  executiveSummaryPath,
+}) {
+  const errors = [];
+  const claims = Array.isArray(ledger?.claims)
+    ? ledger.claims.filter(
+        (claim) =>
+          claim && typeof claim === "object" && !Array.isArray(claim),
+      )
+    : [];
+  const claimsById = new Map(claims.map((claim) => [claim.claim_id, claim]));
+  const seenMarkers = new Map();
+  const parsedDocuments = new Map();
+  for (const [path, source] of documents) {
+    let parsed;
+    try {
+      parsed = parseFrontmatter(source);
+    } catch (error) {
+      errors.push(`${path}: ${error.message}`);
+      continue;
+    }
+    parsedDocuments.set(path, parsed);
+    const extracted = extractClaimMarkers(source, path);
+    errors.push(...extracted.errors);
+    const pageClaims = [];
+    for (const marker of extracted.markers) {
+      if (!claimsById.has(marker.claimId)) {
+        errors.push(`${path}: 未登记主张 ${marker.claimId}`);
+      }
+      if (seenMarkers.has(marker.claimId)) {
+        errors.push(`${path}: 主张标记重复 ${marker.claimId}`);
+      }
+      seenMarkers.set(marker.claimId, path);
+      const claim = claimsById.get(marker.claimId);
+      if (claim) pageClaims.push(claim);
+      if (
+        claim &&
+        ["pending", "stale"].includes(claim.verification_status)
+      ) {
+        errors.push(
+          `${path}: pending 或 stale 主张不得出现在发布正文：${marker.claimId}`,
+        );
+      }
+    }
+    if (
+      parsed.attributes.status === "verified" &&
+      pageClaims.some(
+        (claim) => claim.is_key && claim.verification_status !== "verified",
+      )
+    ) {
+      errors.push(`${path}: verified 页面的关键主张必须全部为 verified`);
+    }
+  }
+  for (const claim of claims) {
+    if (claim.content_path === null) continue;
+    if (!documents.has(claim.content_path)) {
+      errors.push(`${claim.claim_id}: 正文路径不存在：${claim.content_path}`);
+    } else if (seenMarkers.get(claim.claim_id) !== claim.content_path) {
+      errors.push(`${claim.claim_id}: 正文锚点不存在或位于错误页面`);
+    }
+  }
+  const summary = parsedDocuments.get(executiveSummaryPath);
+  if (summary) {
+    for (const block of summaryBlocks(summary.body)) {
+      const ids = [...block.source.matchAll(CLAIM_MARKER_PATTERN)].map(
+        (match) => match[1],
+      );
+      if (ids.length === 0) {
+        errors.push(
+          `${executiveSummaryPath}:${block.line}: 执行摘要未关联 claim_id`,
+        );
+      }
+      for (const id of ids) {
+        const claim = claimsById.get(id);
+        if (
+          claim &&
+          (!claim.is_key ||
+            !claim.summary_eligible ||
+            !claim.blocks_release ||
+            ["pending", "stale"].includes(claim.verification_status))
+        ) {
+          errors.push(`${id}: 不满足执行摘要发布条件`);
+        }
+        if (
+          claim?.verification_status === "limited" &&
+          !/(?:局限|限制)[:：]/.test(block.source)
+        ) {
+          errors.push(`${id}: limited 主张必须同块披露局限`);
+        }
+        if (
+          claim?.verification_status === "editor-reviewed" &&
+          !/本书(?:主张|建议)/.test(block.source)
+        ) {
+          errors.push(
+            `${id}: editor-reviewed 主张必须明确写“本书主张/本书建议”`,
+          );
+        }
+      }
+    }
+  }
+  return errors;
+}
+
+export function normalizeSourceUrl(rawUrl) {
+  const url = new URL(rawUrl);
+  url.protocol = url.protocol.toLowerCase();
+  url.hostname = url.hostname.toLowerCase();
+  url.hash = "";
+  for (const key of [...url.searchParams.keys()]) {
+    if (/^(utm_|spm$)/i.test(key)) url.searchParams.delete(key);
+  }
+  url.pathname =
+    url.pathname === "/" ? "/" : url.pathname.replace(/\/+$/, "");
+  return url.toString().replace(/\/$/, url.pathname === "/" ? "/" : "");
+}
+
+function analyzeSourceCatalog(markdown, allowedAliases) {
+  const errors = [];
+  const resolvedIds = new Set();
+  const urls = new Map();
+  const sectionPattern =
+    /^##[ \t]+(R[1-9][0-9]*)[ \t]*$\n?([\s\S]*?)(?=^##[ \t]+R[1-9][0-9]*[ \t]*$|(?![\s\S]))/gm;
+  const sections = [...markdown.matchAll(sectionPattern)];
+  const counts = new Map();
+  for (const match of sections) {
+    counts.set(match[1], (counts.get(match[1]) ?? 0) + 1);
+  }
+
+  for (const [id, count] of counts) {
+    if (count > 1) errors.push(`${id}: 来源 ID 重复`);
+    if (allowedAliases.has(id)) {
+      errors.push(`${id}: 兼容编号不得声明为 canonical 来源`);
+    }
+  }
+  for (const match of sections) {
+    const [, id, body] = match;
+    if (counts.get(id) !== 1 || allowedAliases.has(id)) continue;
+    const validUrls = [];
+    for (const urlMatch of body.matchAll(/https?:\/\/[^\s)<>\]}]+/g)) {
+      try {
+        validUrls.push(normalizeSourceUrl(urlMatch[0]));
+      } catch {
+        errors.push(`${id}: 来源 URL 无法解析：${urlMatch[0]}`);
+      }
+    }
+    if (validUrls.length === 0) {
+      errors.push(`${id}: canonical 来源必须包含有效 URL`);
+      continue;
+    }
+    resolvedIds.add(id);
+    for (const normalized of validUrls) {
+      if (urls.has(normalized)) {
+        errors.push(`来源 URL 重复：${urls.get(normalized)} 与 ${id}`);
+      } else {
+        urls.set(normalized, id);
+      }
+    }
+  }
+
+  const aliasCounts = new Map();
+  for (const match of markdown.matchAll(
+    /<span[ \t]+id="r([1-9][0-9]*)"[ \t]*><\/span>/g,
+  )) {
+    const alias = `R${match[1]}`;
+    aliasCounts.set(alias, (aliasCounts.get(alias) ?? 0) + 1);
+    if (!allowedAliases.has(alias)) {
+      errors.push(`${alias}: 未允许的来源别名`);
+    }
+  }
+  for (const [alias, target] of allowedAliases) {
+    const anchor = alias.toLowerCase();
+    if (!markdown.includes(`[${alias}](#${anchor})`)) {
+      errors.push(`${alias}: 缺少可点击兼容编号入口`);
+    }
+    if (
+      aliasCounts.get(alias) !== 1 ||
+      !markdown.includes(`[${target}](#${target.toLowerCase()})`) ||
+      !resolvedIds.has(target)
+    ) {
+      errors.push(`${alias}: 兼容锚点必须唯一指向有效的 ${target}`);
+    }
+  }
+  return { errors, resolvedIds };
+}
+
+export function validateSourceCatalog(markdown, { allowedAliases }) {
+  return analyzeSourceCatalog(markdown, allowedAliases).errors;
+}
+
+export function extractSourceIds(
+  markdown,
+  { allowedAliases = new Map() } = {},
+) {
+  return analyzeSourceCatalog(markdown, allowedAliases).resolvedIds;
+}
+
+export function validateSourceReferences({
+  ledger,
+  caseMap,
+  source,
+  allowedAliases = new Map(),
+}) {
+  const errors = [];
+  const ids = extractSourceIds(source, { allowedAliases });
+  const references = [
+    ...(Array.isArray(ledger?.claims)
+      ? ledger.claims.flatMap((claim, index) =>
+          claim && typeof claim === "object"
+            ? [[claim.claim_id ?? `claims[${index}]`, claim.source?.source_ref]]
+            : [],
+        )
+      : []),
+    ...(Array.isArray(caseMap?.cases)
+      ? caseMap.cases.flatMap((item, index) =>
+          item && typeof item === "object"
+            ? [[item.case_id ?? `cases[${index}]`, item.source_ref]]
+            : [],
+        )
+      : []),
+  ];
+  for (const [owner, reference] of references) {
+    if (typeof reference === "string" && !ids.has(reference)) {
+      errors.push(
+        `${owner}: source_ref ${reference} 不存在于有效的 canonical 来源目录`,
+      );
+    }
+  }
+  return errors;
+}
+
+export function validatePublicCaseCountReferences(documents, expectedCount) {
+  const errors = [];
+  for (const [path, source] of documents) {
+    let markerCount = 0;
+    for (const match of source.matchAll(
+      /<span data-public-case-count="(\d+)">(\d+)<\/span>/g,
+    )) {
+      markerCount += 1;
+      if (
+        Number(match[1]) !== expectedCount ||
+        Number(match[2]) !== expectedCount
+      ) {
+        errors.push(`${path}: 公开案例计数必须为 ${expectedCount}`);
+      }
+    }
+    if (markerCount !== 1) {
+      errors.push(`${path}: 必须恰好包含一个公开案例计数标记`);
+    }
+  }
+  return errors;
+}
+
+export function validatePublicCaseMembership(source, caseMap) {
+  const errors = [];
+  const expected = new Set(
+    caseMap.cases
+      .filter((item) => item.included_in_public_count)
+      .map((item) => item.case_id),
+  );
+  const seen = new Set();
+  const standard =
+    /<span data-public-case-id="(case-[a-z0-9]+(?:-[a-z0-9]+)*)"><\/span>/g;
+  for (const match of source.matchAll(standard)) {
+    const id = match[1];
+    if (seen.has(id)) errors.push(`${id}: 公开案例成员标记重复`);
+    seen.add(id);
+    if (!expected.has(id)) {
+      errors.push(`${id}: 未通过发布门，不得进入公开案例清单`);
+    }
+  }
+  for (const match of source.matchAll(/data-public-case-id="([^"]+)"/g)) {
+    if (!seen.has(match[1])) {
+      errors.push(`${match[1]}: 非标准公开案例成员标记`);
+    }
+  }
+  for (const id of expected) {
+    if (!seen.has(id)) errors.push(`缺少公开案例 ${id}`);
   }
   return errors;
 }
