@@ -8,6 +8,71 @@ const SECRET_PATTERNS = [
   CREDENTIAL_ASSIGNMENT_PATTERN,
 ];
 
+export const CLAIM_TYPES = new Set([
+  "product-fact",
+  "customer-result",
+  "demo-example",
+  "research-finding",
+  "community-judgment",
+  "practice-guidance",
+]);
+
+export const SOURCE_TYPES = new Set([
+  "official-product",
+  "regulatory-statistical",
+  "first-party-disclosure",
+  "customer-authorized",
+  "independent-research",
+  "public-demo",
+  "internal-pilot",
+  "community-framework",
+]);
+
+export const VERIFICATION_STATUSES = new Set([
+  "verified",
+  "limited",
+  "editor-reviewed",
+  "pending",
+  "stale",
+]);
+
+const CLAIM_ID_PATTERN = /^claim-[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+function isNonEmptyString(value) {
+  return typeof value === "string" && value.trim() !== "";
+}
+
+function isNullableString(value) {
+  return value === null || typeof value === "string";
+}
+
+function isHttpUrl(value) {
+  if (!isNonEmptyString(value)) return false;
+  try {
+    return ["http:", "https:"].includes(new URL(value).protocol);
+  } catch {
+    return false;
+  }
+}
+
+function isIsoDate(value) {
+  if (!DATE_PATTERN.test(value ?? "")) return false;
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return (
+    !Number.isNaN(parsed.valueOf()) &&
+    parsed.toISOString().slice(0, 10) === value
+  );
+}
+
+function isPublicSnapshotPath(value) {
+  return (
+    isNonEmptyString(value) &&
+    value.startsWith("docs/public/evidence-snapshots/") &&
+    !value.split("/").some((segment) => ["", ".", ".."].includes(segment))
+  );
+}
+
 export const REQUIRED_CASE_SECTIONS = [
   "场景与问题",
   "适用角色",
@@ -255,4 +320,259 @@ export function containsSensitivePattern(source) {
   }
 
   return false;
+}
+
+export function validateEvidenceLedger(ledger, { today }) {
+  const errors = [];
+  if (ledger?.schema_version !== 1) {
+    errors.push("evidence-ledger: schema_version 必须为 1");
+  }
+  if (!Array.isArray(ledger?.claims)) {
+    return [...errors, "evidence-ledger: claims 必须为数组"];
+  }
+
+  const ids = new Set();
+  for (const [index, claim] of ledger.claims.entries()) {
+    const label = `claims[${index}]`;
+    if (claim === null || typeof claim !== "object" || Array.isArray(claim)) {
+      errors.push(`${label}: 必须为对象`);
+      continue;
+    }
+
+    if (!CLAIM_ID_PATTERN.test(claim?.claim_id ?? "")) {
+      errors.push(`${label}: claim_id 格式错误`);
+    }
+    if (ids.has(claim?.claim_id)) errors.push(`${label}: claim_id 重复`);
+    ids.add(claim?.claim_id);
+
+    const isUnpublished =
+      ["pending", "stale"].includes(claim?.verification_status) &&
+      claim?.summary_eligible === false &&
+      claim?.blocks_release === false;
+    if (isUnpublished) {
+      if (claim.content_path !== null || claim.content_anchor !== null) {
+        errors.push(`${label}: 未发布主张的正文路径和锚点必须为 null`);
+      }
+    } else if (
+      !isNonEmptyString(claim?.content_path) ||
+      claim?.content_anchor !== claim?.claim_id
+    ) {
+      errors.push(
+        `${label}: 已发布主张必须有正文路径，且 content_anchor 等于 claim_id`,
+      );
+    }
+    if (
+      isNonEmptyString(claim?.content_path) &&
+      !/^docs\/[a-zA-Z0-9_./-]+\.md$/.test(claim.content_path)
+    ) {
+      errors.push(`${label}: content_path 必须是 docs/ 下的 Markdown 路径`);
+    }
+
+    if (!CLAIM_TYPES.has(claim?.claim_type)) {
+      errors.push(`${label}: claim_type 枚举错误`);
+    }
+    if (!VERIFICATION_STATUSES.has(claim?.verification_status)) {
+      errors.push(`${label}: verification_status 枚举错误`);
+    }
+    for (const key of ["is_key", "summary_eligible", "blocks_release"]) {
+      if (typeof claim?.[key] !== "boolean") {
+        errors.push(`${label}: ${key} 必须为布尔值`);
+      }
+    }
+    if (claim?.summary_eligible && (!claim.is_key || !claim.blocks_release)) {
+      errors.push(
+        `${label}: summary_eligible 要求 is_key 和 blocks_release 同时为 true`,
+      );
+    }
+    if (
+      claim?.summary_eligible &&
+      ["pending", "stale"].includes(claim.verification_status)
+    ) {
+      errors.push(`${label}: summary_eligible 不允许 pending 或 stale`);
+    }
+    if (
+      claim?.blocks_release &&
+      ["pending", "stale"].includes(claim.verification_status)
+    ) {
+      errors.push(`${label}: blocks_release 主张不能处于 pending 或 stale`);
+    }
+    if (
+      claim?.verification_status === "editor-reviewed" &&
+      !["community-judgment", "practice-guidance"].includes(claim.claim_type)
+    ) {
+      errors.push(`${label}: editor-reviewed 只适用于社区判断或实践建议`);
+    }
+
+    if (claim?.claim_type === "customer-result" && !isUnpublished) {
+      const evidence = claim?.customer_evidence;
+      for (const key of [
+        "authorization_scope",
+        "metric_definition",
+        "denominator",
+        "sample_period",
+        "comparison_period",
+        "comparison_basis",
+      ]) {
+        if (!isNonEmptyString(evidence?.[key])) {
+          errors.push(`${label}: customer_evidence.${key} 不得为空`);
+        }
+      }
+      if (!Number.isInteger(evidence?.sample_size) || evidence.sample_size <= 0) {
+        errors.push(`${label}: customer_evidence.sample_size 必须为正整数`);
+      }
+      for (const key of ["sample_period", "comparison_period"]) {
+        const [start, end, extra] = String(evidence?.[key] ?? "").split("/");
+        if (
+          extra !== undefined ||
+          !isIsoDate(start) ||
+          !isIsoDate(end) ||
+          start > end
+        ) {
+          errors.push(`${label}: customer_evidence.${key} 格式错误`);
+        }
+      }
+      for (const key of ["input_preparation", "review", "rework"]) {
+        if (typeof evidence?.human_work_included?.[key] !== "boolean") {
+          errors.push(
+            `${label}: customer_evidence.human_work_included.${key} 必须为布尔值`,
+          );
+        }
+      }
+      if (evidence?.audit_disclosure !== "客户陈述、未经独立审计") {
+        errors.push(
+          `${label}: customer_evidence.audit_disclosure 必须使用固定审计说明`,
+        );
+      }
+    } else if (
+      claim?.claim_type !== "customer-result" &&
+      claim?.customer_evidence !== null
+    ) {
+      errors.push(`${label}: 非 customer-result 的 customer_evidence 必须为 null`);
+    }
+
+    const source = claim?.source;
+    const hasVerifiedSnapshot =
+      isPublicSnapshotPath(source?.snapshot_path) &&
+      /^sha256:[a-f0-9]{64}$/.test(source?.content_hash ?? "");
+    const hasStableLocator =
+      isHttpUrl(source?.deep_link) || hasVerifiedSnapshot;
+    const hasLimitedFallback =
+      isNonEmptyString(source?.excerpt) &&
+      isIsoDate(source?.accessed_at) &&
+      /^sha256:[a-f0-9]{64}$/.test(source?.content_hash ?? "");
+    if (
+      source?.source_type !== "community-framework" &&
+      !isUnpublished &&
+      !hasStableLocator &&
+      !(claim?.verification_status === "limited" && hasLimitedFallback)
+    ) {
+      errors.push(
+        `${label}: 外部来源定位不足，必须有深链/快照，或以 limited 提供摘记、日期和哈希`,
+      );
+    }
+    if (source?.source_type === "internal-pilot" && !isUnpublished) {
+      errors.push(`${label}: internal-pilot 不得直接进入公开内容`);
+    }
+    if (
+      claim?.stale_after &&
+      isIsoDate(claim.stale_after) &&
+      claim.stale_after < today &&
+      claim.verification_status !== "stale"
+    ) {
+      errors.push(`${label}: 已超过 stale_after，状态必须为 stale`);
+    }
+    if (!isIsoDate(claim?.last_verified_at)) {
+      errors.push(`${label}: last_verified_at 日期格式错误`);
+    }
+    if (claim?.stale_after !== null && !isIsoDate(claim?.stale_after)) {
+      errors.push(`${label}: stale_after 必须为日期或 null`);
+    }
+    if (
+      !isNonEmptyString(claim?.claim_text) ||
+      !isNonEmptyString(claim?.measurement_basis) ||
+      !isNonEmptyString(claim?.applicability) ||
+      !isNonEmptyString(claim?.reviewer_role)
+    ) {
+      errors.push(`${label}: 主张、统计口径、适用范围和责任角色不得为空`);
+    }
+    if (
+      !source ||
+      !SOURCE_TYPES.has(source.source_type) ||
+      !isNonEmptyString(source.title) ||
+      !isNonEmptyString(source.organization)
+    ) {
+      errors.push(`${label}: source 字段不完整`);
+    }
+    for (const key of [
+      "source_ref",
+      "excerpt",
+      "external_record_id",
+      "deep_link",
+      "snapshot_path",
+      "content_hash",
+      "published_at",
+      "accessed_at",
+      "captured_at",
+    ]) {
+      if (!isNullableString(source?.[key])) {
+        errors.push(`${label}: source.${key} 必须为字符串或 null`);
+      }
+    }
+    if (
+      source?.source_ref !== null &&
+      !/^R[1-9][0-9]*$/.test(source?.source_ref ?? "")
+    ) {
+      errors.push(`${label}: source.source_ref 格式错误`);
+    }
+    for (const key of ["excerpt", "external_record_id"]) {
+      if (source?.[key] !== null && !isNonEmptyString(source?.[key])) {
+        errors.push(`${label}: source.${key} 必须为非空字符串或 null`);
+      }
+    }
+    if (source?.deep_link !== null && !isHttpUrl(source?.deep_link)) {
+      errors.push(`${label}: source.deep_link 必须为 HTTP(S) URL 或 null`);
+    }
+    if (
+      source?.snapshot_path !== null &&
+      !isPublicSnapshotPath(source?.snapshot_path)
+    ) {
+      errors.push(
+        `${label}: source.snapshot_path 必须位于 docs/public/evidence-snapshots/ 且不得包含空、. 或 .. 路径段`,
+      );
+    }
+    if (
+      source?.content_hash !== null &&
+      !/^sha256:[a-f0-9]{64}$/.test(source?.content_hash ?? "")
+    ) {
+      errors.push(`${label}: source.content_hash 格式错误`);
+    }
+    if (
+      source?.snapshot_path !== null &&
+      !/^sha256:[a-f0-9]{64}$/.test(source?.content_hash ?? "")
+    ) {
+      errors.push(`${label}: source.snapshot_path 要求 content_hash`);
+    }
+    for (const key of ["published_at", "captured_at"]) {
+      if (source?.[key] !== null && !isIsoDate(source?.[key])) {
+        errors.push(`${label}: source.${key} 必须为日期或 null`);
+      }
+    }
+    if (!isIsoDate(source?.accessed_at)) {
+      errors.push(`${label}: source.accessed_at 日期格式错误`);
+    }
+    if (
+      !Array.isArray(claim?.limitations) ||
+      claim.limitations.length === 0 ||
+      claim.limitations.some((item) => !isNonEmptyString(item))
+    ) {
+      errors.push(`${label}: limitations 必须为非空字符串数组`);
+    }
+    if (
+      !Array.isArray(claim?.conflicts) ||
+      claim.conflicts.some((item) => !isNonEmptyString(item))
+    ) {
+      errors.push(`${label}: conflicts 必须为字符串数组`);
+    }
+  }
+  return errors;
 }
