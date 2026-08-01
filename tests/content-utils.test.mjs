@@ -2,11 +2,14 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
+import validCaseMap from "./fixtures/evidence/case-map-valid-32.mjs";
+
 import {
   containsSensitivePattern,
   parseFrontmatter,
   REQUIRED_CASE_SECTIONS,
   validateCaseBody,
+  validateCaseSourceMap,
   validateEvidenceLedger,
   validatePageMeta,
 } from "../scripts/content-utils.mjs";
@@ -403,6 +406,123 @@ test("validateEvidenceLedger requires public snapshot paths and hashes", async (
   source.content_hash = null;
   assert.ok(
     validateEvidenceLedger(ledger, { today: "2026-08-01" }).some((error) =>
+      error.includes("snapshot_path 要求 content_hash"),
+    ),
+  );
+});
+
+test("validateCaseSourceMap accepts exactly 32 candidate cases", () => {
+  const caseMap = structuredClone(validCaseMap);
+  assert.deepEqual(validateCaseSourceMap(caseMap), []);
+});
+
+test("validateCaseSourceMap rejects duplicate and malformed case ids", () => {
+  const caseMap = structuredClone(validCaseMap);
+  caseMap.cases[1].case_id = caseMap.cases[0].case_id;
+  const errors = validateCaseSourceMap(caseMap);
+  assert.ok(errors.some((error) => error.includes("case_id 重复")));
+});
+
+test("validateCaseSourceMap enforces public source evidence", () => {
+  const caseMap = structuredClone(validCaseMap);
+  Object.assign(caseMap.cases[0], {
+    verification_status: "limited",
+    included_in_public_count: true,
+    external_record_id: null,
+  });
+  assert.ok(
+    validateCaseSourceMap(caseMap).some((error) =>
+      error.includes("external_record_id"),
+    ),
+  );
+
+  caseMap.cases[0].external_record_id = "external-case-record-001";
+  caseMap.cases[0].deep_link = "https://artifact.example/demo";
+  caseMap.cases[0].artifact_links = ["https://artifact.example/demo"];
+  assert.ok(
+    validateCaseSourceMap(caseMap).some((error) =>
+      error.includes("示例产物链接不能代替来源定位"),
+    ),
+  );
+});
+
+test("validateCaseSourceMap rejects book ids used as external ids", () => {
+  const caseMap = structuredClone(validCaseMap);
+  Object.assign(caseMap.cases[0], {
+    verification_status: "verified",
+    included_in_public_count: true,
+    external_record_id: caseMap.cases[0].case_id,
+  });
+  assert.ok(
+    validateCaseSourceMap(caseMap).some((error) =>
+      error.includes("不能等于 case_id"),
+    ),
+  );
+});
+
+test("validateCaseSourceMap accepts a traceable limited public case", () => {
+  const caseMap = structuredClone(validCaseMap);
+  Object.assign(caseMap.cases[0], {
+    verification_status: "limited",
+    included_in_public_count: true,
+    external_record_id: "external-case-record-001",
+    deep_link: null,
+    snapshot_path: "docs/public/evidence-snapshots/case-001.html",
+    content_hash: `sha256:${"b".repeat(64)}`,
+    artifact_links: ["https://artifact.example/demo-001"],
+    limitations: ["样本和外推范围有限。"],
+  });
+  assert.deepEqual(validateCaseSourceMap(caseMap), []);
+});
+
+test("validateCaseSourceMap reports malformed nested fields without throwing", () => {
+  const caseMap = structuredClone(validCaseMap);
+  Object.assign(caseMap.cases[0], {
+    source_ref: "source-eleven",
+    verified_at: "2026-99-99",
+    original_tags: "not-an-array",
+    artifact_links: "not-an-array",
+    limitations: [],
+    deep_link: "not-a-url",
+    content_hash: "sha256:bad",
+  });
+  const errors = validateCaseSourceMap(caseMap);
+  for (const field of [
+    "source_ref",
+    "verified_at",
+    "original_tags",
+    "artifact_links",
+    "limitations",
+    "deep_link",
+    "content_hash",
+  ]) {
+    assert.ok(errors.some((error) => error.includes(field)), field);
+  }
+});
+
+test("validateCaseSourceMap rejects non-object case entries without throwing", () => {
+  const caseMap = structuredClone(validCaseMap);
+  caseMap.cases[0] = null;
+  assert.ok(
+    validateCaseSourceMap(caseMap).some((error) =>
+      error.includes("cases[0]: 必须为对象"),
+    ),
+  );
+});
+
+test("validateCaseSourceMap requires public snapshot paths and hashes", () => {
+  const caseMap = structuredClone(validCaseMap);
+  const item = caseMap.cases[0];
+  item.snapshot_path = "/private/source.html";
+  assert.ok(
+    validateCaseSourceMap(caseMap).some((error) =>
+      error.includes("snapshot_path"),
+    ),
+  );
+  item.snapshot_path = "docs/public/evidence-snapshots/case-001.html";
+  item.content_hash = null;
+  assert.ok(
+    validateCaseSourceMap(caseMap).some((error) =>
       error.includes("snapshot_path 要求 content_hash"),
     ),
   );

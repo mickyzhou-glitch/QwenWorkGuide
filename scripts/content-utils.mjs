@@ -37,6 +37,7 @@ export const VERIFICATION_STATUSES = new Set([
 ]);
 
 const CLAIM_ID_PATTERN = /^claim-[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const CASE_ID_PATTERN = /^case-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
 function isNonEmptyString(value) {
@@ -572,6 +573,134 @@ export function validateEvidenceLedger(ledger, { today }) {
       claim.conflicts.some((item) => !isNonEmptyString(item))
     ) {
       errors.push(`${label}: conflicts 必须为字符串数组`);
+    }
+  }
+  return errors;
+}
+
+export function validateCaseSourceMap(caseMap) {
+  const errors = [];
+  if (caseMap?.schema_version !== 1) {
+    errors.push("case-source-map: schema_version 必须为 1");
+  }
+  if (!Array.isArray(caseMap?.cases)) {
+    return [...errors, "case-source-map: cases 必须为数组"];
+  }
+  if (caseMap.cases.length !== 32) {
+    errors.push("case-source-map: 必须恰好包含 32 个候选案例");
+  }
+
+  const ids = new Set();
+  for (const [index, item] of caseMap.cases.entries()) {
+    const label = `cases[${index}]`;
+    if (item === null || typeof item !== "object" || Array.isArray(item)) {
+      errors.push(`${label}: 必须为对象`);
+      continue;
+    }
+    if (!CASE_ID_PATTERN.test(item?.case_id ?? "")) {
+      errors.push(`${label}: case_id 格式错误`);
+    }
+    if (ids.has(item?.case_id)) errors.push(`${label}: case_id 重复`);
+    ids.add(item?.case_id);
+    for (const key of ["original_name", "book_category"]) {
+      if (!isNonEmptyString(item?.[key])) {
+        errors.push(`${label}: ${key} 不得为空`);
+      }
+    }
+    if (!/^R[1-9][0-9]*$/.test(item?.source_ref ?? "")) {
+      errors.push(`${label}: source_ref 格式错误`);
+    }
+    if (!isIsoDate(item?.verified_at)) {
+      errors.push(`${label}: verified_at 日期格式错误`);
+    }
+    if (
+      !Array.isArray(item?.original_tags) ||
+      item.original_tags.length === 0 ||
+      item.original_tags.some((value) => !isNonEmptyString(value))
+    ) {
+      errors.push(`${label}: original_tags 必须为非空字符串数组`);
+    }
+    const artifactLinks = Array.isArray(item?.artifact_links)
+      ? item.artifact_links
+      : [];
+    if (
+      !Array.isArray(item?.artifact_links) ||
+      artifactLinks.some((value) => !isHttpUrl(value))
+    ) {
+      errors.push(`${label}: artifact_links 必须为 HTTP(S) URL 数组`);
+    }
+    if (
+      !Array.isArray(item?.limitations) ||
+      item.limitations.length === 0 ||
+      item.limitations.some((value) => !isNonEmptyString(value))
+    ) {
+      errors.push(`${label}: limitations 必须为非空字符串数组`);
+    }
+    if (
+      item?.external_record_id !== null &&
+      !isNonEmptyString(item?.external_record_id)
+    ) {
+      errors.push(`${label}: external_record_id 必须为非空字符串或 null`);
+    }
+    if (
+      item?.snapshot_path !== null &&
+      !isPublicSnapshotPath(item?.snapshot_path)
+    ) {
+      errors.push(
+        `${label}: snapshot_path 必须位于 docs/public/evidence-snapshots/ 且不得包含空、. 或 .. 路径段`,
+      );
+    }
+    if (item?.deep_link !== null && !isHttpUrl(item?.deep_link)) {
+      errors.push(`${label}: deep_link 必须为 HTTP(S) URL 或 null`);
+    }
+    if (
+      item?.content_hash !== null &&
+      !/^sha256:[a-f0-9]{64}$/.test(item?.content_hash ?? "")
+    ) {
+      errors.push(`${label}: content_hash 格式错误`);
+    }
+    if (
+      item?.snapshot_path !== null &&
+      !/^sha256:[a-f0-9]{64}$/.test(item?.content_hash ?? "")
+    ) {
+      errors.push(`${label}: snapshot_path 要求 content_hash`);
+    }
+    if (
+      !["verified", "limited", "pending", "stale"].includes(
+        item?.verification_status,
+      )
+    ) {
+      errors.push(`${label}: verification_status 枚举错误`);
+    }
+    if (typeof item?.included_in_public_count !== "boolean") {
+      errors.push(`${label}: included_in_public_count 必须为布尔值`);
+    }
+    if (item?.included_in_public_count) {
+      if (!["verified", "limited"].includes(item.verification_status)) {
+        errors.push(`${label}: 公开案例状态必须为 verified 或 limited`);
+      }
+      if (!isNonEmptyString(item.external_record_id)) {
+        errors.push(`${label}: 缺少 external_record_id`);
+      }
+      if (item.external_record_id === item.case_id) {
+        errors.push(`${label}: external_record_id 不能等于 case_id`);
+      }
+      if (
+        !isHttpUrl(item.deep_link) &&
+        !(
+          isPublicSnapshotPath(item.snapshot_path) &&
+          /^sha256:[a-f0-9]{64}$/.test(item.content_hash ?? "")
+        )
+      ) {
+        errors.push(`${label}: 公开案例必须有 deep_link 或 snapshot_path`);
+      }
+      if (
+        isNonEmptyString(item.deep_link) &&
+        artifactLinks.includes(item.deep_link) &&
+        !isNonEmptyString(item.snapshot_path)
+      ) {
+        errors.push(`${label}: 示例产物链接不能代替来源定位`);
+      }
     }
   }
   return errors;
