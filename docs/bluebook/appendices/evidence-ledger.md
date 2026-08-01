@@ -10,7 +10,7 @@ sources: []
 
 > 本页由结构化数据自动生成，请修改 `docs/bluebook/data/evidence-ledger.json`。本文件及其 JSON 源均为公开内容。
 
-已发布主张：18；待核验线索：0。
+已发布主张：23；待核验线索：0。
 
 ## 已发布主张
 
@@ -47,6 +47,23 @@ sources: []
 | 局限 | 连接器清单、授权方式和可执行动作可能变化，应以使用时页面、组织配置和账号实测为准。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 产品事实核验者 |
+
+## claim-critical-error-hard-gate-01
+
+关键错误、法律、安全和未授权动作是不可放宽的硬门；效率、采用率和满意度是可调整的实验阈值。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 关键错误硬门 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/10-pilot-roadmap.md#claim-critical-error-hard-gate-01](/bluebook/part-4/10-pilot-roadmap#claim-critical-error-hard-gate-01) |
+| 统计口径 | 阶段内全量登记关键错误、法律、安全和未授权事件 |
+| 适用范围 | 企业 AI 场景试点、团队发布、规模化推广和事件复盘 |
+| 局限 | 本书只定义最低关键错误类别；业务负责人和数据/安全责任人还需按场景补充更严格分类与判定证据。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 试点治理负责人 |
 
 ## claim-define-done-first-01
 
@@ -150,6 +167,57 @@ sources: []
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 工作流资产负责人 |
 
+## claim-g0-g3-controls-01
+
+G0–G3 只表示动作风险等级；数据敏感度和专业后果必须独立判断，并采用三者中更严格的控制。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 G0–G3 动作控制模型 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/11-security-governance.md#claim-g0-g3-controls-01](/bluebook/part-4/11-security-governance#claim-g0-g3-controls-01) |
+| 统计口径 | 不适用：动作、数据和专业后果的治理分类 |
+| 适用范围 | 读取、草稿写入、内部业务写入和高后果动作的企业工作流 |
+| 局限 | G0–G3 是本书的社区治理模型，不是产品官方评级；组织政策或适用规则更严格时，应采用更严格控制。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 数据与安全治理负责人 |
+
+## claim-g2-continuous-authorization-01
+
+G2 只有在工作流正式发布、边界明确且取得共同批准的持续授权后，才可从逐批事前确认转为批准范围内运行和抽检；G3 每次仍须事前确认。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 G2 持续授权规则 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/11-security-governance.md#claim-g2-continuous-authorization-01](/bluebook/part-4/11-security-governance#claim-g2-continuous-authorization-01) |
+| 统计口径 | 不适用：有界工作流授权、留痕和抽检规则 |
+| 适用范围 | 创建或更新内部待办、台账、日志、CRM 等 G2 业务对象 |
+| 局限 | 持续授权只适用于登记的工作流版本、执行主体、运行环境、批准用途和业务边界；权限、字段、接收对象、错误率、工作流逻辑或规则、版本、模型、连接器、执行主体或运行环境任一变化时均立即失效，并要求重验和共同批准。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 数据与安全治理负责人 |
+
+## claim-human-responsibility-01
+
+业务负责人始终对最终业务结果负责，不能把责任转移给 AI 或流程维护者；G3 执行者与动作批准人不得为同一人。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 人机责任模型 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/11-security-governance.md#claim-human-responsibility-01](/bluebook/part-4/11-security-governance#claim-human-responsibility-01) |
+| 统计口径 | 不适用：企业工作流责任与职责分离原则 |
+| 适用范围 | 企业 AI 工作流的设计、执行、复核、批准、事件处置和结果问责 |
+| 局限 | 角色可由小团队成员兼任，但不得破坏 G3 执行与批准分离；具体法定责任仍以适用法律和组织制度为准。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 企业治理负责人 |
+
 ## claim-office-delivery-acceptance-01
 
 文档、数据、汇报和网页任务都按输入、处理、产物、验收、风险、人工确认设计，不能把文件成功生成当成交付通过。
@@ -166,6 +234,23 @@ sources: []
 | 局限 | 各专业领域仍需追加法务、财务、品牌、隐私和无障碍等强制标准。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 办公交付方法负责人 |
+
+## claim-pilot-stage-gates-01
+
+个人模板候选、团队工作流发布和规模化推广构成唯一三阶段门；日历时间、场景评分或平均效率提升都不能替代阶段门。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 试点阶段门 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/10-pilot-roadmap.md#claim-pilot-stage-gates-01](/bluebook/part-4/10-pilot-roadmap#claim-pilot-stage-gates-01) |
+| 统计口径 | 不适用：试点发布与升级规则 |
+| 适用范围 | 企业 AI 场景从个人验证、团队发布到规模化推广的决策 |
+| 局限 | 三阶段门是本书的默认治理建议；组织可以提高标准，但不能用日历时间代替验证结果。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 试点治理负责人 |
 
 ## claim-product-delivery-forms-01
 
