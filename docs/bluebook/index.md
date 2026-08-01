@@ -2,7 +2,7 @@
 title: 千问办公蓝皮书
 description: 从一句话到可交付工作系统的开源实践指南
 status: community-practice
-verifiedAt: 2026-07-30
+verifiedAt: 2026-07-31
 sources:
   - https://qwenwork.cn/docs/product-introduction
   - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
@@ -12,7 +12,9 @@ sources:
 
 > 非官方、开源、社区共创的实践指南。产品能力以[官方来源](./appendices/sources)为准；方法、判断与路线图属于社区实践。
 
-**当前版本：V1.2｜研究快照：2026 年 7 月 30 日**
+**当前版本：V1.3｜研究快照：2026 年 7 月 31 日**
+
+V1.3 结合 7 月 30 日全网公开直播所呈现的产品方向，新增 Beta 试用边界、公开能力与现场演示的证据分层、Skill 资产化，以及订阅与积分制的成本口径。直播用于识别值得验证的工作流；功能、价格、权益和可用范围仍以官方页面与目标账号实测为准。
 
 ## 从这里开始
 
@@ -24,7 +26,12 @@ sources:
 
 ## 离线版下载
 
-- [下载 V1.2 PDF 离线版](/downloads/qwenwork-bluebook-v1.pdf)
+- [下载 V1.3 PDF 离线版](/downloads/qwenwork-bluebook-v1.3.pdf)
+- [下载 V1.2 PDF 离线版（存档）](/downloads/qwenwork-bluebook-v1.pdf)
+
+## 公开直播后的试点方法
+
+直播演示不等于企业环境中的稳定交付。采用方应把信息分成三层：产品方向（适合选择试点假设）、公开能力（回到官网和帮助中心核验）、现场演示（记录输入、耗时、积分、返工与异常）。先选一个低风险、高频、结果可验收的任务，用目标账号逐项验权限和端侧，再决定是否固化为 Skill、专家套件或自动化任务。
 
 ## 目录
 
