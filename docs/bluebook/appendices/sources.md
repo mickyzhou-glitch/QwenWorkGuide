@@ -13,6 +13,8 @@ sources:
 
 产品界面、价格、权益、模型列表、可用地区与连接器范围更新较快，应以使用时的官方页面为准。
 
+兼容编号入口：[R14](#r14)、[R15](#r15)。
+
 ## R1
 
 AlephAITech，[WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide)，GitHub，MIT License，访问于 2026-07-29。本项目参考其任务驱动、结果验证、逐级进阶的内容组织方法，不复制其产品描述或案例正文。
@@ -65,13 +67,9 @@ AlephAITech，[WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide)，
 
 千问办公官网，[下载客户端](https://qwenwork.cn/download)，访问于 2026-07-31。
 
-## R14
+<span id="r14"></span>R14 是 [R8](#r8) 的兼容锚点。
 
-千问办公官方帮助中心，[技能](https://qwenwork.cn/docs/features/skills)，访问于 2026-07-31。
-
-## R15
-
-千问办公官方帮助中心，[连接器](https://qwenwork.cn/docs/features/connectors)，访问于 2026-07-31。
+<span id="r15"></span>R15 是 [R4](#r4) 的兼容锚点。
 
 ## 版权与边界
 

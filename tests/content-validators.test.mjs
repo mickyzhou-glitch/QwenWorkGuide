@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import {
   chmod,
   mkdir,
@@ -13,7 +14,10 @@ import { join } from "node:path";
 
 import { generateEvidencePages } from "../scripts/generate-evidence-pages.mjs";
 import { validateCaseDirectory } from "../scripts/validate-cases.mjs";
-import { validateContentRoots } from "../scripts/validate-content.mjs";
+import {
+  validateContentRoots,
+  validateEvidenceRepository,
+} from "../scripts/validate-content.mjs";
 import validCaseMap from "./fixtures/evidence/case-map-valid-32.mjs";
 
 const fixturesDirectory = new URL("./fixtures/", import.meta.url);
@@ -316,4 +320,206 @@ test("generateEvidencePages aggregates invalid JSON and schema errors without ou
   );
   await assert.rejects(readFile(evidenceOutputPath, "utf8"));
   await assert.rejects(readFile(caseOutputPath, "utf8"));
+});
+
+test("validateEvidenceRepository aggregates structured and Markdown failures", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  const contentRoot = join(directory, "docs");
+  const dataRoot = join(contentRoot, "bluebook/data");
+  await mkdir(dataRoot, { recursive: true });
+  await mkdir(join(contentRoot, "bluebook/appendices"), { recursive: true });
+  await mkdir(join(contentRoot, "cases"), { recursive: true });
+  const ledger = JSON.parse(
+    await readFile(
+      new URL("fixtures/evidence/ledger-valid.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const snapshotContent = "public source snapshot\n";
+  const snapshotPath = "docs/public/evidence-snapshots/source.txt";
+  ledger.claims[0].source.snapshot_path = snapshotPath;
+  ledger.claims[0].source.content_hash = `sha256:${createHash("sha256")
+    .update(snapshotContent)
+    .digest("hex")}`;
+  await mkdir(join(directory, "docs/public/evidence-snapshots"), {
+    recursive: true,
+  });
+  await writeFile(join(directory, snapshotPath), snapshotContent, "utf8");
+  await writeFile(
+    join(dataRoot, "evidence-ledger.json"),
+    JSON.stringify(ledger, null, 2),
+    "utf8",
+  );
+  await writeFile(
+    join(dataRoot, "case-source-map.json"),
+    JSON.stringify(validCaseMap, null, 2),
+    "utf8",
+  );
+  await writeFile(
+    join(contentRoot, "bluebook/executive-summary.md"),
+    '---\ntitle: 摘要\nstatus: community-practice\n---\n\n# 摘要\n\n<span id="claim-workflow-core-01" data-claim-id="claim-workflow-core-01"></span>本书主张：企业采用 AI 应关注工作流。\n',
+    "utf8",
+  );
+  await writeFile(
+    join(contentRoot, "bluebook/appendices/sources.md"),
+    await readFile(
+      new URL("fixtures/evidence/sources-valid-aliases.md", import.meta.url),
+    ),
+  );
+  await writeFile(
+    join(contentRoot, "cases/index.md"),
+    '<span data-public-case-count="0">0</span> 个公开案例\n',
+    "utf8",
+  );
+
+  const options = {
+    repositoryRoot: directory,
+    evidenceLedgerPath: join(dataRoot, "evidence-ledger.json"),
+    caseSourceMapPath: join(dataRoot, "case-source-map.json"),
+    contentRoots: [contentRoot],
+    executiveSummaryPath: join(
+      contentRoot,
+      "bluebook/executive-summary.md",
+    ),
+    sourcesPath: join(contentRoot, "bluebook/appendices/sources.md"),
+    publicCaseCountPaths: [join(contentRoot, "cases/index.md")],
+    publicCaseMembershipPath: null,
+    today: "2026-08-01",
+  };
+  assert.deepEqual(await validateEvidenceRepository(options), []);
+
+  await writeFile(join(directory, snapshotPath), "tampered\n", "utf8");
+  assert.ok(
+    (await validateEvidenceRepository(options)).some((failure) =>
+      failure.includes("snapshot hash 不匹配"),
+    ),
+  );
+  await writeFile(join(directory, snapshotPath), snapshotContent, "utf8");
+  ledger.claims[0].source.snapshot_path =
+    "docs/public/evidence-snapshots/missing.txt";
+  await writeFile(
+    join(dataRoot, "evidence-ledger.json"),
+    JSON.stringify(ledger, null, 2),
+    "utf8",
+  );
+  assert.ok(
+    (await validateEvidenceRepository(options)).some((failure) =>
+      failure.includes("snapshot 文件不存在或不可读"),
+    ),
+  );
+  ledger.claims[0].source.snapshot_path = snapshotPath;
+  await writeFile(
+    join(dataRoot, "evidence-ledger.json"),
+    JSON.stringify(ledger, null, 2),
+    "utf8",
+  );
+
+  await writeFile(
+    join(contentRoot, "bluebook/executive-summary.md"),
+    "---\ntitle: 摘要\nstatus: community-practice\n---\n\n# 摘要\n\n没有主张标记。\n",
+    "utf8",
+  );
+  await writeFile(
+    join(contentRoot, "cases/index.md"),
+    '<span data-public-case-count="1">1</span> 个公开案例\n',
+    "utf8",
+  );
+  const failures = await validateEvidenceRepository(options);
+  assert.ok(
+    failures.some((failure) =>
+      failure.includes("执行摘要未关联 claim_id"),
+    ),
+  );
+  assert.ok(
+    failures.some((failure) => failure.includes("公开案例计数")),
+  );
+
+  await writeFile(
+    join(contentRoot, "bluebook/executive-summary.md"),
+    "---\ntitle: 摘要\nstatus: community-practice\n\n# 未闭合 Frontmatter\n",
+    "utf8",
+  );
+  const parseFailures = await validateEvidenceRepository(options);
+  assert.ok(
+    parseFailures.some((failure) => failure.includes("Frontmatter 未闭合")),
+  );
+  assert.ok(
+    parseFailures.some((failure) => failure.includes("公开案例计数")),
+  );
+});
+
+test("validateEvidenceRepository aggregates invalid object shapes without throwing", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  const contentRoot = join(directory, "docs");
+  const dataRoot = join(contentRoot, "bluebook/data");
+  await mkdir(dataRoot, { recursive: true });
+  await mkdir(join(contentRoot, "bluebook/appendices"), { recursive: true });
+  await writeFile(
+    join(dataRoot, "evidence-ledger.json"),
+    '{"schema_version":1,"claims":null}',
+    "utf8",
+  );
+  await writeFile(
+    join(dataRoot, "case-source-map.json"),
+    '{"schema_version":1,"cases":null}',
+    "utf8",
+  );
+  await writeFile(
+    join(contentRoot, "bluebook/appendices/sources.md"),
+    await readFile(
+      new URL("fixtures/evidence/sources-valid-aliases.md", import.meta.url),
+    ),
+  );
+  const options = {
+    repositoryRoot: directory,
+    evidenceLedgerPath: join(dataRoot, "evidence-ledger.json"),
+    caseSourceMapPath: join(dataRoot, "case-source-map.json"),
+    contentRoots: [contentRoot],
+    executiveSummaryPath: join(
+      contentRoot,
+      "bluebook/executive-summary.md",
+    ),
+    sourcesPath: join(contentRoot, "bluebook/appendices/sources.md"),
+    publicCaseCountPaths: [],
+    publicCaseMembershipPath: null,
+    today: "2026-08-01",
+  };
+  const failures = await validateEvidenceRepository(options);
+  assert.ok(
+    failures.some((failure) => failure.includes("claims 必须为数组")),
+  );
+  assert.ok(
+    failures.some((failure) => failure.includes("cases 必须为数组")),
+  );
+
+  const ledger = JSON.parse(
+    await readFile(
+      new URL("fixtures/evidence/ledger-valid.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const caseMap = structuredClone(validCaseMap);
+  ledger.claims[0] = null;
+  caseMap.cases[0] = null;
+  await writeFile(
+    join(dataRoot, "evidence-ledger.json"),
+    JSON.stringify(ledger),
+    "utf8",
+  );
+  await writeFile(
+    join(dataRoot, "case-source-map.json"),
+    JSON.stringify(caseMap),
+    "utf8",
+  );
+  const nestedFailures = await validateEvidenceRepository(options);
+  assert.ok(
+    nestedFailures.some((failure) =>
+      failure.includes("claims[0]: 必须为对象"),
+    ),
+  );
+  assert.ok(
+    nestedFailures.some((failure) =>
+      failure.includes("cases[0]: 必须为对象"),
+    ),
+  );
 });
