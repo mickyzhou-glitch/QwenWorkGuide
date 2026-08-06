@@ -10,7 +10,7 @@ sources: []
 
 > 本页由结构化数据自动生成，请修改 `docs/bluebook/data/evidence-ledger.json`。本文件及其 JSON 源均为公开内容。
 
-已发布主张：31；待核验线索：0。
+已发布主张：44；待核验线索：0。
 
 ## 已发布主张
 
@@ -438,6 +438,227 @@ Skill 封装可重复方法和工具步骤；它不自动取得数据权限，�
 | 局限 | 官方页面用于确认 Skill 的产品语境；权限和专业验收边界是本书的治理要求。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 工作流资产负责人 |
+
+## claim-summary-calendar-gate-01
+
+30/60/90 天只是三个验证窗口，日历不能替代阶段门，上一阶段未通过不得自动升级。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 10 章《场景选择与 30/60/90 天试点》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-calendar-gate-01](/bluebook/executive-summary#claim-summary-calendar-gate-01) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 试点的阶段安排与升级决策 |
+| 局限 | 30/60/90 是本书便于规划的社区窗口，不是统一项目工期、产品官方承诺或行业统计；业务周期较长或样本不足时可以延长，高风险场景也不能压缩硬门。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-capability-map-01
+
+按完成一次交付、沉淀一条工作流、应用于专业场景、扩展为组织能力的顺序推进，并以对应规范和证据决定是否升级。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 版本说明：结构与发布门 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-capability-map-01](/bluebook/executive-summary#claim-summary-capability-map-01) |
+| 统计口径 | 不适用：社区实践建议 |
+| 适用范围 | 企业 AI 从个人交付到组织能力的采用路线 |
+| 局限 | 四步地图是 V2 正文的社区阅读与采用架构，不是产品官方成熟度模型或行业统计；组织不必按同一工期线性推进，但不能据此跳过对应规范和升级证据。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-delivery-01
+
+生成内容不等于完成工作；结果只有可编辑、可验证、可流转，才构成可验收的一次交付。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 1 章《交付新标准：从回答问题到完成工作》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-delivery-01](/bluebook/executive-summary#claim-summary-delivery-01) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 任务验收、试点选择和交付复盘 |
+| 局限 | 三个判据是本书的社区交付规范，不是产品官方承诺或行业统计；高风险任务可把人工复核和明确确认纳入交付，判据成立不等于任务应全自动执行。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-demo-case-boundary-01
+
+公开演示不能推导客户效果；案例计数只由公开案例章节与结构化案例来源映射决定。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 9 章《公开案例图谱：按证据门发布》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-demo-case-boundary-01](/bluebook/executive-summary#claim-summary-demo-case-boundary-01) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 公开演示解读、客户效果表述和案例计数 |
+| 局限 | 这是本书对公开材料的社区证据边界，不是产品官方承诺或行业案例规模统计；公开演示只支持可观察的产物形态，不能证明客户采用或效果，案例计数会随逐条核验、失效或撤回变化。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-durable-value-01
+
+长期价值应由工作流资产、专业标准、组织连接和治理能力共同承载，不能用一次生成效果代替持续证明。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 12 章《团队工作流运营：把一次成功变成可维护资产》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-durable-value-01](/bluebook/executive-summary#claim-summary-durable-value-01) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 的长期运营、组织建设和价值复盘 |
+| 局限 | 四个维度是本书用于持续运营的社区判断，不代表产品官方承诺或行业统计；它们描述应持续取证的价值载体，不表示任一组织已经形成这些能力或实现收益。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-evidence-classes-01
+
+读者应先区分产品事实、客户结果、公开演示和社区方法，再核对主张类型、来源、状态和局限。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 8 章《研究与证据链：从问题树到发布记录》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-evidence-classes-01](/bluebook/executive-summary#claim-summary-evidence-classes-01) |
+| 统计口径 | 不适用：社区实践建议 |
+| 适用范围 | 企业 AI 内容阅读、证据复核和发布审查 |
+| 局限 | 证据分类是本书的社区研究方法，不是产品官方认证或行业统计；分类和字段齐全只提高可追溯性，不等于来源真实、结论正确或已经完成核验。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-g3-separation-01
+
+G3 执行者与动作批准人必须职责分离。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 11 章《安全治理：动作、数据、后果与人机责任》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-g3-separation-01](/bluebook/executive-summary#claim-summary-g3-separation-01) |
+| 统计口径 | 不适用：社区实践建议 |
+| 适用范围 | 企业 AI 工作流的 G3 高后果动作控制 |
+| 局限 | 职责分离是本书针对 G3 高后果动作的社区治理建议，不是产品官方授权或行业统计；小团队可兼任其他角色，但不得由同一人执行并批准 G3 动作。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-roles-01
+
+责任链采用业务负责人、流程维护者、数据/安全责任人、使用者、内容复核者、动作批准人六类角色，业务负责人始终对最终业务结果负责。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 11 章《安全治理：动作、数据、后果与人机责任》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-roles-01](/bluebook/executive-summary#claim-summary-roles-01) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 工作流的责任分配、上线批准和结果追责 |
+| 局限 | 六类角色是本书的社区责任模型，不是法定岗位编制、产品官方角色或行业统计；小团队可兼任，但各项责任仍须明确，且 G3 执行者与动作批准人必须分离。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-scene-workflow-01
+
+场景界定试点与价值边界，工作流才是可复用、可运营的资产；二者之间必须经过阶段门。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 10 章《场景选择与 30/60/90 天试点》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-scene-workflow-01](/bluebook/executive-summary#claim-summary-scene-workflow-01) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 场景试点、工作流发布和规模化决策 |
+| 局限 | 阶段门是本书的社区治理判断，不代表产品官方承诺或行业统计；通过阶段门只说明具备升级条件，不授予数据访问、写入、发送或发布权限。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-value-reporting-01
+
+使用量不等于价值；现金 ROI、可释放产能、质量和风险应分开报告，节省工时不能直接写成现金收益。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 13 章《价值度量：从使用数据到可复算决策》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-value-reporting-01](/bluebook/executive-summary#claim-summary-value-reporting-01) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 试点价值报告、预算复盘和规模化决策 |
+| 局限 | 分列报告是本书的社区管理口径，不是会计准则、估值意见、产品官方承诺或行业统计；现金确认仍服从组织财务制度，未现金化产能不得外推为已实现收益。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-window-30-01
+
+0–30 天只验证个人模板候选；阶段最低批准人为使用者与业务负责人，最终批准人取该集合与全部适用硬门批准人的并集；以交付物、验收和异常记录为证据，任一适用硬门失败或验收未通过即停止升级。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 10 章《场景选择与 30/60/90 天试点》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-window-30-01](/bluebook/executive-summary#claim-summary-window-30-01) |
+| 统计口径 | 不适用：社区实践建议 |
+| 适用范围 | 企业 AI 试点的 0–30 天个人模板候选验证窗口 |
+| 局限 | 0–30 天是本书的社区规划标签，不是产品官方工期或行业统计；它不构成自动时钟，任务频率不足时可延长取证，但不能因到期跳过适用硬门。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-window-60-01
+
+31–60 天只验证团队工作流发布；阶段最低批准人为业务负责人、流程维护者与数据/安全责任人，最终批准人取该集合与全部适用硬门批准人的并集；以工作流版本、团队验收、批准和异常记录为证据，任一适用硬门失败即停止发布，其他发布门未通过则优化后再测或停止。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 10 章《场景选择与 30/60/90 天试点》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-window-60-01](/bluebook/executive-summary#claim-summary-window-60-01) |
+| 统计口径 | 不适用：社区实践建议 |
+| 适用范围 | 企业 AI 试点的 31–60 天团队工作流发布验证窗口 |
+| 局限 | 31–60 天是团队发布验证的社区规划标签，不是产品官方发布周期或行业统计；版本、边界或权限变化时即使已到第 60 天也应退回重验，不能自动发布。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
+
+## claim-summary-window-90-01
+
+61–90 天只验证规模化推广；阶段最低批准人为业务负责人与数据/安全责任人，最终批准人取该集合与全部适用硬门批准人的并集；以覆盖业务周期的运行、质量、效率和权限证据作决定，任一适用硬门失败、登记目标未达到或权限问题未解决即停止推广。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 第 10 章《场景选择与 30/60/90 天试点》 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-summary-window-90-01](/bluebook/executive-summary#claim-summary-window-90-01) |
+| 统计口径 | 不适用：社区实践建议 |
+| 适用范围 | 企业 AI 试点的 61–90 天规模化推广验证窗口 |
+| 局限 | 61–90 天是规模化验证的社区规划标签，不是产品官方承诺或行业统计；未覆盖业务周期、登记目标未达到或权限问题未闭环时，不得以到期为由推广。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 编辑复核者 |
 
 ## claim-task-card-fields-01
 
