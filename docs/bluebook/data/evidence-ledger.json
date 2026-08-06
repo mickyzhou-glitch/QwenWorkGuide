@@ -632,6 +632,76 @@
       "reviewer_role": "案例证据复核者"
     },
     {
+      "claim_id": "claim-public-case-count-01",
+      "claim_type": "community-judgment",
+      "claim_text": "截至 2026-08-01，满足案例级来源定位与发布门的公开案例为 0。",
+      "content_path": "docs/bluebook/part-3/09-public-case-atlas.md",
+      "content_anchor": "claim-public-case-count-01",
+      "is_key": true,
+      "summary_eligible": false,
+      "blocks_release": true,
+      "source": {
+        "source_type": "first-party-disclosure",
+        "source_ref": "R11",
+        "title": "千问办公·案例库",
+        "organization": "阿里巴巴知识库",
+        "excerpt": null,
+        "external_record_id": "Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4",
+        "deep_link": "https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4",
+        "snapshot_path": null,
+        "content_hash": null,
+        "published_at": null,
+        "accessed_at": "2026-08-01",
+        "captured_at": null
+      },
+      "customer_evidence": null,
+      "measurement_basis": "截至 2026-08-01，逐条检查案例候选的外部记录 ID、案例级来源定位、核验状态和公开计数标记；满足全部发布门的条目数为 0。",
+      "applicability": "QwenWorkGuide 当前公开案例图谱、案例入口和对外案例计数",
+      "limitations": [
+        "R11 只提供候选集合级入口，公开计数 0 是本仓库截至核验日的发布门审计结果；后续取得案例级证据并重新核验后，计数可能变化。"
+      ],
+      "conflicts": [],
+      "verification_status": "editor-reviewed",
+      "last_verified_at": "2026-08-01",
+      "stale_after": null,
+      "reviewer_role": "案例证据复核者"
+    },
+    {
+      "claim_id": "claim-public-demo-boundary-01",
+      "claim_type": "community-judgment",
+      "claim_text": "示例产物只证明产物形态，不能证明案例归属、实施成本、生产稳定性或业务效果。",
+      "content_path": "docs/bluebook/part-3/09-public-case-atlas.md",
+      "content_anchor": "claim-public-demo-boundary-01",
+      "is_key": false,
+      "summary_eligible": false,
+      "blocks_release": true,
+      "source": {
+        "source_type": "first-party-disclosure",
+        "source_ref": "R11",
+        "title": "千问办公·案例库",
+        "organization": "阿里巴巴知识库",
+        "excerpt": null,
+        "external_record_id": "Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4",
+        "deep_link": "https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4",
+        "snapshot_path": null,
+        "content_hash": null,
+        "published_at": null,
+        "accessed_at": "2026-08-01",
+        "captured_at": null
+      },
+      "customer_evidence": null,
+      "measurement_basis": "不适用：案例候选中的示例产物与案例级来源证据分开判断",
+      "applicability": "公开案例候选中的网页、看板、报告和其他示例产物链接",
+      "limitations": [
+        "R11 未暴露可把单个示例产物稳定绑定到具体候选案例的案例级记录；该边界不评价示例产物本身的质量。"
+      ],
+      "conflicts": [],
+      "verification_status": "editor-reviewed",
+      "last_verified_at": "2026-08-01",
+      "stale_after": null,
+      "reviewer_role": "案例证据复核者"
+    },
+    {
       "claim_id": "claim-pilot-stage-gates-01",
       "claim_type": "practice-guidance",
       "claim_text": "个人模板候选、团队工作流发布和规模化推广构成唯一三阶段门；日历时间、场景评分或平均效率提升都不能替代阶段门。",

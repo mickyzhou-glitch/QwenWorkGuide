@@ -10,7 +10,7 @@ sources: []
 
 > 本页由结构化数据自动生成，请修改 `docs/bluebook/data/evidence-ledger.json`。本文件及其 JSON 源均为公开内容。
 
-已发布主张：29；待核验线索：0。
+已发布主张：31；待核验线索：0。
 
 ## 已发布主张
 
@@ -319,6 +319,40 @@ G2 只有在工作流正式发布、边界明确且取得共同批准的持续�
 | 局限 | 产品能力、账号权益、地区可用性和具体任务效果可能变化，应以使用时页面和账号实测为准。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 产品事实核验者 |
+
+## claim-public-case-count-01
+
+截至 2026-08-01，满足案例级来源定位与发布门的公开案例为 0。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | first-party-disclosure |
+| 来源定位 | [千问办公·案例库](https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4) |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-3/09-public-case-atlas.md#claim-public-case-count-01](/bluebook/part-3/09-public-case-atlas#claim-public-case-count-01) |
+| 统计口径 | 截至 2026-08-01，逐条检查案例候选的外部记录 ID、案例级来源定位、核验状态和公开计数标记；满足全部发布门的条目数为 0。 |
+| 适用范围 | QwenWorkGuide 当前公开案例图谱、案例入口和对外案例计数 |
+| 局限 | R11 只提供候选集合级入口，公开计数 0 是本仓库截至核验日的发布门审计结果；后续取得案例级证据并重新核验后，计数可能变化。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 案例证据复核者 |
+
+## claim-public-demo-boundary-01
+
+示例产物只证明产物形态，不能证明案例归属、实施成本、生产稳定性或业务效果。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | first-party-disclosure |
+| 来源定位 | [千问办公·案例库](https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4) |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-3/09-public-case-atlas.md#claim-public-demo-boundary-01](/bluebook/part-3/09-public-case-atlas#claim-public-demo-boundary-01) |
+| 统计口径 | 不适用：案例候选中的示例产物与案例级来源证据分开判断 |
+| 适用范围 | 公开案例候选中的网页、看板、报告和其他示例产物链接 |
+| 局限 | R11 未暴露可把单个示例产物稳定绑定到具体候选案例的案例级记录；该边界不评价示例产物本身的质量。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 案例证据复核者 |
 
 ## claim-question-workflow-boundary-01
 

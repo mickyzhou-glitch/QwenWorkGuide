@@ -19,8 +19,8 @@
     },
     {
       "case_id": "case-ai-model-comparison-report",
-      "original_name": "产出主流 AI 模型对比报告",
-      "original_tags": ["网站与应用", "数据分析", "信息调研"],
+      "original_name": "产出分析报告（主流 AI 模型对比）",
+      "original_tags": ["做网站 & 应用", "数据分析", "信息调研"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
       "external_record_id": null,
@@ -36,7 +36,7 @@
     {
       "case_id": "case-ecommerce-data-analysis",
       "original_name": "分析电商经营数据",
-      "original_tags": ["Excel 搭建", "数据分析"],
+      "original_tags": ["Excel搭建", "数据分析"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
       "external_record_id": null,
@@ -52,7 +52,7 @@
     {
       "case_id": "case-nvidia-financial-analysis",
       "original_name": "分析英伟达财报",
-      "original_tags": ["网站与应用", "数据分析"],
+      "original_tags": ["做网站 & 应用", "数据分析"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
       "external_record_id": null,
@@ -67,8 +67,8 @@
     },
     {
       "case_id": "case-multi-platform-product-selection",
-      "original_name": "抓取多平台数据用于电商选品",
-      "original_tags": ["店铺运营", "Excel 搭建"],
+      "original_name": "抓取多平台数据（电商选品）",
+      "original_tags": ["店铺运营", "Excel搭建"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
       "external_record_id": null,
@@ -83,7 +83,7 @@
     },
     {
       "case_id": "case-multi-platform-operations-review",
-      "original_name": "复盘多平台经营数据并优化投放",
+      "original_name": "分析复盘多平台数据（电商基于多平台经营数据做投放优化）",
       "original_tags": ["店铺运营"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
@@ -99,7 +99,7 @@
     },
     {
       "case_id": "case-instant-retail-operations-review",
-      "original_name": "复盘闪购经营数据并识别爆品、低效品与断货损失",
+      "original_name": "复盘经营数据（闪购商家识别爆品、低效品和断货损失调整菜单）",
       "original_tags": ["店铺运营", "信息调研"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
@@ -115,7 +115,7 @@
     },
     {
       "case_id": "case-marketing-review-dashboard",
-      "original_name": "搭建营销复盘看板",
+      "original_name": "搭建营销复盘看板（提升投放效果）",
       "original_tags": ["店铺运营", "活动策划", "看板搭建"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
@@ -131,7 +131,7 @@
     },
     {
       "case_id": "case-smartphone-competitive-research",
-      "original_name": "输出全球智能手机市场竞品调研报告",
+      "original_name": "输出市场竞品调研报告（全球智能手机）",
       "original_tags": ["信息调研", "竞品分析"],
       "book_category": "数据、研究与经营决策",
       "source_ref": "R11",
@@ -147,8 +147,8 @@
     },
     {
       "case_id": "case-product-video-analysis",
-      "original_name": "分析商品宣传视频并形成报告",
-      "original_tags": ["网站与应用"],
+      "original_name": "分析商品宣传视频（千问 AI 耳机），产出分析报告",
+      "original_tags": ["做网站 & 应用"],
       "book_category": "电商、闪购与直播运营",
       "source_ref": "R11",
       "external_record_id": null,
@@ -163,8 +163,8 @@
     },
     {
       "case_id": "case-livestream-clip-analysis",
-      "original_name": "分析直播切片并拆解头部主播带货增长模型",
-      "original_tags": ["网站与应用"],
+      "original_name": "分析拆解直播切片（头部主播带货增长模型）",
+      "original_tags": ["做网站 & 应用"],
       "book_category": "电商、闪购与直播运营",
       "source_ref": "R11",
       "external_record_id": null,
@@ -179,8 +179,8 @@
     },
     {
       "case_id": "case-creator-matrix-dashboard",
-      "original_name": "搭建达人矩阵管理数据看板",
-      "original_tags": ["网站与应用", "数据分析", "信息调研", "看板搭建"],
+      "original_name": "搭建数据看板（达人矩阵管理）",
+      "original_tags": ["做网站 & 应用", "数据分析", "信息调研", "看板搭建"],
       "book_category": "电商、闪购与直播运营",
       "source_ref": "R11",
       "external_record_id": null,
@@ -195,8 +195,8 @@
     },
     {
       "case_id": "case-ecommerce-product-images",
-      "original_name": "批量生成电商上新商品图片",
-      "original_tags": ["店铺运营", "多媒体素材"],
+      "original_name": "生成批量商品图片（电商上新素材）",
+      "original_tags": ["店铺运营", "做多媒体素材"],
       "book_category": "电商、闪购与直播运营",
       "source_ref": "R11",
       "external_record_id": null,
@@ -211,7 +211,7 @@
     },
     {
       "case_id": "case-instant-retail-product-listing",
-      "original_name": "用浏览器自动化完成闪购商品上下架",
+      "original_name": "浏览器自动化完成商品上下架（闪购商家自动化更新商品）",
       "original_tags": ["店铺运营"],
       "book_category": "电商、闪购与直播运营",
       "source_ref": "R11",
@@ -227,7 +227,7 @@
     },
     {
       "case_id": "case-instant-retail-campaign-costing",
-      "original_name": "按平台规则制作闪购活动策划并测算优惠成本",
+      "original_name": "基于规则制作活动策划（闪购商家拆解平台活动测算优惠成本）",
       "original_tags": ["店铺运营"],
       "book_category": "电商、闪购与直播运营",
       "source_ref": "R11",
@@ -243,7 +243,7 @@
     },
     {
       "case_id": "case-food-delivery-product-page",
-      "original_name": "设计外卖商品页面以提升吸引力与下单转化",
+      "original_name": "设计外卖商品页面（闪购商家提升页面吸引力与下单转化）",
       "original_tags": ["店铺运营"],
       "book_category": "电商、闪购与直播运营",
       "source_ref": "R11",
@@ -259,8 +259,8 @@
     },
     {
       "case_id": "case-flower-shop-homepage",
-      "original_name": "生成花店商家宣传官网首页",
-      "original_tags": ["多媒体素材"],
+      "original_name": "生成商家宣传官网首页（花店）",
+      "original_tags": ["做多媒体素材"],
       "book_category": "网站、营销与内容生产",
       "source_ref": "R11",
       "external_record_id": null,
@@ -275,8 +275,8 @@
     },
     {
       "case_id": "case-homestay-product-page",
-      "original_name": "搭建临海民宿产品介绍网页",
-      "original_tags": ["网站与应用", "多媒体素材"],
+      "original_name": "搭建产品介绍网页（临海民宿）",
+      "original_tags": ["做网站 & 应用", "做多媒体素材"],
       "book_category": "网站、营销与内容生产",
       "source_ref": "R11",
       "external_record_id": null,
@@ -291,8 +291,8 @@
     },
     {
       "case_id": "case-technology-company-homepage",
-      "original_name": "搭建科技公司动态官网首页",
-      "original_tags": ["网站与应用", "多媒体素材"],
+      "original_name": "搭建动态官网首页（科技公司）",
+      "original_tags": ["做网站 & 应用", "做多媒体素材"],
       "book_category": "网站、营销与内容生产",
       "source_ref": "R11",
       "external_record_id": null,
@@ -340,7 +340,7 @@
     {
       "case_id": "case-multi-platform-marketing-assets",
       "original_name": "批量生成多平台营销素材",
-      "original_tags": ["活动策划", "多媒体素材"],
+      "original_tags": ["活动策划", "做多媒体素材"],
       "book_category": "网站、营销与内容生产",
       "source_ref": "R11",
       "external_record_id": null,
@@ -356,7 +356,7 @@
     {
       "case_id": "case-resume-website",
       "original_name": "搭建求职简历网页",
-      "original_tags": ["网站与应用"],
+      "original_tags": ["做网站 & 应用"],
       "book_category": "网站、营销与内容生产",
       "source_ref": "R11",
       "external_record_id": null,
@@ -371,8 +371,8 @@
     },
     {
       "case_id": "case-aircraft-engine-learning-site",
-      "original_name": "搭建飞机发动机教学网站",
-      "original_tags": ["网站与应用", "多媒体素材"],
+      "original_name": "搭建教学网站（飞机发动机）",
+      "original_tags": ["做网站 & 应用", "做多媒体素材"],
       "book_category": "教育与个人发展",
       "source_ref": "R11",
       "external_record_id": null,
@@ -387,8 +387,8 @@
     },
     {
       "case_id": "case-classroom-materials",
-      "original_name": "设计课堂 PPT、教案和配套作业",
-      "original_tags": ["Word/Excel/PPT", "教育", "备课"],
+      "original_name": "设计课堂 PPT 等教学资料（老师为备课，制定课程大纲，并高效批量生成教案、课件及配套作业）",
+      "original_tags": ["生成 word/excel/ppt", "教育", "备课"],
       "book_category": "教育与个人发展",
       "source_ref": "R11",
       "external_record_id": null,
@@ -403,7 +403,7 @@
     },
     {
       "case_id": "case-student-learning-analysis",
-      "original_name": "生成学情分析报告并支持定制辅导",
+      "original_name": "生成学情分析报告（老师结合学情分析提供定制化辅导）",
       "original_tags": ["教育"],
       "book_category": "教育与个人发展",
       "source_ref": "R11",
@@ -419,8 +419,8 @@
     },
     {
       "case_id": "case-enrollment-page",
-      "original_name": "搭建招生宣传网页",
-      "original_tags": ["网站与应用", "教育"],
+      "original_name": "搭建招生宣传网页（老师优化招生宣传转化）",
+      "original_tags": ["做网站 & 应用", "教育"],
       "book_category": "教育与个人发展",
       "source_ref": "R11",
       "external_record_id": null,
@@ -435,7 +435,7 @@
     },
     {
       "case_id": "case-english-exam-plan",
-      "original_name": "整理中考英语百日备考方案",
+      "original_name": "整理备考方案（学生整理中考英语百日备考计划）",
       "original_tags": ["教育"],
       "book_category": "教育与个人发展",
       "source_ref": "R11",
@@ -467,7 +467,7 @@
     },
     {
       "case_id": "case-dingtalk-document-to-todo",
-      "original_name": "调动钉钉完成从文档归纳到待办创建的系列任务",
+      "original_name": "调动钉钉完成系列任务（从文档归纳到待办创建）",
       "original_tags": ["钉钉集成"],
       "book_category": "组织协同与人才管理",
       "source_ref": "R11",
@@ -483,7 +483,7 @@
     },
     {
       "case_id": "case-talent-pipeline-plan",
-      "original_name": "生成人才梯队发展规划",
+      "original_name": "生成人才梯队发展规划（人才盘点）",
       "original_tags": ["看板搭建", "人才培养"],
       "book_category": "组织协同与人才管理",
       "source_ref": "R11",

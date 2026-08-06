@@ -280,8 +280,14 @@ async function runCli() {
       contentRoots: evidenceContentRoots.map((path) => resolve(path)),
       executiveSummaryPath: resolve("docs/bluebook/executive-summary.md"),
       sourcesPath: resolve("docs/bluebook/appendices/sources.md"),
-      publicCaseCountPaths: [],
-      publicCaseMembershipPath: null,
+      publicCaseCountPaths: [
+        resolve("docs/bluebook/part-3/09-public-case-atlas.md"),
+        resolve("docs/cases/index.md"),
+        resolve("docs/cases/submissions/qwenwork-public-case-atlas.md"),
+      ],
+      publicCaseMembershipPath: resolve(
+        "docs/bluebook/part-3/09-public-case-atlas.md",
+      ),
       today: new Date().toISOString().slice(0, 10),
     })),
   ];
