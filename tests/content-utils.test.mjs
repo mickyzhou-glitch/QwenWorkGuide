@@ -1,6 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { resolveConfig } from "vitepress";
@@ -8,14 +10,23 @@ import { resolveConfig } from "vitepress";
 import validCaseMap from "./fixtures/evidence/case-map-valid-32.mjs";
 
 import {
+  BLUEBOOK_V2_NEXT_CHAIN,
+  BLUEBOOK_V2_PATHS,
+  BLUEBOOK_V2_SIDEBAR_GROUPS,
   containsSensitivePattern,
   extractClaimMarkers,
+  findAuthorMarkers,
+  flattenBluebookSidebar,
+  LEGACY_PAGE_MAP,
   normalizeSourceUrl,
   parseFrontmatter,
   REQUIRED_CASE_SECTIONS,
+  validateBluebookNextChain,
+  validateBluebookStructure,
   validateCaseBody,
   validateCaseSourceMap,
   validateClaimReferences,
+  validateCompatibilityPage,
   validateEvidenceLedger,
   validatePageMeta,
   validatePublicCaseCountReferences,
@@ -23,9 +34,323 @@ import {
   validateSourceCatalog,
   validateSourceReferences,
 } from "../scripts/content-utils.mjs";
+import { validateContentRoots } from "../scripts/validate-content.mjs";
 
 const fixturesDirectory = new URL("./fixtures/", import.meta.url);
 const evidenceFixtures = new URL("./fixtures/evidence/", import.meta.url);
+const docsRoot = fileURLToPath(new URL("../docs", import.meta.url));
+
+const EXPECTED_LEGACY_PAGE_MAP = [
+  [
+    "docs/bluebook/part-1/01-from-answer-to-delivery.md",
+    "/bluebook/part-1/01-delivery-standard",
+  ],
+  [
+    "docs/bluebook/part-1/02-three-surfaces.md",
+    "/bluebook/part-2/03-work-environment-architecture",
+  ],
+  [
+    "docs/bluebook/part-1/03-capability-architecture.md",
+    "/bluebook/part-2/03-work-environment-architecture",
+  ],
+  [
+    "docs/bluebook/part-2/04-first-task.md",
+    "/bluebook/part-1/02-task-delivery-protocol",
+  ],
+  [
+    "docs/bluebook/part-2/05-skills-connectors-experts.md",
+    "/bluebook/part-2/04-skills-connectors-expert-kits",
+  ],
+  [
+    "docs/bluebook/part-2/06-automation.md",
+    "/bluebook/part-2/05-automation-boundaries",
+  ],
+  [
+    "docs/bluebook/part-2/13-task-delivery-protocol.md",
+    "/bluebook/part-1/02-task-delivery-protocol",
+  ],
+  [
+    "docs/bluebook/part-3/07-office-delivery.md",
+    "/bluebook/part-3/06-office-delivery",
+  ],
+  [
+    "docs/bluebook/part-3/08-role-roadmaps.md",
+    "/bluebook/part-3/07-role-roadmaps",
+  ],
+  [
+    "docs/bluebook/part-3/14-research-evidence-chain.md",
+    "/bluebook/part-3/08-research-evidence-chain",
+  ],
+  [
+    "docs/bluebook/part-3/17-public-case-atlas.md",
+    "/bluebook/part-3/09-public-case-atlas",
+  ],
+  [
+    "docs/bluebook/part-4/09-organization-rollout.md",
+    "/bluebook/part-4/10-pilot-roadmap",
+  ],
+  [
+    "docs/bluebook/part-4/10-security-governance.md",
+    "/bluebook/part-4/11-security-governance",
+  ],
+  [
+    "docs/bluebook/part-4/11-value-measurement.md",
+    "/bluebook/part-4/13-value-measurement",
+  ],
+  [
+    "docs/bluebook/part-4/12-product-ecosystem.md",
+    "/bluebook/conclusion-product-ecosystem",
+  ],
+  [
+    "docs/bluebook/part-4/15-team-workflow-operations.md",
+    "/bluebook/part-4/12-workflow-operations",
+  ],
+  [
+    "docs/bluebook/part-4/16-value-measurement-playbook.md",
+    "/bluebook/part-4/13-value-measurement",
+  ],
+];
+
+const EXPECTED_BLUEBOOK_V2_NEXT_CHAIN = [
+  [
+    "docs/bluebook/executive-summary.md",
+    "/bluebook/part-1/01-delivery-standard",
+  ],
+  [
+    "docs/bluebook/part-1/01-delivery-standard.md",
+    "/bluebook/part-1/02-task-delivery-protocol",
+  ],
+  [
+    "docs/bluebook/part-1/02-task-delivery-protocol.md",
+    "/bluebook/part-2/03-work-environment-architecture",
+  ],
+  [
+    "docs/bluebook/part-2/03-work-environment-architecture.md",
+    "/bluebook/part-2/04-skills-connectors-expert-kits",
+  ],
+  [
+    "docs/bluebook/part-2/04-skills-connectors-expert-kits.md",
+    "/bluebook/part-2/05-automation-boundaries",
+  ],
+  [
+    "docs/bluebook/part-2/05-automation-boundaries.md",
+    "/bluebook/part-3/06-office-delivery",
+  ],
+  [
+    "docs/bluebook/part-3/06-office-delivery.md",
+    "/bluebook/part-3/07-role-roadmaps",
+  ],
+  [
+    "docs/bluebook/part-3/07-role-roadmaps.md",
+    "/bluebook/part-3/08-research-evidence-chain",
+  ],
+  [
+    "docs/bluebook/part-3/08-research-evidence-chain.md",
+    "/bluebook/part-3/09-public-case-atlas",
+  ],
+  [
+    "docs/bluebook/part-3/09-public-case-atlas.md",
+    "/bluebook/part-4/10-pilot-roadmap",
+  ],
+  [
+    "docs/bluebook/part-4/10-pilot-roadmap.md",
+    "/bluebook/part-4/11-security-governance",
+  ],
+  [
+    "docs/bluebook/part-4/11-security-governance.md",
+    "/bluebook/part-4/12-workflow-operations",
+  ],
+  [
+    "docs/bluebook/part-4/12-workflow-operations.md",
+    "/bluebook/part-4/13-value-measurement",
+  ],
+  [
+    "docs/bluebook/part-4/13-value-measurement.md",
+    "/bluebook/conclusion-product-ecosystem",
+  ],
+  [
+    "docs/bluebook/conclusion-product-ecosystem.md",
+    "/bluebook/#附录",
+  ],
+];
+
+const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
+  {
+    text: "序章",
+    items: [
+      {
+        text: "企业 AI 从功能竞赛走向工作流竞赛",
+        link: "/bluebook/executive-summary",
+      },
+    ],
+  },
+  {
+    text: "第一篇：完成一次交付",
+    items: [
+      {
+        text: "第 1 章 交付新标准",
+        link: "/bluebook/part-1/01-delivery-standard",
+      },
+      {
+        text: "第 2 章 任务拆解与验收",
+        link: "/bluebook/part-1/02-task-delivery-protocol",
+      },
+    ],
+  },
+  {
+    text: "第二篇：沉淀一条工作流",
+    items: [
+      {
+        text: "第 3 章 工作环境与能力架构",
+        link: "/bluebook/part-2/03-work-environment-architecture",
+      },
+      {
+        text: "第 4 章 Skill、连接器与专家套件",
+        link: "/bluebook/part-2/04-skills-connectors-expert-kits",
+      },
+      {
+        text: "第 5 章 自动化及其边界",
+        link: "/bluebook/part-2/05-automation-boundaries",
+      },
+    ],
+  },
+  {
+    text: "第三篇：应用于专业场景",
+    items: [
+      {
+        text: "第 6 章 办公交付",
+        link: "/bluebook/part-3/06-office-delivery",
+      },
+      {
+        text: "第 7 章 岗位路线",
+        link: "/bluebook/part-3/07-role-roadmaps",
+      },
+      {
+        text: "第 8 章 研究与证据链",
+        link: "/bluebook/part-3/08-research-evidence-chain",
+      },
+      {
+        text: "第 9 章 公开案例图谱",
+        link: "/bluebook/part-3/09-public-case-atlas",
+      },
+    ],
+  },
+  {
+    text: "第四篇：扩展为组织能力",
+    items: [
+      {
+        text: "第 10 章 场景选择与试点",
+        link: "/bluebook/part-4/10-pilot-roadmap",
+      },
+      {
+        text: "第 11 章 安全、权限与责任",
+        link: "/bluebook/part-4/11-security-governance",
+      },
+      {
+        text: "第 12 章 团队工作流运营",
+        link: "/bluebook/part-4/12-workflow-operations",
+      },
+      {
+        text: "第 13 章 价值度量",
+        link: "/bluebook/part-4/13-value-measurement",
+      },
+    ],
+  },
+  {
+    text: "结语",
+    items: [
+      {
+        text: "产品与生态路线建议",
+        link: "/bluebook/conclusion-product-ecosystem",
+      },
+    ],
+  },
+  {
+    text: "附录",
+    items: [
+      {
+        text: "常用指令模板",
+        link: "/bluebook/appendices/prompt-templates",
+      },
+      {
+        text: "场景速查与评分表",
+        link: "/bluebook/appendices/scenario-index",
+      },
+      {
+        text: "组织上线验收清单",
+        link: "/bluebook/appendices/launch-checklist",
+      },
+      {
+        text: "主张证据台账",
+        link: "/bluebook/appendices/evidence-ledger",
+      },
+      {
+        text: "案例来源映射",
+        link: "/bluebook/appendices/case-source-map",
+      },
+      {
+        text: "来源与延伸阅读",
+        link: "/bluebook/appendices/sources",
+      },
+    ],
+  },
+];
+
+function bluebookPathToUrl(path) {
+  return `/${path.slice("docs/".length, -".md".length)}`;
+}
+
+function canonicalTestPage(path) {
+  const next = EXPECTED_BLUEBOOK_V2_NEXT_CHAIN.find(
+    ([sourcePath]) => sourcePath === path,
+  )?.[1];
+  const nextSection = next
+    ? `\n## 边界与下一步\n\n[继续阅读](${next})\n`
+    : "";
+  return `---
+title: ${path}
+description: V2 规范页面
+status: community-practice
+verifiedAt: 2026-08-01
+sources: []
+---
+
+# V2 规范页面
+${nextSection}`;
+}
+
+async function validBluebookDocuments() {
+  const compatibilityFixture = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const fixtureCanonical = "/bluebook/part-1/01-delivery-standard";
+  const documents = new Map(
+    BLUEBOOK_V2_PATHS.map((path) => [path, canonicalTestPage(path)]),
+  );
+  documents.set(
+    "docs/bluebook/index.md",
+    `---
+title: 蓝皮书
+description: V2 蓝皮书首页
+status: community-practice
+verifiedAt: 2026-08-01
+sources: []
+---
+
+# 蓝皮书
+
+## 附录
+`,
+  );
+  for (const [path, canonical] of LEGACY_PAGE_MAP) {
+    documents.set(
+      path,
+      compatibilityFixture.replaceAll(fixtureCanonical, canonical),
+    );
+  }
+  return documents;
+}
 
 async function readJsonFixture(name) {
   return JSON.parse(await readFile(new URL(name, evidenceFixtures), "utf8"));
@@ -821,5 +1146,404 @@ test("validatePublicCaseMembership requires the exact published case set", () =>
       `${valid}\n<span data-public-case-id="bad"></span>`,
       caseMap,
     ).some((error) => error.includes("非标准")),
+  );
+});
+
+test("CompatibilityPage accepts canonical migration metadata and one link", async () => {
+  const source = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+
+  assert.deepEqual(
+    validateCompatibilityPage(
+      source,
+      "/bluebook/part-1/01-delivery-standard",
+    ),
+    [],
+  );
+});
+
+test("CompatibilityPage rejects search exposure and copied body text", async () => {
+  const source = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const searchable = source.replace("search: false", "search: true");
+  assert.ok(
+    validateCompatibilityPage(
+      searchable,
+      "/bluebook/part-1/01-delivery-standard",
+    ).some((error) => error.includes("search")),
+  );
+
+  const copied = source.replace(
+    "[前往规范页面]",
+    `${"这是一段复制的旧正文。".repeat(61)}\n\n[前往规范页面]`,
+  );
+  assert.ok(
+    validateCompatibilityPage(
+      copied,
+      "/bluebook/part-1/01-delivery-standard",
+    ).some((error) => /过长|复制旧正文/.test(error)),
+  );
+});
+
+test("CompatibilityPage requires complete page metadata", async () => {
+  const source = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const missingTitle = source.replace("title: 旧章节已迁移\n", "");
+
+  assert.ok(
+    validateCompatibilityPage(
+      missingTitle,
+      "/bluebook/part-1/01-delivery-standard",
+    ).some((error) => error.includes("title")),
+  );
+
+  const missingSources = source.replace(
+    "sources:\n  - https://qwenwork.cn/docs/product-introduction\n",
+    "",
+  );
+  assert.ok(
+    validateCompatibilityPage(
+      missingSources,
+      "/bluebook/part-1/01-delivery-standard",
+    ).some((error) => error.includes("sources")),
+  );
+});
+
+test("CompatibilityPage rejects fenced copies of old body content", async () => {
+  const source = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const copied = `${source}
+\`\`\`text
+${"复制的旧正文。".repeat(61)}
+\`\`\`
+`;
+
+  assert.ok(validateCompatibilityPage(copied, "/bluebook/part-1/01-delivery-standard").length > 0);
+});
+
+test("BluebookStructure reports missing canonical and compatibility pages", async () => {
+  const documents = await validBluebookDocuments();
+  const missingCanonical = BLUEBOOK_V2_PATHS[0];
+  const missingCompatibility = LEGACY_PAGE_MAP.keys().next().value;
+  documents.delete(missingCanonical);
+  documents.delete(missingCompatibility);
+
+  const errors = validateBluebookStructure(documents);
+  assert.ok(errors.some((error) => error.includes(missingCanonical)));
+  assert.ok(errors.some((error) => error.includes(missingCompatibility)));
+});
+
+test("BluebookStructure requires sources metadata on canonical pages", async () => {
+  const documents = await validBluebookDocuments();
+  const path = BLUEBOOK_V2_PATHS[0];
+  documents.set(path, documents.get(path).replace("sources: []\n", ""));
+
+  assert.ok(
+    validateBluebookStructure(documents).some(
+      (error) => error.includes(path) && error.includes("sources"),
+    ),
+  );
+});
+
+test("BluebookStructure rejects compatibility-only suppression on canonical pages", async () => {
+  const path = BLUEBOOK_V2_PATHS[0];
+  const forbiddenMetadata = [
+    ["robots", "robots: noindex,follow"],
+    ["search", "search: false"],
+    ["prev", "prev: false"],
+    ["next", "next: false"],
+  ];
+
+  for (const [key, field] of forbiddenMetadata) {
+    const documents = await validBluebookDocuments();
+    documents.set(
+      path,
+      documents.get(path).replace("sources: []\n", `sources: []\n${field}\n`),
+    );
+    const errors = validateBluebookStructure(documents);
+    assert.ok(
+      errors.some((error) => error.includes(path) && error.includes(key)),
+      key,
+    );
+  }
+});
+
+test("Legacy page map has exactly the 17 compatibility routes", () => {
+  assert.equal(LEGACY_PAGE_MAP.size, 17);
+  assert.deepEqual([...LEGACY_PAGE_MAP], EXPECTED_LEGACY_PAGE_MAP);
+});
+
+test("V2 sidebar has exactly 21 canonical items in path order", () => {
+  const items = flattenBluebookSidebar(BLUEBOOK_V2_SIDEBAR_GROUPS);
+  const expectedLinks = BLUEBOOK_V2_PATHS.map(bluebookPathToUrl);
+  const legacyLinks = new Set([...LEGACY_PAGE_MAP.keys()].map(bluebookPathToUrl));
+
+  assert.equal(BLUEBOOK_V2_PATHS.length, 21);
+  assert.deepEqual(
+    BLUEBOOK_V2_SIDEBAR_GROUPS,
+    EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS,
+  );
+  assert.equal(items.length, 21);
+  assert.deepEqual(
+    items.map((item) => item.link),
+    expectedLinks,
+  );
+  assert.equal(items.some((item) => legacyLinks.has(item.link)), false);
+});
+
+test("production VitePress config uses the canonical V2 sidebar dependency", async () => {
+  const config = await resolveConfig(docsRoot, "build", "production");
+
+  assert.deepEqual(
+    config.site.themeConfig.sidebar["/bluebook/"],
+    BLUEBOOK_V2_SIDEBAR_GROUPS,
+  );
+  assert.ok(
+    config.configDeps.some((path) =>
+      path.endsWith("/scripts/content-utils.mjs"),
+    ),
+  );
+});
+
+test("production VitePress config adds canonical and robots page head tags", async () => {
+  const config = await resolveConfig(docsRoot, "build", "production");
+  const pageData = {
+    frontmatter: {
+      canonical: "/bluebook/part-1/01-delivery-standard",
+      robots: "noindex,follow",
+      head: [["meta", { name: "existing", content: "kept" }]],
+    },
+  };
+
+  await config.transformPageData(pageData);
+
+  assert.deepEqual(pageData.frontmatter.head, [
+    ["meta", { name: "existing", content: "kept" }],
+    [
+      "link",
+      {
+        rel: "canonical",
+        href: "https://qwenworkguide.pages.dev/bluebook/part-1/01-delivery-standard",
+      },
+    ],
+    ["meta", { name: "robots", content: "noindex,follow" }],
+  ]);
+});
+
+test("V2 next chain validates the exact 15-link sequence", async () => {
+  const documents = await validBluebookDocuments();
+  assert.deepEqual(
+    BLUEBOOK_V2_NEXT_CHAIN,
+    EXPECTED_BLUEBOOK_V2_NEXT_CHAIN,
+  );
+  assert.deepEqual(validateBluebookNextChain(documents), []);
+
+  const [sourcePath, expected] = EXPECTED_BLUEBOOK_V2_NEXT_CHAIN[0];
+  documents.set(
+    sourcePath,
+    documents.get(sourcePath).replace(`](${expected})`, "](/bluebook/broken)"),
+  );
+  assert.ok(
+    validateBluebookNextChain(documents).some((error) =>
+      error.includes(sourcePath),
+    ),
+  );
+});
+
+test("V2 next chain requires the appendix anchor on the bluebook home", async () => {
+  const documents = await validBluebookDocuments();
+  documents.set(
+    "docs/bluebook/index.md",
+    documents.get("docs/bluebook/index.md").replace("## 附录", "## 资料"),
+  );
+
+  assert.ok(
+    validateBluebookNextChain(documents).some((error) =>
+      error.includes("/bluebook/#附录"),
+    ),
+  );
+});
+
+test("V2 next chain requires a level-two appendix heading", async () => {
+  const documents = await validBluebookDocuments();
+  documents.set(
+    "docs/bluebook/index.md",
+    documents.get("docs/bluebook/index.md").replace("## 附录", "### 附录"),
+  );
+
+  assert.ok(
+    validateBluebookNextChain(documents).some((error) =>
+      error.includes("/bluebook/#附录"),
+    ),
+  );
+});
+
+test("V2 next chain rejects duplicate boundary sections", async () => {
+  const documents = await validBluebookDocuments();
+  const [sourcePath] = EXPECTED_BLUEBOOK_V2_NEXT_CHAIN[0];
+  documents.set(
+    sourcePath,
+    `${documents.get(sourcePath)}
+## 边界与下一步
+
+[错误入口](/bluebook/broken)
+`,
+  );
+
+  assert.ok(
+    validateBluebookNextChain(documents).some((error) =>
+      error.includes(sourcePath),
+    ),
+  );
+});
+
+test("BluebookStructure explicitly includes V2 next-chain failures", async () => {
+  const documents = await validBluebookDocuments();
+  const [sourcePath, expected] = EXPECTED_BLUEBOOK_V2_NEXT_CHAIN[0];
+  documents.set(
+    sourcePath,
+    documents.get(sourcePath).replace(`](${expected})`, "](/bluebook/broken)"),
+  );
+
+  assert.ok(
+    validateBluebookStructure(documents).some((error) =>
+      error.includes(sourcePath),
+    ),
+  );
+});
+
+test("AuthorMarkers ignores explicit reader template code blocks", () => {
+  const source = `---
+title: 读者模板
+---
+
+\`\`\`text
+【目标】______
+\`\`\`
+`;
+
+  assert.deepEqual(findAuthorMarkers(source), []);
+});
+
+test("AuthorMarkers finds author residue outside code blocks", () => {
+  const markers = [
+    ["TO", "DO"].join(""),
+    ["FIX", "ME"].join(""),
+    ["T", "BD"].join(""),
+    ["X", "XX"].join(""),
+    ["待", "定"].join(""),
+    ["待", "补"].join(""),
+    ["待", "完善"].join(""),
+  ];
+
+  for (const marker of markers) {
+    const source = `---\ntitle: 检查页\n---\n\n${marker}: 作者备注\n`;
+    const matches = findAuthorMarkers(source);
+    assert.equal(matches.length, 1, marker);
+    assert.equal(matches[0].marker, marker);
+    assert.equal(Number.isInteger(matches[0].index), true);
+  }
+});
+
+test("AuthorMarkers finds author residue inside code blocks", () => {
+  const marker = ["TO", "DO"].join("");
+  const source = `---
+title: 代码检查页
+---
+
+\`\`\`text
+${marker}: 作者备注
+\`\`\`
+`;
+
+  assert.deepEqual(findAuthorMarkers(source), [
+    { marker, index: source.indexOf(marker) },
+  ]);
+});
+
+test("AuthorMarkers ignores lowercase terms and embedded Chinese prose", () => {
+  const lowercaseTerm = ["to", "do"].join("");
+  const embeddedTerm = `${["待", "补"].join("")}证`;
+  const source = `---
+title: 正常叙述
+---
+
+字段值为 ${lowercaseTerm}，该案例仍需${embeddedTerm}后发布。
+`;
+
+  assert.deepEqual(findAuthorMarkers(source), []);
+});
+
+test("AuthorMarkers are enforced by formal content validation", async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), "qwg-author-markers-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const marker = ["TO", "DO"].join("");
+  await writeFile(
+    join(directory, "page.md"),
+    `---
+title: 检查页
+description: 检查正式内容校验
+status: community-practice
+verifiedAt: 2026-08-01
+sources: []
+---
+
+# 检查页
+
+${marker}: 作者备注
+`,
+    "utf8",
+  );
+
+  const errors = await validateContentRoots([directory]);
+  assert.ok(
+    errors.some(
+      (error) => error.includes(marker) && error.includes("作者遗留标记"),
+    ),
+  );
+});
+
+test("validateContentRoots finds bluebook under docs and ignores docs/superpowers", async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), "qwg-docs-root-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const documents = await validBluebookDocuments();
+
+  for (const [path, source] of documents) {
+    const target = join(directory, path);
+    await mkdir(dirname(target), { recursive: true });
+    await writeFile(target, source, "utf8");
+  }
+  const ignoredPage = join(directory, "docs/superpowers/ignored.md");
+  await mkdir(dirname(ignoredPage), { recursive: true });
+  await writeFile(ignoredPage, "# intentionally invalid\n", "utf8");
+
+  assert.deepEqual(await validateContentRoots([join(directory, "docs")]), []);
+
+  const missingCanonical = BLUEBOOK_V2_PATHS[0];
+  await rm(join(directory, missingCanonical));
+  const errors = await validateContentRoots([join(directory, "docs")]);
+  assert.ok(errors.some((error) => error.includes(missingCanonical)));
+  assert.equal(errors.some((error) => error.includes("superpowers")), false);
+});
+
+test("validateContentRoots rejects an empty bluebook discovered under docs", async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), "qwg-empty-bluebook-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  await mkdir(join(directory, "docs/bluebook"), { recursive: true });
+
+  const errors = await validateContentRoots([join(directory, "docs")]);
+  assert.ok(errors.some((error) => error.includes(BLUEBOOK_V2_PATHS[0])));
+  assert.ok(
+    errors.some((error) =>
+      error.includes(EXPECTED_LEGACY_PAGE_MAP[0][0]),
+    ),
   );
 });

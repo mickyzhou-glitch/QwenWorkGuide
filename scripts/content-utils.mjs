@@ -36,6 +36,238 @@ export const VERIFICATION_STATUSES = new Set([
   "stale",
 ]);
 
+export const BLUEBOOK_V2_PATHS = [
+  "docs/bluebook/executive-summary.md",
+  "docs/bluebook/part-1/01-delivery-standard.md",
+  "docs/bluebook/part-1/02-task-delivery-protocol.md",
+  "docs/bluebook/part-2/03-work-environment-architecture.md",
+  "docs/bluebook/part-2/04-skills-connectors-expert-kits.md",
+  "docs/bluebook/part-2/05-automation-boundaries.md",
+  "docs/bluebook/part-3/06-office-delivery.md",
+  "docs/bluebook/part-3/07-role-roadmaps.md",
+  "docs/bluebook/part-3/08-research-evidence-chain.md",
+  "docs/bluebook/part-3/09-public-case-atlas.md",
+  "docs/bluebook/part-4/10-pilot-roadmap.md",
+  "docs/bluebook/part-4/11-security-governance.md",
+  "docs/bluebook/part-4/12-workflow-operations.md",
+  "docs/bluebook/part-4/13-value-measurement.md",
+  "docs/bluebook/conclusion-product-ecosystem.md",
+  "docs/bluebook/appendices/prompt-templates.md",
+  "docs/bluebook/appendices/scenario-index.md",
+  "docs/bluebook/appendices/launch-checklist.md",
+  "docs/bluebook/appendices/evidence-ledger.md",
+  "docs/bluebook/appendices/case-source-map.md",
+  "docs/bluebook/appendices/sources.md",
+];
+
+export const LEGACY_PAGE_MAP = new Map([
+  [
+    "docs/bluebook/part-1/01-from-answer-to-delivery.md",
+    "/bluebook/part-1/01-delivery-standard",
+  ],
+  [
+    "docs/bluebook/part-1/02-three-surfaces.md",
+    "/bluebook/part-2/03-work-environment-architecture",
+  ],
+  [
+    "docs/bluebook/part-1/03-capability-architecture.md",
+    "/bluebook/part-2/03-work-environment-architecture",
+  ],
+  [
+    "docs/bluebook/part-2/04-first-task.md",
+    "/bluebook/part-1/02-task-delivery-protocol",
+  ],
+  [
+    "docs/bluebook/part-2/05-skills-connectors-experts.md",
+    "/bluebook/part-2/04-skills-connectors-expert-kits",
+  ],
+  [
+    "docs/bluebook/part-2/06-automation.md",
+    "/bluebook/part-2/05-automation-boundaries",
+  ],
+  [
+    "docs/bluebook/part-2/13-task-delivery-protocol.md",
+    "/bluebook/part-1/02-task-delivery-protocol",
+  ],
+  [
+    "docs/bluebook/part-3/07-office-delivery.md",
+    "/bluebook/part-3/06-office-delivery",
+  ],
+  [
+    "docs/bluebook/part-3/08-role-roadmaps.md",
+    "/bluebook/part-3/07-role-roadmaps",
+  ],
+  [
+    "docs/bluebook/part-3/14-research-evidence-chain.md",
+    "/bluebook/part-3/08-research-evidence-chain",
+  ],
+  [
+    "docs/bluebook/part-3/17-public-case-atlas.md",
+    "/bluebook/part-3/09-public-case-atlas",
+  ],
+  [
+    "docs/bluebook/part-4/09-organization-rollout.md",
+    "/bluebook/part-4/10-pilot-roadmap",
+  ],
+  [
+    "docs/bluebook/part-4/10-security-governance.md",
+    "/bluebook/part-4/11-security-governance",
+  ],
+  [
+    "docs/bluebook/part-4/11-value-measurement.md",
+    "/bluebook/part-4/13-value-measurement",
+  ],
+  [
+    "docs/bluebook/part-4/12-product-ecosystem.md",
+    "/bluebook/conclusion-product-ecosystem",
+  ],
+  [
+    "docs/bluebook/part-4/15-team-workflow-operations.md",
+    "/bluebook/part-4/12-workflow-operations",
+  ],
+  [
+    "docs/bluebook/part-4/16-value-measurement-playbook.md",
+    "/bluebook/part-4/13-value-measurement",
+  ],
+]);
+
+export const BLUEBOOK_V2_NEXT_CHAIN = [
+  [
+    "docs/bluebook/executive-summary.md",
+    "/bluebook/part-1/01-delivery-standard",
+  ],
+  [
+    "docs/bluebook/part-1/01-delivery-standard.md",
+    "/bluebook/part-1/02-task-delivery-protocol",
+  ],
+  [
+    "docs/bluebook/part-1/02-task-delivery-protocol.md",
+    "/bluebook/part-2/03-work-environment-architecture",
+  ],
+  [
+    "docs/bluebook/part-2/03-work-environment-architecture.md",
+    "/bluebook/part-2/04-skills-connectors-expert-kits",
+  ],
+  [
+    "docs/bluebook/part-2/04-skills-connectors-expert-kits.md",
+    "/bluebook/part-2/05-automation-boundaries",
+  ],
+  [
+    "docs/bluebook/part-2/05-automation-boundaries.md",
+    "/bluebook/part-3/06-office-delivery",
+  ],
+  [
+    "docs/bluebook/part-3/06-office-delivery.md",
+    "/bluebook/part-3/07-role-roadmaps",
+  ],
+  [
+    "docs/bluebook/part-3/07-role-roadmaps.md",
+    "/bluebook/part-3/08-research-evidence-chain",
+  ],
+  [
+    "docs/bluebook/part-3/08-research-evidence-chain.md",
+    "/bluebook/part-3/09-public-case-atlas",
+  ],
+  [
+    "docs/bluebook/part-3/09-public-case-atlas.md",
+    "/bluebook/part-4/10-pilot-roadmap",
+  ],
+  [
+    "docs/bluebook/part-4/10-pilot-roadmap.md",
+    "/bluebook/part-4/11-security-governance",
+  ],
+  [
+    "docs/bluebook/part-4/11-security-governance.md",
+    "/bluebook/part-4/12-workflow-operations",
+  ],
+  [
+    "docs/bluebook/part-4/12-workflow-operations.md",
+    "/bluebook/part-4/13-value-measurement",
+  ],
+  [
+    "docs/bluebook/part-4/13-value-measurement.md",
+    "/bluebook/conclusion-product-ecosystem",
+  ],
+  [
+    "docs/bluebook/conclusion-product-ecosystem.md",
+    "/bluebook/#附录",
+  ],
+];
+
+function bluebookPathToUrl(path) {
+  return `/${path.slice("docs/".length, -".md".length)}`;
+}
+
+function bluebookSidebarItem(pathIndex, text) {
+  return {
+    text,
+    link: bluebookPathToUrl(BLUEBOOK_V2_PATHS[pathIndex]),
+  };
+}
+
+export const BLUEBOOK_V2_SIDEBAR_GROUPS = [
+  {
+    text: "序章",
+    items: [
+      bluebookSidebarItem(0, "企业 AI 从功能竞赛走向工作流竞赛"),
+    ],
+  },
+  {
+    text: "第一篇：完成一次交付",
+    items: [
+      bluebookSidebarItem(1, "第 1 章 交付新标准"),
+      bluebookSidebarItem(2, "第 2 章 任务拆解与验收"),
+    ],
+  },
+  {
+    text: "第二篇：沉淀一条工作流",
+    items: [
+      bluebookSidebarItem(3, "第 3 章 工作环境与能力架构"),
+      bluebookSidebarItem(4, "第 4 章 Skill、连接器与专家套件"),
+      bluebookSidebarItem(5, "第 5 章 自动化及其边界"),
+    ],
+  },
+  {
+    text: "第三篇：应用于专业场景",
+    items: [
+      bluebookSidebarItem(6, "第 6 章 办公交付"),
+      bluebookSidebarItem(7, "第 7 章 岗位路线"),
+      bluebookSidebarItem(8, "第 8 章 研究与证据链"),
+      bluebookSidebarItem(9, "第 9 章 公开案例图谱"),
+    ],
+  },
+  {
+    text: "第四篇：扩展为组织能力",
+    items: [
+      bluebookSidebarItem(10, "第 10 章 场景选择与试点"),
+      bluebookSidebarItem(11, "第 11 章 安全、权限与责任"),
+      bluebookSidebarItem(12, "第 12 章 团队工作流运营"),
+      bluebookSidebarItem(13, "第 13 章 价值度量"),
+    ],
+  },
+  {
+    text: "结语",
+    items: [bluebookSidebarItem(14, "产品与生态路线建议")],
+  },
+  {
+    text: "附录",
+    items: [
+      bluebookSidebarItem(15, "常用指令模板"),
+      bluebookSidebarItem(16, "场景速查与评分表"),
+      bluebookSidebarItem(17, "组织上线验收清单"),
+      bluebookSidebarItem(18, "主张证据台账"),
+      bluebookSidebarItem(19, "案例来源映射"),
+      bluebookSidebarItem(20, "来源与延伸阅读"),
+    ],
+  },
+];
+
+export function flattenBluebookSidebar(groups) {
+  return groups.flatMap((group) =>
+    Array.isArray(group?.items) ? group.items : [],
+  );
+}
+
 const CLAIM_ID_PATTERN = /^claim-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const CASE_ID_PATTERN = /^case-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -170,6 +402,257 @@ export function validatePageMeta(meta) {
   }
 
   return errors;
+}
+
+function validateBluebookPageMeta(meta) {
+  const errors = validatePageMeta(meta);
+  if (!Array.isArray(meta.sources)) {
+    errors.push("缺少 Frontmatter 字段：sources");
+  }
+  return errors;
+}
+
+function validateCanonicalBluebookPageMeta(meta) {
+  const errors = validateBluebookPageMeta(meta);
+  if (
+    typeof meta.robots === "string" &&
+    meta.robots
+      .split(",")
+      .some((directive) => directive.trim().toLowerCase() === "noindex")
+  ) {
+    errors.push("canonical 页面不能设置 robots: noindex");
+  }
+  for (const key of ["search", "prev", "next"]) {
+    if (meta[key] === false) {
+      errors.push(`canonical 页面不能设置 ${key}: false`);
+    }
+  }
+  return errors;
+}
+
+function maskFencedCode(source) {
+  const lines = source.split(/(?<=\n)/);
+  let fence = null;
+  return lines
+    .map((line) => {
+      const opening = line.match(/^ {0,3}(`{3,}|~{3,})/);
+      if (!fence && opening) {
+        fence = { marker: opening[1][0], length: opening[1].length };
+        return line.replace(/[^\r\n]/g, " ");
+      }
+      if (fence) {
+        const closing = line.match(/^ {0,3}(`+|~+)[ \t]*(?:\r?\n)?$/);
+        const masked = line.replace(/[^\r\n]/g, " ");
+        if (
+          closing &&
+          closing[1][0] === fence.marker &&
+          closing[1].length >= fence.length
+        ) {
+          fence = null;
+        }
+        return masked;
+      }
+      return line;
+    })
+    .join("");
+}
+
+function markdownLinks(source) {
+  return [...
+    source.matchAll(
+      /(?<!!)\[[^\]\r\n]+\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/g,
+    ),
+  ].map((match) => ({ target: match[1], index: match.index }));
+}
+
+export function validateCompatibilityPage(source, expectedCanonical) {
+  const errors = [];
+  let parsed;
+  try {
+    parsed = parseFrontmatter(source);
+  } catch (error) {
+    return [error.message];
+  }
+
+  const { attributes, body } = parsed;
+  errors.push(...validateBluebookPageMeta(attributes));
+  if (attributes.canonical !== expectedCanonical) {
+    errors.push(`canonical 必须为 ${expectedCanonical}`);
+  }
+  if (attributes.robots !== "noindex,follow") {
+    errors.push("robots 必须为 noindex,follow");
+  }
+  for (const key of ["search", "prev", "next"]) {
+    if (attributes[key] !== false) {
+      errors.push(`${key} 必须为 false`);
+    }
+  }
+
+  const visibleBody = body;
+  const links = markdownLinks(visibleBody);
+  if (links.length !== 1 || links[0]?.target !== expectedCanonical) {
+    errors.push(`正文必须且只能链接到 ${expectedCanonical}`);
+  }
+  const nonEmptyLines = visibleBody
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (
+    nonEmptyLines.length !== 2 ||
+    !/^#\s+[^#]/.test(nonEmptyLines[0]) ||
+    !/^\[[^\]]+\]\([^)]+\)$/.test(nonEmptyLines[1])
+  ) {
+    errors.push("正文只能包含一个 H1 标题和一个迁移链接");
+  }
+  const prose = visibleBody.replace(/\]\([^)]+\)/g, "]");
+  const wordCount = (
+    prose.match(/[\p{Script=Han}]|[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/gu) ?? []
+  ).length;
+  if (wordCount > 60) {
+    errors.push("兼容页正文过长，疑似复制旧正文");
+  }
+  return errors;
+}
+
+function markdownSection(body, title) {
+  const masked = maskFencedCode(body);
+  const headingPattern = new RegExp(
+    `^##[ \\t]+${title}[ \\t]*(?:#+[ \\t]*)?$`,
+    "gm",
+  );
+  const headings = [...masked.matchAll(headingPattern)];
+  if (headings.length === 0) return null;
+  if (headings.length > 1) return { duplicate: true, source: "" };
+  const [heading] = headings;
+  const sectionStart = heading.index + heading[0].length;
+  const remainder = masked.slice(sectionStart);
+  const nextHeading = /^#{1,2}[ \t]+/m.exec(remainder);
+  return {
+    duplicate: false,
+    source: remainder.slice(0, nextHeading?.index ?? remainder.length),
+  };
+}
+
+export function validateBluebookNextChain(documents) {
+  const errors = [];
+  for (const [path, expected] of BLUEBOOK_V2_NEXT_CHAIN) {
+    const source = documents.get(path);
+    if (typeof source !== "string") {
+      errors.push(`${path}: next 链源文件不存在`);
+      continue;
+    }
+    let body;
+    try {
+      ({ body } = parseFrontmatter(source));
+    } catch (error) {
+      errors.push(`${path}: ${error.message}`);
+      continue;
+    }
+    const section = markdownSection(body, "边界与下一步");
+    if (section === null) {
+      errors.push(`${path}: 缺少“边界与下一步”章节`);
+      continue;
+    }
+    if (section.duplicate) {
+      errors.push(`${path}: “边界与下一步”章节必须且只能存在一个`);
+      continue;
+    }
+    const links = markdownLinks(section.source);
+    if (links.length !== 1) {
+      errors.push(`${path}: “边界与下一步”必须且只能包含一个链接`);
+      continue;
+    }
+    if (links[0].target !== expected) {
+      errors.push(`${path}: 下一步链接必须为 ${expected}`);
+    }
+  }
+
+  const bluebookHome = documents.get("docs/bluebook/index.md");
+  let hasAppendixHeading = false;
+  if (typeof bluebookHome === "string") {
+    try {
+      const { body } = parseFrontmatter(bluebookHome);
+      hasAppendixHeading = /^##[ \t]+附录[ \t]*(?:#+[ \t]*)?$/m.test(
+        maskFencedCode(body),
+      );
+    } catch {
+      hasAppendixHeading = false;
+    }
+  }
+  if (!hasAppendixHeading) {
+    errors.push(
+      "docs/bluebook/index.md: 缺少 /bluebook/#附录 对应的“附录”标题",
+    );
+  }
+  return errors;
+}
+
+export function validateBluebookStructure(documents) {
+  const errors = [];
+  for (const path of BLUEBOOK_V2_PATHS) {
+    const source = documents.get(path);
+    if (typeof source !== "string") {
+      errors.push(`${path}: V2 canonical 页面不存在`);
+      continue;
+    }
+    try {
+      const { attributes } = parseFrontmatter(source);
+      for (const error of validateCanonicalBluebookPageMeta(attributes)) {
+        errors.push(`${path}: ${error}`);
+      }
+    } catch (error) {
+      errors.push(`${path}: ${error.message}`);
+    }
+  }
+  for (const [path, canonical] of LEGACY_PAGE_MAP) {
+    const source = documents.get(path);
+    if (typeof source !== "string") {
+      errors.push(`${path}: 兼容页不存在`);
+      continue;
+    }
+    for (const error of validateCompatibilityPage(source, canonical)) {
+      errors.push(`${path}: ${error}`);
+    }
+  }
+
+  const expectedLinks = BLUEBOOK_V2_PATHS.map(bluebookPathToUrl);
+  const actualLinks = flattenBluebookSidebar(BLUEBOOK_V2_SIDEBAR_GROUPS).map(
+    (item) => item.link,
+  );
+  if (JSON.stringify(actualLinks) !== JSON.stringify(expectedLinks)) {
+    errors.push("蓝皮书侧栏必须与 BLUEBOOK_V2_PATHS 顺序完全一致");
+  }
+  errors.push(...validateBluebookNextChain(documents));
+  return errors;
+}
+
+export function findAuthorMarkers(source) {
+  let body;
+  try {
+    ({ body } = parseFrontmatter(source));
+  } catch {
+    body = source;
+  }
+  const bodyOffset = source.length - body.length;
+  const markers = [
+    ["TO", "DO"].join(""),
+    ["FIX", "ME"].join(""),
+    ["T", "BD"].join(""),
+    ["X", "XX"].join(""),
+    ["待", "定"].join(""),
+    ["待", "补"].join(""),
+    ["待", "完善"].join(""),
+  ];
+  const english = markers.slice(0, 4).join("|");
+  const chinese = markers.slice(4).join("|");
+  const pattern = new RegExp(
+    `\\b(?:${english})\\b|(?<!\\p{Script=Han})(?:${chinese})(?!\\p{Script=Han})`,
+    "gu",
+  );
+  return [...body.matchAll(pattern)].map((match) => ({
+    marker: match[0],
+    index: bodyOffset + match.index,
+  }));
 }
 
 export function validateCaseBody(body) {

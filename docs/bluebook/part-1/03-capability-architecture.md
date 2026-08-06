@@ -1,52 +1,17 @@
 ---
-title: 六层能力架构
-description: 用六层模型定位任务中的能力、上下文和治理问题
-status: verified
-verifiedAt: 2026-07-30
+title: 旧章节已迁移
+description: 此旧章节入口保留用于兼容历史链接
+status: community-practice
+verifiedAt: 2026-08-01
 sources:
   - https://qwenwork.cn/docs/product-introduction
-  - https://qwenwork.cn/docs/features/connectors
-  - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
+canonical: /bluebook/part-2/03-work-environment-architecture
+robots: noindex,follow
+search: false
+prev: false
+next: false
 ---
 
-# 六层能力架构
+# 旧章节已迁移
 
-## 1. 智能基座层
-
-负责理解、推理、规划、长上下文与多模态理解。帮助中心说明平台基于千问系列模型，并支持模型选择；具体列表可能更新。[来源](../appendices/sources#r3)
-
-## 2. 上下文层
-
-对话、附件、本地目录、网盘、应用快照、企业 IM、日历、邮件、知识库与外部系统数据共同构成上下文。其完整、准确和时效会影响结果。
-
-## 3. 工具与连接层
-
-包括浏览器、macOS 应用、Microsoft 365、钉钉和第三方 SaaS，也支持自定义 MCP。官方列出飞书、Notion、Linear、Todoist、Canva、Supabase、Vercel、Slack、Figma、Google 日历等集成；连接器默认关闭，授权后才可访问。[来源](../appendices/sources#r4)
-
-## 4. 产物工作台层
-
-负责 Word、Excel、PPT、设计与网页等产物的生成、预览、修改和交付。
-
-## 5. 复用与自动化层
-
-包括技能、专家套件、记忆/意识、定时任务、IM 频道与 Hooks，用于把一次成功任务固化为可重复流程。
-
-## 6. 治理层
-
-包括授权、操作确认、权限分层、用量控制、审计线索、人工复核与异常回退。
-
-::: info 社区实践
-模型决定“能不能做”，上下文与工具决定“能不能做对”，流程与治理决定“能不能长期稳定地做”。
-:::
-
-## 模型与能力选择：按任务而不是按热度
-
-知识库把模型能力分为文字、图片、视频、语音与音乐等类型。[来源](../appendices/sources#r10) 在真实办公中，应先判断交付物和风险，再选择模型或能力组合：
-
-- **文字与推理任务**：检查事实边界、引用和长文一致性；
-- **图片与视觉任务**：先确定用途、尺寸、品牌规范和版权边界；
-- **视频、语音与音乐任务**：先明确时长、平台、角色授权和素材来源；
-- **数据与 Office 任务**：模型之外还要配置表格处理、文件生成和校验工具；
-- **高风险专业任务**：无论模型多强，都要保留具备相应职责或资质的人审。
-
-选择标准不是“榜单最强”，而是 **任务适配度 × 结果稳定性 × 可验证性 ÷ 时间与资源成本**。
+[前往规范页面](/bluebook/part-2/03-work-environment-architecture)

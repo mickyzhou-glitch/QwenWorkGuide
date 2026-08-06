@@ -64,3 +64,7 @@ sources: []
 [第 12 章：团队工作流运营](/bluebook/part-4/12-workflow-operations)
 
 [第 13 章：价值度量](/bluebook/part-4/13-value-measurement)
+
+## 边界与下一步
+
+[下一章：交付新标准](/bluebook/part-1/01-delivery-standard)

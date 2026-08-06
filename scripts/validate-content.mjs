@@ -1,11 +1,13 @@
 import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
-import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
   containsSensitivePattern,
+  findAuthorMarkers,
   parseFrontmatter,
+  validateBluebookStructure,
   validateCaseSourceMap,
   validateClaimReferences,
   validateEvidenceLedger,
@@ -27,7 +29,42 @@ function displayPath(path) {
   return relative(process.cwd(), path) || path;
 }
 
-async function findMarkdownFiles(directory, failures) {
+function bluebookRootForPath(path) {
+  const absolutePath = resolve(path);
+  const segments = absolutePath.split(sep);
+  for (let index = segments.length - 2; index >= 0; index -= 1) {
+    if (segments[index] !== "docs" || segments[index + 1] !== "bluebook") {
+      continue;
+    }
+    let bluebookRoot = absolutePath;
+    for (
+      let remaining = segments.length - index - 2;
+      remaining > 0;
+      remaining -= 1
+    ) {
+      bluebookRoot = dirname(bluebookRoot);
+    }
+    return bluebookRoot;
+  }
+  return null;
+}
+
+async function findMarkdownFiles(directory, failures, bluebookRoots = new Set()) {
+  const absoluteDirectory = resolve(directory);
+  const segments = absoluteDirectory.split(sep);
+  if (
+    segments.some(
+      (segment, index) =>
+        segment === "docs" && segments[index + 1] === "superpowers",
+    )
+  ) {
+    return [];
+  }
+  const bluebookRoot = bluebookRootForPath(absoluteDirectory);
+  if (bluebookRoot !== null) {
+    bluebookRoots.add(bluebookRoot);
+  }
+
   let entries;
   try {
     entries = await readdir(directory, { withFileTypes: true });
@@ -41,7 +78,7 @@ async function findMarkdownFiles(directory, failures) {
   for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) {
-      files.push(...(await findMarkdownFiles(path, failures)));
+      files.push(...(await findMarkdownFiles(path, failures, bluebookRoots)));
     } else if (entry.isFile() && entry.name.endsWith(".md")) {
       files.push(path);
     }
@@ -50,12 +87,32 @@ async function findMarkdownFiles(directory, failures) {
   return files;
 }
 
+function bluebookDocumentLocation(file) {
+  const bluebookRoot = bluebookRootForPath(file);
+  if (bluebookRoot === null) return null;
+  const relativePath = relative(bluebookRoot, resolve(file));
+  if (
+    relativePath === "" ||
+    relativePath === ".." ||
+    relativePath.startsWith(`..${sep}`) ||
+    isAbsolute(relativePath)
+  ) {
+    return null;
+  }
+  return {
+    root: bluebookRoot,
+    path: `docs/bluebook/${relativePath.split(sep).join("/")}`,
+  };
+}
+
 export async function validateContentRoots(roots) {
   const failures = [];
   const files = [];
+  const bluebookRoots = new Set();
+  const bluebookDocumentsByRoot = new Map();
 
   for (const root of roots) {
-    files.push(...(await findMarkdownFiles(root, failures)));
+    files.push(...(await findMarkdownFiles(root, failures, bluebookRoots)));
   }
 
   for (const file of files.sort()) {
@@ -80,6 +137,28 @@ export async function validateContentRoots(roots) {
     if (containsSensitivePattern(source)) {
       failures.push(`${path}: 检测到疑似密钥或敏感凭证`);
     }
+
+    for (const { marker, index } of findAuthorMarkers(source)) {
+      failures.push(`${path}:${index}: 检测到作者遗留标记 ${marker}`);
+    }
+
+    const bluebookLocation = bluebookDocumentLocation(file);
+    if (bluebookLocation !== null) {
+      if (!bluebookDocumentsByRoot.has(bluebookLocation.root)) {
+        bluebookDocumentsByRoot.set(bluebookLocation.root, new Map());
+      }
+      bluebookDocumentsByRoot
+        .get(bluebookLocation.root)
+        .set(bluebookLocation.path, source);
+    }
+  }
+
+  for (const bluebookRoot of [...bluebookRoots].sort()) {
+    failures.push(
+      ...validateBluebookStructure(
+        bluebookDocumentsByRoot.get(bluebookRoot) ?? new Map(),
+      ),
+    );
   }
 
   return failures;
