@@ -10,7 +10,7 @@ sources: []
 
 > 本页由结构化数据自动生成，请修改 `docs/bluebook/data/evidence-ledger.json`。本文件及其 JSON 源均为公开内容。
 
-已发布主张：23；待核验线索：0。
+已发布主张：29；待核验线索：0。
 
 ## 已发布主张
 
@@ -30,6 +30,40 @@ sources: []
 | 局限 | 不同系统对撤销和恢复的支持不同；无法撤销的动作需要更严格的事前确认和补救计划。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 自动化运行负责人 |
+
+## claim-capacity-separate-01
+
+现金 ROI 与可释放产能必须分开报告；质量和风险也单独报告，只有形成可核验的实际损失或收益时才进入现金口径。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 现金与产能分列规则 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/13-value-measurement.md#claim-capacity-separate-01](/bluebook/part-4/13-value-measurement#claim-capacity-separate-01) |
+| 统计口径 | 同口径任务时长、有效任务量、现金凭证及质量风险记录 |
+| 适用范围 | 企业 AI 试点价值报告、预算复盘和规模化决策 |
+| 局限 | 可释放产能不保证形成支出减少或增量毛利；质量和风险金额只有在实际发生且可核验时才进入现金账。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 财务与价值复核者 |
+
+## claim-cash-roi-formula-01
+
+现金 ROI 只纳入已经实现或有可核验依据的现金收益，并计入从输入准备、人工复核到治理和失败损失的全部增量成本。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 现金 ROI 口径 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/13-value-measurement.md#claim-cash-roi-formula-01](/bluebook/part-4/13-value-measurement#claim-cash-roi-formula-01) |
+| 统计口径 | 已实现现金收益、增量总成本、现金净收益和现金 ROI 的社区规范公式 |
+| 适用范围 | 边界明确且能够取得同口径任务、成本和现金凭证的企业 AI 场景 |
+| 局限 | 该公式是本书的管理决策口径，不是会计准则或估值意见；增量总成本为 0 时不计算现金 ROI。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 财务与价值复核者 |
 
 ## claim-connector-authorization-01
 
@@ -132,6 +166,23 @@ sources: []
 | 局限 | R11 提供案例库入口；对示例产物可支持范围的界定是本书编辑判断。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 案例证据复核者 |
+
+## claim-ecosystem-status-columns-01
+
+产品与生态讨论统一分为已公开能力、已实测组合、基于公开接口的可行推断、待验证路线假设四类，不能把推断或建议写成已经发布的产品能力。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 产品生态状态栏 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/conclusion-product-ecosystem.md#claim-ecosystem-status-columns-01](/bluebook/conclusion-product-ecosystem#claim-ecosystem-status-columns-01) |
+| 统计口径 | 不适用：产品与生态建议的证据状态分类 |
+| 适用范围 | 产品路线讨论、伙伴方案评审和企业架构假设验证 |
+| 局限 | 四类状态是本书的编辑治理方法，不代表官方路线、产品排期或行业通用成熟度等级。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 产品与生态建议复核者 |
 
 ## claim-evidence-card-fields-01
 
@@ -387,6 +438,57 @@ Web、桌面和钉钉应按任务上下文选择，不存在对所有任务默�
 | 局限 | 入口存在和产品能力以当前官方页面及账号实测为准；选择原则是本书建议，不代表官方优先级。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 工作环境架构负责人 |
+
+## claim-usage-not-value-01
+
+DAU、对话数、Token 和产物数只能说明使用，不能单独证明企业 AI 已产生业务价值。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 使用与价值边界 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/13-value-measurement.md#claim-usage-not-value-01](/bluebook/part-4/13-value-measurement#claim-usage-not-value-01) |
+| 统计口径 | 不适用：价值度量的指标解释边界 |
+| 适用范围 | 企业 AI 试点运营看板、价值复盘和扩大决策 |
+| 局限 | 使用指标仍可用于判断采用和负载，但必须与同口径效率、质量、风险和现金证据共同解释。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 价值度量负责人 |
+
+## claim-workflow-card-fields-01
+
+团队工作流卡唯一规范由 Owner（业务负责人）、流程维护者、版本、适用范围、输入输出、权限、测试样本、质量门、变更记录、失败案例、回退方式、运行日志和复盘节奏十三个字段组成。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 团队工作流卡 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/12-workflow-operations.md#claim-workflow-card-fields-01](/bluebook/part-4/12-workflow-operations#claim-workflow-card-fields-01) |
+| 统计口径 | 不适用：团队工作流运营记录规范 |
+| 适用范围 | 进入团队复用范围的 AI 工作流设计、发布、运行、变更和退役 |
+| 局限 | 十三字段是最低运营记录，不替代组织制度、专业标准或每次运行的实际日志。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 工作流运营负责人 |
+
+## claim-workflow-change-gate-01
+
+字段、权限、模型、连接器或接收对象发生变化时，工作流必须停止沿用旧验证结论，按受影响范围重新测试、复核和批准。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | practice-guidance |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.0 工作流变更门 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/part-4/12-workflow-operations.md#claim-workflow-change-gate-01](/bluebook/part-4/12-workflow-operations#claim-workflow-change-gate-01) |
+| 统计口径 | 不适用：版本变化后的重验和批准规则 |
+| 适用范围 | 包含字段、权限、模型、连接器或接收对象的团队工作流 |
+| 局限 | 重验范围可按变更影响缩小，但涉及授权边界的变化仍必须先使旧授权失效并恢复事前确认。 |
+| 核验日期 | 2026-08-01 |
+| 责任角色 | 工作流运营负责人 |
 
 ## claim-workflow-core-01
 
