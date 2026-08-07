@@ -1725,3 +1725,36 @@ test("reader-first navigation contract exposes a clear reader entry path", async
   assert.ok(deliveryStandardIndex >= 0);
   assert.ok(publicCaseIndex < deliveryStandardIndex);
 });
+
+test("reader-first entry pages and manifest lead with basics and cases", async () => {
+  const home = await readFile(join(docsRoot, "index.md"), "utf8");
+  const bluebookIndex = await readFile(
+    join(docsRoot, "bluebook/index.md"),
+    "utf8",
+  );
+  const manifest = JSON.parse(
+    await readFile(
+      join(dirname(docsRoot), "scripts/bluebook-v2-manifest.json"),
+      "utf8",
+    ),
+  );
+
+  assert.match(home, /你今天想把哪件办公工作做完/);
+  assert.match(home, /写一份汇报或周报/);
+  assert.match(home, /整理一次会议/);
+  assert.match(home, /做一张表或分析一批数据/);
+  assert.match(bluebookIndex, /基本介绍/);
+  assert.match(bluebookIndex, /案例与场景图谱/);
+  assert.match(bluebookIndex, /阶段、治理、权限与组织落地/);
+  assert.deepEqual(
+    manifest.items.slice(0, 6).map((item) => item.id),
+    [
+      "executive-summary",
+      "chapter-09",
+      "chapter-06",
+      "chapter-07",
+      "chapter-08",
+      "chapter-01",
+    ],
+  );
+});
