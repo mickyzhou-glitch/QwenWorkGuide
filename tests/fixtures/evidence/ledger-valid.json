@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "claim_id": "claim-workflow-core-01",
+      "claim_type": "community-judgment",
+      "claim_text": "企业采用 AI 时，应把关注点从单次模型问答延伸到可验证、可复用、可治理的业务工作流。",
+      "content_path": "docs/bluebook/executive-summary.md",
+      "content_anchor": "claim-workflow-core-01",
+      "is_key": true,
+      "summary_eligible": true,
+      "blocks_release": true,
+      "source": {
+        "source_type": "community-framework",
+        "source_ref": null,
+        "title": "QwenWorkGuide V2.0 编辑审查",
+        "organization": "QwenWorkGuide 社区",
+        "excerpt": null,
+        "external_record_id": null,
+        "deep_link": null,
+        "snapshot_path": null,
+        "content_hash": null,
+        "published_at": null,
+        "accessed_at": "2026-08-01",
+        "captured_at": null
+      },
+      "customer_evidence": null,
+      "measurement_basis": "不适用：社区判断",
+      "applicability": "企业 AI 试点、复用、治理和价值评估",
+      "limitations": [
+        "这是本书的社区判断，不代表已经得到行业统计证明的普遍事实。"
+      ],
+      "conflicts": [],
+      "verification_status": "editor-reviewed",
+      "last_verified_at": "2026-08-01",
+      "stale_after": null,
+      "reviewer_role": "编辑复核者"
+    }
+  ]
+}

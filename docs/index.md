@@ -21,22 +21,24 @@ hero:
 
 features:
   - title: 使用手册
-    details: 从第一项可验收任务开始，理解 Web、桌面端与钉钉入口。
-    link: /bluebook/part-1/01-from-answer-to-delivery
+    details: 从执行摘要和交付标准开始，完成第一项可验收任务。
+    link: /bluebook/executive-summary
   - title: 真实案例
     details: Word、Excel、PPT、网页、会议与岗位工作流。
-    link: /bluebook/part-3/07-office-delivery
+    link: /bluebook/part-3/06-office-delivery
   - title: 进阶方法
     details: 从任务拆解、交付协议到研究证据链，把一次任务做成可靠闭环。
-    link: /bluebook/part-2/13-task-delivery-protocol
+    link: /bluebook/part-1/02-task-delivery-protocol
   - title: 企业落地
     details: 30/60/90 天路线、安全、工作流运营与可复算的价值度量。
-    link: /bluebook/part-4/15-team-workflow-operations
+    link: /bluebook/part-4/12-workflow-operations
 ---
 
 ::: warning 非官方项目
 本项目由社区独立维护，不代表千问办公或阿里巴巴官方立场。功能、价格、权益和可用范围请以千问办公官方渠道为准。
 :::
+
+下载：[千问办公蓝皮书 V2.0 PDF 本地 RC](/downloads/qwenwork-bluebook-v2.0.pdf)
 
 ## 选择你的阅读入口
 
@@ -49,11 +51,11 @@ features:
     <strong>已有具体任务</strong>
     <span>从办公交付、场景速查和岗位路线进入。</span>
   </a>
-  <a class="qwg-reading-path" href="./bluebook/part-4/09-organization-rollout">
+  <a class="qwg-reading-path" href="./bluebook/part-4/10-pilot-roadmap">
     <strong>准备团队落地</strong>
     <span>重点阅读组织落地、安全治理与上线验收。</span>
   </a>
-  <a class="qwg-reading-path" href="./bluebook/part-2/13-task-delivery-protocol">
+  <a class="qwg-reading-path" href="./bluebook/part-1/02-task-delivery-protocol">
     <strong>要交付一个重要任务</strong>
     <span>先写任务卡，再用交付协议、验收表和研究证据链减少返工。</span>
   </a>

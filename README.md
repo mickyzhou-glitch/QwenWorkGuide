@@ -4,16 +4,18 @@
 
 在线阅读：<https://mickyzhou-glitch.github.io/QwenWorkGuide/>
 
+下载：[千问办公蓝皮书 V2.0 PDF 本地 RC](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)
+
 > QwenWorkGuide 不代表千问办公、阿里巴巴或其关联方的官方立场；产品能力以官方资料和实际可用界面为准。
 
 ## 你能在这里读到什么
 
-- 完整蓝皮书十七章：产品认知、上手方法、32 个公开案例、办公交付与组织落地；
+- 完整蓝皮书 V2：执行摘要、13 章交付与组织规范、结语和 6 个附录；
 - 指令模板、场景速查和上线验收清单；
 - 可公开复现的社区案例与投稿模板；
 - 来源、核验日期、隐私与安全边界。
 
-建议新读者先从[阅读指南](docs/reading-guide.md)选择路径；想立即试做一个任务，可从[快速开始](docs/guides/quick-start.md)开始。
+建议新读者先读[执行摘要](docs/bluebook/executive-summary.md)，再从[阅读指南](docs/reading-guide.md)选择路径；想立即试做一个任务，可从[快速开始](docs/guides/quick-start.md)开始。
 
 ## 本地运行
 

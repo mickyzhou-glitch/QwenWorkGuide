@@ -2,7 +2,7 @@
 title: 来源与延伸阅读
 description: 本蓝皮书的公开来源、核验边界与阅读入口
 status: verified
-verifiedAt: 2026-07-31
+verifiedAt: 2026-08-01
 sources:
   - https://qwenwork.cn/
   - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
@@ -12,6 +12,8 @@ sources:
 # 来源与延伸阅读
 
 产品界面、价格、权益、模型列表、可用地区与连接器范围更新较快，应以使用时的官方页面为准。
+
+兼容编号入口：[R14](#r14)、[R15](#r15)。
 
 ## R1
 
@@ -65,13 +67,9 @@ AlephAITech，[WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide)，
 
 千问办公官网，[下载客户端](https://qwenwork.cn/download)，访问于 2026-07-31。
 
-## R14
+<span id="r14"></span>**R14（兼容编号）**：见 [R8](#r8)。
 
-千问办公官方帮助中心，[技能](https://qwenwork.cn/docs/features/skills)，访问于 2026-07-31。
-
-## R15
-
-千问办公官方帮助中心，[连接器](https://qwenwork.cn/docs/features/connectors)，访问于 2026-07-31。
+<span id="r15"></span>**R15（兼容编号）**：见 [R4](#r4)。
 
 ## 版权与边界
 
