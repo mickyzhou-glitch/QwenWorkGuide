@@ -1666,3 +1666,38 @@ test("validateContentRoots rejects an empty bluebook discovered under docs", asy
     ),
   );
 });
+
+test("案例库保留历史案例正文并显式标注证据边界", async () => {
+  const caseIndex = await readFile(join(docsRoot, "cases/index.md"), "utf8");
+  const pisenCase = await readFile(
+    join(
+      docsRoot,
+      "cases/submissions/pisen-competitive-research-product-materials.md",
+    ),
+    "utf8",
+  );
+  const youkelaCase = await readFile(
+    join(docsRoot, "cases/submissions/youkela-product-rd-payroll.md"),
+    "utf8",
+  );
+  const publicCaseAtlas = await readFile(
+    join(docsRoot, "cases/submissions/qwenwork-public-case-atlas.md"),
+    "utf8",
+  );
+  const publicCaseChapter = await readFile(
+    join(docsRoot, "bluebook/part-3/09-public-case-atlas.md"),
+    "utf8",
+  );
+
+  assert.match(caseIndex, /当前可阅读：2 个具名客户深度案例（4 个业务场景）\+ 32 个公开场景案例/);
+  assert.match(caseIndex, /客户陈述|独立审计|证据边界/);
+  assert.match(pisenCase, /^# 品胜电子：竞品调研与产品物料制作/m);
+  assert.match(pisenCase, /客户陈述结果/);
+  assert.match(youkelaCase, /^# 优克拉：产品研发与考勤算薪/m);
+  assert.match(youkelaCase, /客户陈述结果/);
+  assert.match(publicCaseAtlas, /^# 千问办公公开案例库：32 个场景图谱/m);
+  assert.match(publicCaseAtlas, /32 个场景/);
+  assert.match(publicCaseAtlas, /证据边界|待核验/);
+  assert.match(publicCaseChapter, /## 可阅读案例/);
+  assert.match(publicCaseChapter, /\/cases\//);
+});
