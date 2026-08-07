@@ -174,6 +174,28 @@ const EXPECTED_BLUEBOOK_V2_NEXT_CHAIN = [
   ],
 ];
 
+const METHOD_PAGE_PATHS = [
+  "docs/bluebook/part-1/01-delivery-standard.md",
+  "docs/bluebook/part-1/02-task-delivery-protocol.md",
+  "docs/bluebook/part-2/03-work-environment-architecture.md",
+  "docs/bluebook/part-2/04-skills-connectors-expert-kits.md",
+  "docs/bluebook/part-2/05-automation-boundaries.md",
+  "docs/bluebook/part-3/06-office-delivery.md",
+  "docs/bluebook/part-3/07-role-roadmaps.md",
+  "docs/bluebook/part-3/08-research-evidence-chain.md",
+];
+
+const METHOD_PAGE_SECTIONS = [
+  "30 秒结论",
+  "你可能遇到的场景",
+  "最后会得到什么",
+  "照着做",
+  "案例参考",
+  "做完检查",
+  "需要注意",
+  "深入阅读",
+];
+
 const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
   {
     text: "序章",
@@ -1305,6 +1327,53 @@ test("BluebookStructure reports missing canonical and compatibility pages", asyn
   const errors = validateBluebookStructure(documents);
   assert.ok(errors.some((error) => error.includes(missingCanonical)));
   assert.ok(errors.some((error) => error.includes(missingCompatibility)));
+});
+
+test("method pages expose reader-first task sections in the required order", async () => {
+  for (const path of METHOD_PAGE_PATHS) {
+    const source = await readFile(join(dirname(docsRoot), path), "utf8");
+    const headingPositions = METHOD_PAGE_SECTIONS.map((section) =>
+      source.indexOf(`## ${section}`),
+    );
+
+    assert.ok(
+      headingPositions.every((position) => position >= 0),
+      `${path} must contain all reader-first sections`,
+    );
+    assert.deepEqual(
+      [...headingPositions].sort((a, b) => a - b),
+      headingPositions,
+      `${path} must keep reader-first sections in order`,
+    );
+
+    const scenario = source.slice(
+      headingPositions[1],
+      headingPositions[2],
+    );
+    assert.match(scenario, /输入|附件|会议|周报|表格|资料/);
+
+    const steps = source.slice(headingPositions[3], headingPositions[4]);
+    assert.match(steps, /(?:^|\n)\s*\d+\./);
+    assert.match(steps, /检查点|核对|确认|校验/);
+
+    const caseReference = source.slice(
+      headingPositions[4],
+      headingPositions[5],
+    );
+    assert.match(caseReference, /\/cases\/submissions\/(?:pisen|youkela|qwenwork-public-case-atlas)/);
+
+    const acceptance = source.slice(
+      headingPositions[5],
+      headingPositions[6],
+    );
+    assert.match(acceptance, /验收|检查|通过|可编辑|可追溯|可复算/);
+
+    const caution = source.slice(headingPositions[6], headingPositions[7]);
+    assert.match(caution, /保留原件|上一稳定版本|停止外发|人工|只读分析|回退/);
+
+    const deeperReading = source.slice(headingPositions[7]);
+    assert.match(deeperReading, /\]\(\/bluebook\/(?:appendices|part-)/);
+  }
 });
 
 test("BluebookStructure requires sources metadata on canonical pages", async () => {
