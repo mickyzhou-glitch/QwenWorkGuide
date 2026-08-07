@@ -1701,3 +1701,21 @@ test("案例库保留历史案例正文并显式标注证据边界", async () =>
   assert.match(publicCaseChapter, /## 可阅读案例/);
   assert.match(publicCaseChapter, /\/cases\//);
 });
+
+test("reader-first navigation contract exposes a clear reader entry path", async () => {
+  const [home, bluebookHome, executiveSummary] = await Promise.all([
+    readFile(join(docsRoot, "index.md"), "utf8"),
+    readFile(join(docsRoot, "bluebook/index.md"), "utf8"),
+    readFile(join(docsRoot, "bluebook/executive-summary.md"), "utf8"),
+  ]);
+
+  assert.match(home, /你今天想把哪件办公工作做完/);
+  assert.match(home, /写一份汇报|整理一次会议|分析一批数据/);
+  assert.match(bluebookHome, /基本介绍|案例与场景|阶段、治理、权限/);
+  assert.match(executiveSummary, /普通办公用户|先做完一件事|真实案例/);
+
+  assert.ok(
+    BLUEBOOK_V2_PATHS.indexOf("docs/bluebook/part-3/09-public-case-atlas.md") <
+      BLUEBOOK_V2_PATHS.indexOf("docs/bluebook/part-1/01-delivery-standard.md"),
+  );
+});
