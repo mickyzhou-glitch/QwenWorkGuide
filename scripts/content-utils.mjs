@@ -38,15 +38,15 @@ export const VERIFICATION_STATUSES = new Set([
 
 export const BLUEBOOK_V2_PATHS = [
   "docs/bluebook/executive-summary.md",
+  "docs/bluebook/part-3/09-public-case-atlas.md",
+  "docs/bluebook/part-3/06-office-delivery.md",
+  "docs/bluebook/part-3/07-role-roadmaps.md",
+  "docs/bluebook/part-3/08-research-evidence-chain.md",
   "docs/bluebook/part-1/01-delivery-standard.md",
   "docs/bluebook/part-1/02-task-delivery-protocol.md",
   "docs/bluebook/part-2/03-work-environment-architecture.md",
   "docs/bluebook/part-2/04-skills-connectors-expert-kits.md",
   "docs/bluebook/part-2/05-automation-boundaries.md",
-  "docs/bluebook/part-3/06-office-delivery.md",
-  "docs/bluebook/part-3/07-role-roadmaps.md",
-  "docs/bluebook/part-3/08-research-evidence-chain.md",
-  "docs/bluebook/part-3/09-public-case-atlas.md",
   "docs/bluebook/part-4/10-pilot-roadmap.md",
   "docs/bluebook/part-4/11-security-governance.md",
   "docs/bluebook/part-4/12-workflow-operations.md",
@@ -55,9 +55,9 @@ export const BLUEBOOK_V2_PATHS = [
   "docs/bluebook/appendices/prompt-templates.md",
   "docs/bluebook/appendices/scenario-index.md",
   "docs/bluebook/appendices/launch-checklist.md",
+  "docs/bluebook/appendices/sources.md",
   "docs/bluebook/appendices/evidence-ledger.md",
   "docs/bluebook/appendices/case-source-map.md",
-  "docs/bluebook/appendices/sources.md",
 ];
 
 export const LEGACY_PAGE_MAP = new Map([
@@ -134,6 +134,22 @@ export const LEGACY_PAGE_MAP = new Map([
 export const BLUEBOOK_V2_NEXT_CHAIN = [
   [
     "docs/bluebook/executive-summary.md",
+    "/bluebook/part-3/09-public-case-atlas",
+  ],
+  [
+    "docs/bluebook/part-3/09-public-case-atlas.md",
+    "/bluebook/part-3/06-office-delivery",
+  ],
+  [
+    "docs/bluebook/part-3/06-office-delivery.md",
+    "/bluebook/part-3/07-role-roadmaps",
+  ],
+  [
+    "docs/bluebook/part-3/07-role-roadmaps.md",
+    "/bluebook/part-3/08-research-evidence-chain",
+  ],
+  [
+    "docs/bluebook/part-3/08-research-evidence-chain.md",
     "/bluebook/part-1/01-delivery-standard",
   ],
   [
@@ -154,22 +170,6 @@ export const BLUEBOOK_V2_NEXT_CHAIN = [
   ],
   [
     "docs/bluebook/part-2/05-automation-boundaries.md",
-    "/bluebook/part-3/06-office-delivery",
-  ],
-  [
-    "docs/bluebook/part-3/06-office-delivery.md",
-    "/bluebook/part-3/07-role-roadmaps",
-  ],
-  [
-    "docs/bluebook/part-3/07-role-roadmaps.md",
-    "/bluebook/part-3/08-research-evidence-chain",
-  ],
-  [
-    "docs/bluebook/part-3/08-research-evidence-chain.md",
-    "/bluebook/part-3/09-public-case-atlas",
-  ],
-  [
-    "docs/bluebook/part-3/09-public-case-atlas.md",
     "/bluebook/part-4/10-pilot-roadmap",
   ],
   [
@@ -209,35 +209,35 @@ export const BLUEBOOK_V2_SIDEBAR_GROUPS = [
   {
     text: "序章",
     items: [
-      bluebookSidebarItem(0, "企业 AI 从功能竞赛走向工作流竞赛"),
+      bluebookSidebarItem(0, "先做完一件办公工作，再考虑推广"),
     ],
   },
   {
-    text: "第一篇：完成一次交付",
+    text: "先看案例与场景",
     items: [
-      bluebookSidebarItem(1, "第 1 章 交付新标准"),
-      bluebookSidebarItem(2, "第 2 章 任务拆解与验收"),
+      bluebookSidebarItem(1, "第 9 章 公开案例图谱：按证据门发布"),
     ],
   },
   {
-    text: "第二篇：沉淀一条工作流",
+    text: "专业办公任务",
     items: [
-      bluebookSidebarItem(3, "第 3 章 工作环境与能力架构"),
-      bluebookSidebarItem(4, "第 4 章 Skill、连接器与专家套件"),
-      bluebookSidebarItem(5, "第 5 章 自动化及其边界"),
+      bluebookSidebarItem(2, "第 6 章 办公交付"),
+      bluebookSidebarItem(3, "第 7 章 岗位路线"),
+      bluebookSidebarItem(4, "第 8 章 研究与证据链"),
     ],
   },
   {
-    text: "第三篇：应用于专业场景",
+    text: "从任务到交付",
     items: [
-      bluebookSidebarItem(6, "第 6 章 办公交付"),
-      bluebookSidebarItem(7, "第 7 章 岗位路线"),
-      bluebookSidebarItem(8, "第 8 章 研究与证据链"),
-      bluebookSidebarItem(9, "第 9 章 公开案例图谱"),
+      bluebookSidebarItem(5, "第 1 章 交付新标准"),
+      bluebookSidebarItem(6, "第 2 章 任务拆解与验收"),
+      bluebookSidebarItem(7, "第 3 章 工作环境与能力架构"),
+      bluebookSidebarItem(8, "第 4 章 Skill、连接器与专家套件"),
+      bluebookSidebarItem(9, "第 5 章 自动化及其边界"),
     ],
   },
   {
-    text: "第四篇：扩展为组织能力",
+    text: "团队落地",
     items: [
       bluebookSidebarItem(10, "第 10 章 场景选择与试点"),
       bluebookSidebarItem(11, "第 11 章 安全、权限与责任"),
@@ -255,9 +255,9 @@ export const BLUEBOOK_V2_SIDEBAR_GROUPS = [
       bluebookSidebarItem(15, "常用指令模板"),
       bluebookSidebarItem(16, "场景速查与评分表"),
       bluebookSidebarItem(17, "组织上线验收清单"),
-      bluebookSidebarItem(18, "主张证据台账"),
-      bluebookSidebarItem(19, "案例来源映射"),
-      bluebookSidebarItem(20, "来源与延伸阅读"),
+      bluebookSidebarItem(18, "来源与延伸阅读"),
+      bluebookSidebarItem(19, "主张证据台账"),
+      bluebookSidebarItem(20, "案例来源映射"),
     ],
   },
 ];

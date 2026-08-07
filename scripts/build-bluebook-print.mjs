@@ -112,7 +112,7 @@ function publicDocumentUrl(path, anchor, siteBaseUrl) {
 export function resolveDocumentLink(rawHref, context) {
   if (/^(?:https?:|mailto:|tel:)/i.test(rawHref)) return rawHref;
   if (rawHref.startsWith("#")) {
-    const anchor = rawHref.slice(1);
+    const anchor = decodeURIComponent(rawHref.slice(1));
     if (context.currentRawAnchors.has(anchor)) return `#${anchor}`;
     if (context.currentHeadingAnchors.has(anchor)) return `#${context.currentId}--${anchor}`;
     throw new Error(`同章锚点不存在：${rawHref}`);

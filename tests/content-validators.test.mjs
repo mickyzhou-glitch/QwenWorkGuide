@@ -702,15 +702,15 @@ test("Official Manifest contains the exact ordered 21-item sequence", async () =
   }));
   assert.deepEqual(actual, [
     { id: "executive-summary", path: "docs/bluebook/executive-summary.md", kind: "executive-summary" },
+    { id: "chapter-09", path: "docs/bluebook/part-3/09-public-case-atlas.md", kind: "chapter" },
+    { id: "chapter-06", path: "docs/bluebook/part-3/06-office-delivery.md", kind: "chapter" },
+    { id: "chapter-07", path: "docs/bluebook/part-3/07-role-roadmaps.md", kind: "chapter" },
+    { id: "chapter-08", path: "docs/bluebook/part-3/08-research-evidence-chain.md", kind: "chapter" },
     { id: "chapter-01", path: "docs/bluebook/part-1/01-delivery-standard.md", kind: "chapter" },
     { id: "chapter-02", path: "docs/bluebook/part-1/02-task-delivery-protocol.md", kind: "chapter" },
     { id: "chapter-03", path: "docs/bluebook/part-2/03-work-environment-architecture.md", kind: "chapter" },
     { id: "chapter-04", path: "docs/bluebook/part-2/04-skills-connectors-expert-kits.md", kind: "chapter" },
     { id: "chapter-05", path: "docs/bluebook/part-2/05-automation-boundaries.md", kind: "chapter" },
-    { id: "chapter-06", path: "docs/bluebook/part-3/06-office-delivery.md", kind: "chapter" },
-    { id: "chapter-07", path: "docs/bluebook/part-3/07-role-roadmaps.md", kind: "chapter" },
-    { id: "chapter-08", path: "docs/bluebook/part-3/08-research-evidence-chain.md", kind: "chapter" },
-    { id: "chapter-09", path: "docs/bluebook/part-3/09-public-case-atlas.md", kind: "chapter" },
     { id: "chapter-10", path: "docs/bluebook/part-4/10-pilot-roadmap.md", kind: "chapter" },
     { id: "chapter-11", path: "docs/bluebook/part-4/11-security-governance.md", kind: "chapter" },
     { id: "chapter-12", path: "docs/bluebook/part-4/12-workflow-operations.md", kind: "chapter" },
@@ -723,6 +723,10 @@ test("Official Manifest contains the exact ordered 21-item sequence", async () =
     { id: "appendix-evidence", path: "docs/bluebook/appendices/evidence-ledger.md", kind: "appendix" },
     { id: "appendix-cases", path: "docs/bluebook/appendices/case-source-map.md", kind: "appendix" },
   ]);
+  assert.equal(
+    manifest.items.find((item) => item.id === "chapter-09").title,
+    "第 9 章 公开案例图谱：按证据门发布",
+  );
 });
 
 test("resolveDocumentLink namespaces headings but preserves globally unique raw IDs", () => {
@@ -747,13 +751,17 @@ test("resolveDocumentLink namespaces headings but preserves globally unique raw 
         },
       ],
     ]),
-    currentHeadingAnchors: new Set(["local-heading"]),
+    currentHeadingAnchors: new Set(["local-heading", "公开案例"]),
     currentRawAnchors: new Set(["claim-print-a-01"]),
     siteBaseUrl: "https://qwenworkguide.pages.dev/",
   };
   assert.equal(
     resolveDocumentLink("#local-heading", context),
     "#chapter-a--local-heading",
+  );
+  assert.equal(
+    resolveDocumentLink(`#${encodeURIComponent("公开案例")}`, context),
+    "#chapter-a--公开案例",
   );
   assert.equal(
     resolveDocumentLink("#claim-print-a-01", context),

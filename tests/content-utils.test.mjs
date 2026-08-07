@@ -114,6 +114,22 @@ const EXPECTED_LEGACY_PAGE_MAP = [
 const EXPECTED_BLUEBOOK_V2_NEXT_CHAIN = [
   [
     "docs/bluebook/executive-summary.md",
+    "/bluebook/part-3/09-public-case-atlas",
+  ],
+  [
+    "docs/bluebook/part-3/09-public-case-atlas.md",
+    "/bluebook/part-3/06-office-delivery",
+  ],
+  [
+    "docs/bluebook/part-3/06-office-delivery.md",
+    "/bluebook/part-3/07-role-roadmaps",
+  ],
+  [
+    "docs/bluebook/part-3/07-role-roadmaps.md",
+    "/bluebook/part-3/08-research-evidence-chain",
+  ],
+  [
+    "docs/bluebook/part-3/08-research-evidence-chain.md",
     "/bluebook/part-1/01-delivery-standard",
   ],
   [
@@ -134,22 +150,6 @@ const EXPECTED_BLUEBOOK_V2_NEXT_CHAIN = [
   ],
   [
     "docs/bluebook/part-2/05-automation-boundaries.md",
-    "/bluebook/part-3/06-office-delivery",
-  ],
-  [
-    "docs/bluebook/part-3/06-office-delivery.md",
-    "/bluebook/part-3/07-role-roadmaps",
-  ],
-  [
-    "docs/bluebook/part-3/07-role-roadmaps.md",
-    "/bluebook/part-3/08-research-evidence-chain",
-  ],
-  [
-    "docs/bluebook/part-3/08-research-evidence-chain.md",
-    "/bluebook/part-3/09-public-case-atlas",
-  ],
-  [
-    "docs/bluebook/part-3/09-public-case-atlas.md",
     "/bluebook/part-4/10-pilot-roadmap",
   ],
   [
@@ -174,18 +174,66 @@ const EXPECTED_BLUEBOOK_V2_NEXT_CHAIN = [
   ],
 ];
 
+const METHOD_PAGE_PATHS = [
+  "docs/bluebook/part-1/01-delivery-standard.md",
+  "docs/bluebook/part-1/02-task-delivery-protocol.md",
+  "docs/bluebook/part-2/03-work-environment-architecture.md",
+  "docs/bluebook/part-2/04-skills-connectors-expert-kits.md",
+  "docs/bluebook/part-2/05-automation-boundaries.md",
+  "docs/bluebook/part-3/06-office-delivery.md",
+  "docs/bluebook/part-3/07-role-roadmaps.md",
+  "docs/bluebook/part-3/08-research-evidence-chain.md",
+];
+
+const METHOD_PAGE_SECTIONS = [
+  "30 秒结论",
+  "你可能遇到的场景",
+  "最后会得到什么",
+  "照着做",
+  "案例参考",
+  "做完检查",
+  "需要注意",
+  "深入阅读",
+];
+
 const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
   {
     text: "序章",
     items: [
       {
-        text: "企业 AI 从功能竞赛走向工作流竞赛",
+        text: "先做完一件办公工作，再考虑推广",
         link: "/bluebook/executive-summary",
       },
     ],
   },
   {
-    text: "第一篇：完成一次交付",
+    text: "先看案例与场景",
+    items: [
+      {
+        text: "第 9 章 公开案例图谱：按证据门发布",
+        link: "/bluebook/part-3/09-public-case-atlas",
+      },
+    ],
+  },
+  {
+    text: "专业办公任务",
+    items: [
+      {
+        text: "第 6 章 办公交付",
+        link: "/bluebook/part-3/06-office-delivery",
+      },
+      {
+        text: "第 7 章 岗位路线",
+        link: "/bluebook/part-3/07-role-roadmaps",
+      },
+      {
+        text: "第 8 章 研究与证据链",
+        link: "/bluebook/part-3/08-research-evidence-chain",
+      },
+    ],
+  },
+  {
+    text: "从任务到交付",
     items: [
       {
         text: "第 1 章 交付新标准",
@@ -195,11 +243,6 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
         text: "第 2 章 任务拆解与验收",
         link: "/bluebook/part-1/02-task-delivery-protocol",
       },
-    ],
-  },
-  {
-    text: "第二篇：沉淀一条工作流",
-    items: [
       {
         text: "第 3 章 工作环境与能力架构",
         link: "/bluebook/part-2/03-work-environment-architecture",
@@ -215,28 +258,7 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
     ],
   },
   {
-    text: "第三篇：应用于专业场景",
-    items: [
-      {
-        text: "第 6 章 办公交付",
-        link: "/bluebook/part-3/06-office-delivery",
-      },
-      {
-        text: "第 7 章 岗位路线",
-        link: "/bluebook/part-3/07-role-roadmaps",
-      },
-      {
-        text: "第 8 章 研究与证据链",
-        link: "/bluebook/part-3/08-research-evidence-chain",
-      },
-      {
-        text: "第 9 章 公开案例图谱",
-        link: "/bluebook/part-3/09-public-case-atlas",
-      },
-    ],
-  },
-  {
-    text: "第四篇：扩展为组织能力",
+    text: "团队落地",
     items: [
       {
         text: "第 10 章 场景选择与试点",
@@ -281,16 +303,16 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
         link: "/bluebook/appendices/launch-checklist",
       },
       {
+        text: "来源与延伸阅读",
+        link: "/bluebook/appendices/sources",
+      },
+      {
         text: "主张证据台账",
         link: "/bluebook/appendices/evidence-ledger",
       },
       {
         text: "案例来源映射",
         link: "/bluebook/appendices/case-source-map",
-      },
-      {
-        text: "来源与延伸阅读",
-        link: "/bluebook/appendices/sources",
       },
     ],
   },
@@ -1307,6 +1329,53 @@ test("BluebookStructure reports missing canonical and compatibility pages", asyn
   assert.ok(errors.some((error) => error.includes(missingCompatibility)));
 });
 
+test("method pages expose reader-first task sections in the required order", async () => {
+  for (const path of METHOD_PAGE_PATHS) {
+    const source = await readFile(join(dirname(docsRoot), path), "utf8");
+    const headingPositions = METHOD_PAGE_SECTIONS.map((section) =>
+      source.indexOf(`## ${section}`),
+    );
+
+    assert.ok(
+      headingPositions.every((position) => position >= 0),
+      `${path} must contain all reader-first sections`,
+    );
+    assert.deepEqual(
+      [...headingPositions].sort((a, b) => a - b),
+      headingPositions,
+      `${path} must keep reader-first sections in order`,
+    );
+
+    const scenario = source.slice(
+      headingPositions[1],
+      headingPositions[2],
+    );
+    assert.match(scenario, /输入|附件|会议|周报|表格|资料/);
+
+    const steps = source.slice(headingPositions[3], headingPositions[4]);
+    assert.match(steps, /(?:^|\n)\s*\d+\./);
+    assert.match(steps, /检查点|核对|确认|校验/);
+
+    const caseReference = source.slice(
+      headingPositions[4],
+      headingPositions[5],
+    );
+    assert.match(caseReference, /\/cases\/submissions\/(?:pisen|youkela|qwenwork-public-case-atlas)/);
+
+    const acceptance = source.slice(
+      headingPositions[5],
+      headingPositions[6],
+    );
+    assert.match(acceptance, /验收|检查|通过|可编辑|可追溯|可复算/);
+
+    const caution = source.slice(headingPositions[6], headingPositions[7]);
+    assert.match(caution, /保留原件|上一稳定版本|停止外发|人工|只读分析|回退/);
+
+    const deeperReading = source.slice(headingPositions[7]);
+    assert.match(deeperReading, /\]\(\/bluebook\/(?:appendices|part-)/);
+  }
+});
+
 test("BluebookStructure requires sources metadata on canonical pages", async () => {
   const documents = await validBluebookDocuments();
   const path = BLUEBOOK_V2_PATHS[0];
@@ -1364,7 +1433,7 @@ test("Legacy page map has exactly the 17 compatibility routes", () => {
   assert.deepEqual([...LEGACY_PAGE_MAP], EXPECTED_LEGACY_PAGE_MAP);
 });
 
-test("V2 sidebar has exactly 21 canonical items in path order", () => {
+test("V2 sidebar has exactly 21 canonical items in canonical path order", () => {
   const items = flattenBluebookSidebar(BLUEBOOK_V2_SIDEBAR_GROUPS);
   const expectedLinks = BLUEBOOK_V2_PATHS.map(bluebookPathToUrl);
   const legacyLinks = new Set([...LEGACY_PAGE_MAP.keys()].map(bluebookPathToUrl));
@@ -1375,10 +1444,7 @@ test("V2 sidebar has exactly 21 canonical items in path order", () => {
     EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS,
   );
   assert.equal(items.length, 21);
-  assert.deepEqual(
-    items.map((item) => item.link),
-    expectedLinks,
-  );
+  assert.deepEqual(items.map((item) => item.link), expectedLinks);
   assert.equal(items.some((item) => legacyLinks.has(item.link)), false);
 });
 
@@ -1689,15 +1755,180 @@ test("案例库保留历史案例正文并显式标注证据边界", async () =>
     "utf8",
   );
 
-  assert.match(caseIndex, /当前可阅读：2 个具名客户深度案例（4 个业务场景）\+ 32 个公开场景案例/);
+  assert.match(caseIndex, /当前可阅读：2 个具名客户深度案例（4 个业务场景）\+ 32 个公开场景线索/);
   assert.match(caseIndex, /客户陈述|独立审计|证据边界/);
+  assert.ok(
+    caseIndex.indexOf("## 先看可阅读案例与场景") <
+      caseIndex.indexOf("## 证据边界与合格案例"),
+  );
   assert.match(pisenCase, /^# 品胜电子：竞品调研与产品物料制作/m);
   assert.match(pisenCase, /客户陈述结果/);
+  assert.ok(pisenCase.indexOf("## 先看结论") > pisenCase.indexOf("# 品胜电子"));
+  assert.ok(
+    pisenCase.indexOf("#### 问题") <
+      pisenCase.indexOf("#### 最后得到的产物") &&
+      pisenCase.indexOf("#### 最后得到的产物") <
+        pisenCase.indexOf("#### 如果你要复用") &&
+      pisenCase.indexOf("#### 如果你要复用") <
+        pisenCase.indexOf("#### 证据边界"),
+  );
+  const pisenIntro = pisenCase.slice(
+    pisenCase.indexOf("## 先看结论"),
+    pisenCase.indexOf("## 两个场景一览"),
+  );
+  assert.doesNotMatch(pisenIntro, /外部记录 ID|发布门|来源映射/);
+  assert.match(pisenCase, /必须替换为自己的数据、规则或素材/);
+  assert.match(pisenCase, /客户材料中的结果不能直接照搬/);
+  assert.match(pisenCase, /产品经理|设计或品牌负责人/);
   assert.match(youkelaCase, /^# 优克拉：产品研发与考勤算薪/m);
   assert.match(youkelaCase, /客户陈述结果/);
+  assert.ok(youkelaCase.indexOf("## 先看结论") > youkelaCase.indexOf("# 优克拉"));
+  assert.ok(
+    youkelaCase.indexOf("#### 问题") <
+      youkelaCase.indexOf("#### 最后得到的产物") &&
+      youkelaCase.indexOf("#### 最后得到的产物") <
+        youkelaCase.indexOf("#### 如果你要复用") &&
+      youkelaCase.indexOf("#### 如果你要复用") <
+        youkelaCase.indexOf("#### 证据边界"),
+  );
+  const youkelaIntro = youkelaCase.slice(
+    youkelaCase.indexOf("## 先看结论"),
+    youkelaCase.indexOf("## 两个场景一览"),
+  );
+  assert.doesNotMatch(youkelaIntro, /外部记录 ID|发布门|来源映射/);
+  assert.match(youkelaCase, /必须替换为自己的数据、规则或素材/);
+  assert.match(youkelaCase, /客户材料中的结果不能直接照搬/);
+  assert.match(youkelaCase, /HR|财务/);
   assert.match(publicCaseAtlas, /^# 千问办公公开案例库：32 个场景图谱/m);
   assert.match(publicCaseAtlas, /32 个场景/);
   assert.match(publicCaseAtlas, /证据边界|待核验/);
+  for (const label of ["适合什么人", "需要准备什么", "最小试点", "交付物长什么样"]) {
+    assert.match(publicCaseAtlas, new RegExp(label));
+  }
+  assert.match(publicCaseAtlas, /低风险草稿|只读分析/);
   assert.match(publicCaseChapter, /## 可阅读案例/);
   assert.match(publicCaseChapter, /\/cases\//);
+  assert.ok(
+    publicCaseChapter.indexOf("## 可阅读案例") <
+      publicCaseChapter.indexOf("## 怎么读案例") &&
+      publicCaseChapter.indexOf("## 怎么读案例") <
+        publicCaseChapter.indexOf("## 如何复用") &&
+      publicCaseChapter.indexOf("## 如何复用") <
+        publicCaseChapter.indexOf("## 证据统计"),
+  );
+});
+
+test("32 个公开场景线索保留原始任务名称且不提升为已核验案例", async () => {
+  const publicCaseAtlas = await readFile(
+    join(docsRoot, "cases/submissions/qwenwork-public-case-atlas.md"),
+    "utf8",
+  );
+  const taskNames = [
+    "搭建电商经营数据看板",
+    "产出主流 AI 模型对比报告",
+    "分析电商经营数据",
+    "分析英伟达财报",
+    "抓取多平台选品数据",
+    "复盘多平台经营数据",
+    "复盘闪购经营数据",
+    "搭建营销复盘看板",
+    "输出全球智能手机竞品调研报告",
+    "分析商品宣传视频",
+    "分析直播切片",
+    "搭建达人矩阵管理看板",
+    "批量生成商品图片",
+    "浏览器自动化完成商品上下架",
+    "制作闪购活动策划并测算优惠成本",
+    "设计外卖商品页面",
+    "生成花店宣传官网首页",
+    "搭建民宿产品介绍网页",
+    "搭建科技公司动态官网首页",
+    "生成营销策划方案",
+    "定时多渠道分发营销内容",
+    "批量生成多平台营销素材",
+    "搭建求职简历网页",
+    "搭建飞机发动机教学网站",
+    "设计课堂 PPT 和配套教学资料",
+    "生成学情分析报告",
+    "搭建招生宣传网页",
+    "整理中考英语百日备考方案",
+    "设计论文初稿框架",
+    "调动钉钉完成从文档归纳到待办创建的系列任务",
+    "生成人才梯队发展规划",
+    "搭建校招面试管理看板",
+  ];
+
+  assert.equal(taskNames.length, 32);
+  for (const taskName of taskNames) {
+    assert.match(publicCaseAtlas, new RegExp(taskName));
+  }
+  assert.match(publicCaseAtlas, /待核验公开场景线索|不等同于客户背书/);
+  assert.doesNotMatch(publicCaseAtlas, /32 个已核验客户案例/);
+});
+
+test("reader-first navigation contract exposes a clear reader entry path", async () => {
+  const [home, bluebookHome, executiveSummary] = await Promise.all([
+    readFile(join(docsRoot, "index.md"), "utf8"),
+    readFile(join(docsRoot, "bluebook/index.md"), "utf8"),
+    readFile(join(docsRoot, "bluebook/executive-summary.md"), "utf8"),
+  ]);
+
+  assert.match(home, /你今天想把哪件办公工作做完/);
+  assert.match(home, /写一份汇报|整理一次会议|分析一批数据/);
+  assert.match(bluebookHome, /基本介绍|案例与场景|阶段、治理、权限/);
+  assert.match(executiveSummary, /普通办公用户|先做完一件事|真实案例/);
+
+  const officeDeliveryLinkIndex = bluebookHome.indexOf(
+    "/bluebook/part-3/06-office-delivery",
+  );
+  const deliveryStandardLinkIndex = bluebookHome.indexOf(
+    "/bluebook/part-1/01-delivery-standard",
+  );
+  assert.ok(officeDeliveryLinkIndex >= 0);
+  assert.ok(deliveryStandardLinkIndex >= 0);
+  assert.ok(officeDeliveryLinkIndex < deliveryStandardLinkIndex);
+
+  const publicCaseIndex = BLUEBOOK_V2_PATHS.indexOf(
+    "docs/bluebook/part-3/09-public-case-atlas.md",
+  );
+  const deliveryStandardIndex = BLUEBOOK_V2_PATHS.indexOf(
+    "docs/bluebook/part-1/01-delivery-standard.md",
+  );
+
+  assert.ok(publicCaseIndex >= 0);
+  assert.ok(deliveryStandardIndex >= 0);
+  assert.ok(publicCaseIndex < deliveryStandardIndex);
+});
+
+test("reader-first entry pages and manifest lead with basics and cases", async () => {
+  const home = await readFile(join(docsRoot, "index.md"), "utf8");
+  const bluebookIndex = await readFile(
+    join(docsRoot, "bluebook/index.md"),
+    "utf8",
+  );
+  const manifest = JSON.parse(
+    await readFile(
+      join(dirname(docsRoot), "scripts/bluebook-v2-manifest.json"),
+      "utf8",
+    ),
+  );
+
+  assert.match(home, /你今天想把哪件办公工作做完/);
+  assert.match(home, /写一份汇报或周报/);
+  assert.match(home, /整理一次会议/);
+  assert.match(home, /做一张表或分析一批数据/);
+  assert.match(bluebookIndex, /基本介绍/);
+  assert.match(bluebookIndex, /案例与场景图谱/);
+  assert.match(bluebookIndex, /阶段、治理、权限与组织落地/);
+  assert.deepEqual(
+    manifest.items.slice(0, 6).map((item) => item.id),
+    [
+      "executive-summary",
+      "chapter-09",
+      "chapter-06",
+      "chapter-07",
+      "chapter-08",
+      "chapter-01",
+    ],
+  );
 });
