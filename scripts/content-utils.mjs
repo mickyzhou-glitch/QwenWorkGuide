@@ -414,6 +414,9 @@ function validateBluebookPageMeta(meta) {
 
 function validateCanonicalBluebookPageMeta(meta) {
   const errors = validateBluebookPageMeta(meta);
+  if (Object.hasOwn(meta, "canonical")) {
+    errors.push("canonical 页面不能设置 canonical");
+  }
   if (
     typeof meta.robots === "string" &&
     meta.robots
@@ -457,12 +460,35 @@ function maskFencedCode(source) {
     .join("");
 }
 
+function inlineMarkdownLink(line) {
+  const match = line.match(
+    /^\[([^\[\]<>\r\n]+)\]\(([^()\s]+)\)$/,
+  );
+  return match === null ? null : { label: match[1], target: match[2] };
+}
+
 function markdownLinks(source) {
   return [...
     source.matchAll(
       /(?<!!)\[[^\]\r\n]+\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/g,
     ),
   ].map((match) => ({ target: match[1], index: match.index }));
+}
+
+function hasUnsupportedLinkSyntax(source) {
+  const sourceWithoutInlineTargets = source.replace(
+    /(?<!!)\[[^\]\r\n]+\]\(([^)\s]+)(?:\s+["'][^)]*["'])?\)/g,
+    "link",
+  );
+  return [
+    /!\[[^\]\r\n]*\](?:\([^\r\n)]*\)|\[[^\]\r\n]*\])/,
+    /(?<!!)\[[^\]\r\n]+\]\[[^\]\r\n]*\]/,
+    /^[ \t]{0,3}\[[^\]\r\n]+\]:[ \t]*\S+/m,
+    /<(?:https?:\/\/|mailto:)[^>\r\n]+>/i,
+    /<(?:a|script)\b[^>]*>/i,
+    /(?:https?:\/\/|mailto:)[^\s<>()]+/i,
+    /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i,
+  ].some((pattern) => pattern.test(sourceWithoutInlineTargets));
 }
 
 export function validateCompatibilityPage(source, expectedCanonical) {
@@ -489,18 +515,25 @@ export function validateCompatibilityPage(source, expectedCanonical) {
   }
 
   const visibleBody = body;
-  const links = markdownLinks(visibleBody);
-  if (links.length !== 1 || links[0]?.target !== expectedCanonical) {
-    errors.push(`正文必须且只能链接到 ${expectedCanonical}`);
-  }
   const nonEmptyLines = visibleBody
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
+  const plainH1 = /^#[ \t]+[^#<>\[\]\r\n]+$/.test(nonEmptyLines[0] ?? "");
+  const links = markdownLinks(visibleBody);
+  const migrationLinks = markdownLinks(nonEmptyLines[1] ?? "");
+  if (
+    links.length !== 1 ||
+    migrationLinks.length !== 1 ||
+    migrationLinks[0].target !== expectedCanonical
+  ) {
+    errors.push(`正文必须且只能链接到 ${expectedCanonical}`);
+  }
   if (
     nonEmptyLines.length !== 2 ||
-    !/^#\s+[^#]/.test(nonEmptyLines[0]) ||
-    !/^\[[^\]]+\]\([^)]+\)$/.test(nonEmptyLines[1])
+    !plainH1 ||
+    migrationLinks.length !== 1 ||
+    hasUnsupportedLinkSyntax(visibleBody)
   ) {
     errors.push("正文只能包含一个 H1 标题和一个迁移链接");
   }
@@ -508,7 +541,7 @@ export function validateCompatibilityPage(source, expectedCanonical) {
   const wordCount = (
     prose.match(/[\p{Script=Han}]|[A-Za-z0-9]+(?:['-][A-Za-z0-9]+)*/gu) ?? []
   ).length;
-  if (wordCount > 60) {
+  if (wordCount >= 60) {
     errors.push("兼容页正文过长，疑似复制旧正文");
   }
   return errors;
@@ -557,12 +590,21 @@ export function validateBluebookNextChain(documents) {
       errors.push(`${path}: “边界与下一步”章节必须且只能存在一个`);
       continue;
     }
-    const links = markdownLinks(section.source);
-    if (links.length !== 1) {
-      errors.push(`${path}: “边界与下一步”必须且只能包含一个链接`);
+    const sectionSource = maskFencedCode(section.source);
+    const nonEmptyLines = sectionSource
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+    const link = inlineMarkdownLink(nonEmptyLines.at(-1) ?? "");
+    if (
+      link === null ||
+      markdownLinks(sectionSource).length !== 1 ||
+      hasUnsupportedLinkSyntax(sectionSource)
+    ) {
+      errors.push(`${path}: “边界与下一步”必须且只能包含一个 inline 链接`);
       continue;
     }
-    if (links[0].target !== expected) {
+    if (link.target !== expected) {
       errors.push(`${path}: 下一步链接必须为 ${expected}`);
     }
   }

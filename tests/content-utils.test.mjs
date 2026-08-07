@@ -1164,6 +1164,25 @@ test("CompatibilityPage accepts canonical migration metadata and one link", asyn
   );
 });
 
+test("CompatibilityPage accepts short prose around its canonical inline link", async () => {
+  const source = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const withProse = source.replace(
+    "[前往规范页面](/bluebook/part-1/01-delivery-standard)",
+    "本章已合并到[交付新标准](/bluebook/part-1/01-delivery-standard)。",
+  );
+
+  assert.deepEqual(
+    validateCompatibilityPage(
+      withProse,
+      "/bluebook/part-1/01-delivery-standard",
+    ),
+    [],
+  );
+});
+
 test("CompatibilityPage rejects search exposure and copied body text", async () => {
   const source = await readFile(
     new URL("compatibility-page-valid.md", evidenceFixtures),
@@ -1229,6 +1248,53 @@ ${"复制的旧正文。".repeat(61)}
   assert.ok(validateCompatibilityPage(copied, "/bluebook/part-1/01-delivery-standard").length > 0);
 });
 
+test("CompatibilityPage rejects links, images, raw HTML, and redirects on the H1 line", async () => {
+  const source = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const additions = [
+    '<a href="/wrong">错误链接</a>',
+    "<script>window.location='/wrong'</script>",
+    "[错误引用][ref]",
+    "![错误图片](/wrong.png)",
+    "<https://example.com>",
+    "https://evil.example",
+    "evil@example.com",
+  ];
+
+  for (const addition of additions) {
+    const invalid = source.replace(
+      "# 旧章节已迁移",
+      `# 旧章节已迁移 ${addition}`,
+    );
+    assert.ok(
+      validateCompatibilityPage(
+        invalid,
+        "/bluebook/part-1/01-delivery-standard",
+      ).length > 0,
+      addition,
+    );
+  }
+});
+
+test("CompatibilityPage rejects a body containing exactly 60 words", async () => {
+  const source = await readFile(
+    new URL("compatibility-page-valid.md", evidenceFixtures),
+    "utf8",
+  );
+  const exactlySixty = source
+    .replace("# 旧章节已迁移", `# ${Array(59).fill("word").join(" ")}`)
+    .replace("[前往规范页面]", "[go]");
+
+  assert.ok(
+    validateCompatibilityPage(
+      exactlySixty,
+      "/bluebook/part-1/01-delivery-standard",
+    ).some((error) => error.includes("过长")),
+  );
+});
+
 test("BluebookStructure reports missing canonical and compatibility pages", async () => {
   const documents = await validBluebookDocuments();
   const missingCanonical = BLUEBOOK_V2_PATHS[0];
@@ -1274,6 +1340,23 @@ test("BluebookStructure rejects compatibility-only suppression on canonical page
       key,
     );
   }
+});
+
+test("BluebookStructure rejects canonical metadata on a V2 canonical page", async () => {
+  const documents = await validBluebookDocuments();
+  const path = BLUEBOOK_V2_PATHS[0];
+  documents.set(
+    path,
+    documents
+      .get(path)
+      .replace("sources: []\n", "sources: []\ncanonical: /wrong\n"),
+  );
+
+  assert.ok(
+    validateBluebookStructure(documents).some(
+      (error) => error.includes(path) && error.includes("canonical"),
+    ),
+  );
 });
 
 test("Legacy page map has exactly the 17 compatibility routes", () => {
@@ -1403,6 +1486,42 @@ test("V2 next chain rejects duplicate boundary sections", async () => {
       error.includes(sourcePath),
     ),
   );
+});
+
+test("V2 next chain rejects reference-style links and definitions", async () => {
+  const documents = await validBluebookDocuments();
+  const [sourcePath, expected] = EXPECTED_BLUEBOOK_V2_NEXT_CHAIN[0];
+  documents.set(
+    sourcePath,
+    documents
+      .get(sourcePath)
+      .replace(
+        `](${expected})`,
+        `](${expected})\n\n[额外][ref]\n\n[ref]: /wrong`,
+      ),
+  );
+
+  assert.ok(
+    validateBluebookNextChain(documents).some((error) =>
+      error.includes(sourcePath),
+    ),
+  );
+});
+
+test("V2 next chain permits boundary prose before the final inline link", async () => {
+  const documents = await validBluebookDocuments();
+  const [sourcePath, expected] = EXPECTED_BLUEBOOK_V2_NEXT_CHAIN[0];
+  documents.set(
+    sourcePath,
+    documents
+      .get(sourcePath)
+      .replace(
+        `[继续阅读](${expected})`,
+        `边界说明不包含链接。\n\n[继续阅读](${expected})`,
+      ),
+  );
+
+  assert.deepEqual(validateBluebookNextChain(documents), []);
 });
 
 test("BluebookStructure explicitly includes V2 next-chain failures", async () => {
