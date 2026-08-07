@@ -18,13 +18,13 @@ sources:
 
 ### 品胜电子
 
-- [场景一：竞品调研](./submissions/pisen-competitive-research-product-materials#场景一竞品调研)：将多人手工搜集、整理竞品动态的工作沉淀为结构化调研流程。
-- [场景二：产品物料制作](./submissions/pisen-competitive-research-product-materials#场景二产品物料制作)：以产品参数和外观图为输入，生成面向供应商与客户的展示物料草稿。
+- [场景一：竞品调研](./submissions/pisen-competitive-research-product-materials#竞品调研)：将多人手工搜集、整理竞品动态的工作沉淀为结构化调研流程。
+- [场景二：产品物料制作](./submissions/pisen-competitive-research-product-materials#产品物料制作)：以产品参数和外观图为输入，生成面向供应商与客户的展示物料草稿。
 
 ### 优克拉
 
-- [场景一：产品研发](./submissions/youkela-product-rd-payroll#场景一产品研发)：从大量用户评论中提取痛点、痒点和卖点，形成研发需求报告。
-- [场景二：考勤算薪](./submissions/youkela-product-rd-payroll#场景二考勤算薪)：将考勤数据清洗、薪资规则计算和异常复核整理为可重复执行的流程。
+- [场景一：产品研发](./submissions/youkela-product-rd-payroll#产品研发)：从大量用户评论中提取痛点、痒点和卖点，形成研发需求报告。
+- [场景二：考勤算薪](./submissions/youkela-product-rd-payroll#考勤算薪)：将考勤数据清洗、薪资规则计算和异常复核整理为可重复执行的流程。
 
 ### 千问办公公开案例图谱
 
