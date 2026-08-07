@@ -1,60 +1,17 @@
 ---
-title: Skill、连接器与专家套件
-description: 将方法、数据动作与岗位判断沉淀为可复用能力
-status: verified
-verifiedAt: 2026-07-31
+title: 旧章节已迁移
+description: 此旧章节入口保留用于兼容历史链接
+status: community-practice
+verifiedAt: 2026-08-01
 sources:
-  - https://qwenwork.cn/docs/features/skills
-  - https://qwenwork.cn/docs/features/connectors
+  - https://qwenwork.cn/docs/product-introduction
+canonical: /bluebook/part-2/04-skills-connectors-expert-kits
+robots: noindex,follow
+search: false
+prev: false
+next: false
 ---
 
-# Skill、连接器与专家套件
+# 旧章节已迁移
 
-| 能力 | 解决的问题 | 适合沉淀什么 |
-|---|---|---|
-| Skill | 这件事应按什么步骤做 | 方法、模板、规则、验收标准 |
-| Connector | 访问什么数据或执行什么动作 | 系统、账号、数据源、工具调用 |
-| Expert Kit | 这个岗位如何判断好坏 | 角色知识、工作流、专业标准与能力组合 |
-
-官方帮助中心提供技能和连接器的产品说明；连接器应以当前授权与可用范围为准。[来源](../appendices/sources#r4) [来源](../appendices/sources#r8)
-
-## 什么时候做成 Skill
-
-::: info 社区实践
-同类任务成功两次以上、输入稳定、有明确质量标准、多人使用、出错点可提前检查或需要统一格式时，适合沉淀。
-:::
-
-## Skill 的最小结构
-
-```text
-名称：周度项目经营复盘
-触发条件：生成周报、项目复盘或经营简报
-输入要求：项目台账、上周周报、会议纪要、风险清单
-执行步骤：读取→核对→汇总→识别异常→形成结论→生成产物
-判断标准：进度偏差、预算偏差、阻塞超过 3 天、责任人缺失
-交付格式：Word 详细版 + 6 页管理层 PPT
-强制确认：创建待办、发送消息前
-失败回退：数据缺失时输出缺口清单，不生成确定性结论
-```
-
-## 把提示词升级为可交接的工作资产
-
-官方说明中，Skill 是包含 `SKILL.md` 的文件夹：它把触发条件、步骤、格式和注意事项预先写入，既可由对话自动匹配，也可通过 `/` 或直接点名调用；个人创建的 Skill 还可以以链接分享给同事。[来源](../appendices/sources#r14)
-
-团队版本化 Skill 时，至少应同时保存：
-
-- **触发条件**：什么任务该用、什么任务不该用；
-- **输入合同**：文件、字段、时间口径与所需权限；
-- **处理规则**：计算、引用、判断和禁止行为；
-- **输出合同**：格式、目录、命名、可编辑性与保存位置；
-- **验收与回退**：抽查什么、谁确认、失败后如何转人工。
-
-直播后的稳妥试用方式是：先由个人用 Skill 固化一次已验证流程，再让 3—5 名同类岗位复跑；不要把一次演示中看起来有效的 Prompt 直接扩散给全员。
-
-## 连接器授权原则
-
-- 默认关闭、按任务最小化授权；
-- 读取与写入分开，能只读则只读；
-- 个人与组织账号分开管理；
-- 高风险动作采用“草稿—人工确认—正式执行”；
-- 定期清理不再使用的连接器、凭证与 MCP 配置。
+[前往规范页面](/bluebook/part-2/04-skills-connectors-expert-kits)

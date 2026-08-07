@@ -1,0 +1,10 @@
+{
+  "title": "千问办公蓝皮书 V2.0",
+  "version": "V2.0",
+  "publishedAt": "2026-08-01",
+  "siteBaseUrl": "https://qwenworkguide.pages.dev/",
+  "items": [
+    { "id": "chapter-a", "path": "docs/bluebook/chapter-a.md", "title": "章节 A", "kind": "chapter", "breakBefore": true },
+    { "id": "chapter-b", "path": "docs/bluebook/chapter-b.md", "title": "章节 B", "kind": "chapter", "breakBefore": true }
+  ]
+}
