@@ -4,6 +4,8 @@
 
 在线阅读：<https://mickyzhou-glitch.github.io/QwenWorkGuide/>
 
+下载：[千问办公蓝皮书 V2.0 PDF 本地 RC](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)
+
 > QwenWorkGuide 不代表千问办公、阿里巴巴或其关联方的官方立场；产品能力以官方资料和实际可用界面为准。
 
 ## 你能在这里读到什么

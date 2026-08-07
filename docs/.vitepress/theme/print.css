@@ -131,6 +131,11 @@ pre {
   border-radius: 1mm;
 }
 
+.language-text .lang,
+.language-text .copy {
+  display: none;
+}
+
 code,
 a {
   overflow-wrap: anywhere;

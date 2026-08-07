@@ -816,6 +816,7 @@ test("print stylesheet covers pagination and overflow contracts", async () => {
   ]) {
     assert.match(css, pattern);
   }
+  assert.match(css, /\.language-text \.lang,[\s\S]*?\.language-text \.copy/);
   assert.doesNotMatch(
     css,
     /(?:^|\n)\s*(?:tr|th|td)(?:\s*,\s*(?:tr|th|td))*\s*{[^}]*break-inside:\s*avoid/s,

@@ -26,6 +26,7 @@ V2 按“完成一次交付、沉淀一条工作流、应用于专业场景、�
 
 ## 历史离线版
 
+- [下载 V2.0 PDF 本地 RC](/downloads/qwenwork-bluebook-v2.0.pdf)
 - [下载 V1.3 PDF 离线版](/downloads/qwenwork-bluebook-v1.3.pdf)
 - [下载 V1.2 PDF 离线版（存档）](/downloads/qwenwork-bluebook-v1.pdf)
 
