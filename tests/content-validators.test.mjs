@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   chmod,
@@ -12,6 +13,7 @@ import {
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 
 import {
   buildPrintDocument,
@@ -27,11 +29,38 @@ import {
 import validCaseMap from "./fixtures/evidence/case-map-valid-32.mjs";
 
 const fixturesDirectory = new URL("./fixtures/", import.meta.url);
+const execFileAsync = promisify(execFile);
 
 async function createTemporaryDirectory(t) {
   const directory = await mkdtemp(join(tmpdir(), "qwenwork-validators-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   return directory;
+}
+
+async function createFakeChrome(
+  directory,
+  exitCode = 0,
+  writePdf = true,
+  version = "150.0.0.0",
+) {
+  const chrome = join(directory, "Fake Chrome");
+  const source = `#!/bin/sh
+if [ "$1" = "--version" ]; then
+  echo "Fake Chrome ${version}"
+  exit 0
+fi
+output=""
+for argument in "$@"; do
+  case "$argument" in
+    --print-to-pdf=*) output="\${argument#--print-to-pdf=}" ;;
+  esac
+done
+${writePdf ? 'printf "%s" "%PDF-1.4 fake" > "$output"' : ":"}
+exit ${exitCode}
+`;
+  await writeFile(chrome, source, "utf8");
+  await chmod(chrome, 0o755);
+  return chrome;
 }
 
 test("validateContentRoots aggregates missing roots and recursive page errors", async (t) => {
@@ -681,5 +710,104 @@ test("print stylesheet covers pagination and overflow contracts", async () => {
   assert.doesNotMatch(
     css,
     /(?:^|\n)\s*(?:tr|th|td)(?:\s*,\s*(?:tr|th|td))*\s*{[^}]*break-inside:\s*avoid/s,
+  );
+});
+
+test("html-to-pdf prefers explicit Chrome and replaces output atomically", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  const chrome = await createFakeChrome(directory);
+  const input = join(directory, "input file.html");
+  const output = join(directory, "output file.pdf");
+  await writeFile(input, "<!doctype html><title>V2.0</title>", "utf8");
+  await writeFile(output, "old", "utf8");
+  await execFileAsync("bash", [
+    "scripts/html-to-pdf.sh",
+    "--chrome",
+    chrome,
+    input,
+    output,
+  ]);
+  assert.equal(await readFile(output, "utf8"), "%PDF-1.4 fake");
+});
+
+test("html-to-pdf preserves the previous PDF when Chrome fails", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  const chrome = await createFakeChrome(directory, 9, false);
+  const input = join(directory, "input.html");
+  const output = join(directory, "output.pdf");
+  await writeFile(input, "<!doctype html><title>V2.0</title>", "utf8");
+  await writeFile(output, "previous", "utf8");
+  await assert.rejects(
+    execFileAsync("bash", [
+      "scripts/html-to-pdf.sh",
+      "--chrome",
+      chrome,
+      input,
+      output,
+    ]),
+  );
+  assert.equal(await readFile(output, "utf8"), "previous");
+});
+
+test("html-to-pdf rejects empty browser output", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  const chrome = await createFakeChrome(directory, 0, false);
+  const input = join(directory, "input.html");
+  const output = join(directory, "output.pdf");
+  await writeFile(input, "<!doctype html><title>V2.0</title>", "utf8");
+  await assert.rejects(
+    execFileAsync("bash", [
+      "scripts/html-to-pdf.sh",
+      "--chrome",
+      chrome,
+      input,
+      output,
+    ]),
+  );
+});
+
+test("html-to-pdf uses QWG_CHROME_BIN when no explicit path is supplied", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  const chrome = await createFakeChrome(directory);
+  const input = join(directory, "input.html");
+  const output = join(directory, "output.pdf");
+  await writeFile(input, "<!doctype html><title>V2.0</title>", "utf8");
+  await execFileAsync("bash", ["scripts/html-to-pdf.sh", input, output], {
+    env: { ...process.env, QWG_CHROME_BIN: chrome },
+  });
+  assert.equal(await readFile(output, "utf8"), "%PDF-1.4 fake");
+});
+
+test("html-to-pdf rejects an invalid explicit Chrome without fallback", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  await assert.rejects(
+    execFileAsync("bash", [
+      "scripts/html-to-pdf.sh",
+      "--check",
+      "--chrome",
+      join(directory, "missing"),
+    ], { env: { ...process.env, QWG_CHROME_BIN: "" } }),
+  );
+});
+
+test("html-to-pdf rejects an invalid QWG_CHROME_BIN without fallback", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  await assert.rejects(
+    execFileAsync("bash", ["scripts/html-to-pdf.sh", "--check"], {
+      env: { ...process.env, QWG_CHROME_BIN: join(directory, "missing") },
+    }),
+  );
+});
+
+test("html-to-pdf requires Chrome major version 131 or newer", async (t) => {
+  const directory = await createTemporaryDirectory(t);
+  const chrome = await createFakeChrome(directory, 0, true, "130.0.0.0");
+  await assert.rejects(
+    execFileAsync("bash", [
+      "scripts/html-to-pdf.sh",
+      "--check",
+      "--chrome",
+      chrome,
+    ]),
   );
 });
