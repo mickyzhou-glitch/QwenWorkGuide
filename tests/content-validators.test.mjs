@@ -11,7 +11,13 @@ import {
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
+import {
+  buildPrintDocument,
+  resolveDocumentLink,
+  validateManifest,
+} from "../scripts/build-bluebook-print.mjs";
 import { generateEvidencePages } from "../scripts/generate-evidence-pages.mjs";
 import { validateCaseDirectory } from "../scripts/validate-cases.mjs";
 import {
@@ -522,4 +528,134 @@ test("validateEvidenceRepository aggregates invalid object shapes without throwi
       failure.includes("cases[0]: 必须为对象"),
     ),
   );
+});
+
+test("validateManifest accepts only ordered bluebook documents", async () => {
+  const manifest = JSON.parse(
+    await readFile(
+      new URL("fixtures/pdf/manifest-valid.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const availablePaths = new Set(manifest.items.map((item) => item.path));
+  assert.deepEqual(
+    validateManifest(manifest, { availablePaths, expectedCount: 2 }),
+    [],
+  );
+  manifest.items[1].path = "../outside.md";
+  assert.ok(
+    validateManifest(manifest, { availablePaths, expectedCount: 2 }).some(
+      (error) => error.includes("docs/bluebook"),
+    ),
+  );
+});
+
+test("Official Manifest contains the exact ordered 21-item sequence", async () => {
+  const manifest = JSON.parse(
+    await readFile(
+      new URL("../scripts/bluebook-v2-manifest.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const actual = manifest.items.map(({ id, path, kind }) => ({
+    id,
+    path,
+    kind,
+  }));
+  assert.deepEqual(actual, [
+    { id: "executive-summary", path: "docs/bluebook/executive-summary.md", kind: "executive-summary" },
+    { id: "chapter-01", path: "docs/bluebook/part-1/01-delivery-standard.md", kind: "chapter" },
+    { id: "chapter-02", path: "docs/bluebook/part-1/02-task-delivery-protocol.md", kind: "chapter" },
+    { id: "chapter-03", path: "docs/bluebook/part-2/03-work-environment-architecture.md", kind: "chapter" },
+    { id: "chapter-04", path: "docs/bluebook/part-2/04-skills-connectors-expert-kits.md", kind: "chapter" },
+    { id: "chapter-05", path: "docs/bluebook/part-2/05-automation-boundaries.md", kind: "chapter" },
+    { id: "chapter-06", path: "docs/bluebook/part-3/06-office-delivery.md", kind: "chapter" },
+    { id: "chapter-07", path: "docs/bluebook/part-3/07-role-roadmaps.md", kind: "chapter" },
+    { id: "chapter-08", path: "docs/bluebook/part-3/08-research-evidence-chain.md", kind: "chapter" },
+    { id: "chapter-09", path: "docs/bluebook/part-3/09-public-case-atlas.md", kind: "chapter" },
+    { id: "chapter-10", path: "docs/bluebook/part-4/10-pilot-roadmap.md", kind: "chapter" },
+    { id: "chapter-11", path: "docs/bluebook/part-4/11-security-governance.md", kind: "chapter" },
+    { id: "chapter-12", path: "docs/bluebook/part-4/12-workflow-operations.md", kind: "chapter" },
+    { id: "chapter-13", path: "docs/bluebook/part-4/13-value-measurement.md", kind: "chapter" },
+    { id: "conclusion", path: "docs/bluebook/conclusion-product-ecosystem.md", kind: "conclusion" },
+    { id: "appendix-prompts", path: "docs/bluebook/appendices/prompt-templates.md", kind: "appendix" },
+    { id: "appendix-scenarios", path: "docs/bluebook/appendices/scenario-index.md", kind: "appendix" },
+    { id: "appendix-launch", path: "docs/bluebook/appendices/launch-checklist.md", kind: "appendix" },
+    { id: "appendix-sources", path: "docs/bluebook/appendices/sources.md", kind: "appendix" },
+    { id: "appendix-evidence", path: "docs/bluebook/appendices/evidence-ledger.md", kind: "appendix" },
+    { id: "appendix-cases", path: "docs/bluebook/appendices/case-source-map.md", kind: "appendix" },
+  ]);
+});
+
+test("resolveDocumentLink namespaces headings but preserves globally unique raw IDs", () => {
+  const context = {
+    currentPath: "docs/bluebook/chapter-a.md",
+    currentId: "chapter-a",
+    documentsByPath: new Map([
+      [
+        "docs/bluebook/chapter-b.md",
+        {
+          id: "chapter-b",
+          headingAnchors: new Set(["same-heading"]),
+          rawAnchors: new Set(["r14"]),
+        },
+      ],
+      [
+        "docs/bluebook/appendices/sources.md",
+        {
+          id: "appendix-sources",
+          headingAnchors: new Set(),
+          rawAnchors: new Set(["r15"]),
+        },
+      ],
+    ]),
+    currentHeadingAnchors: new Set(["local-heading"]),
+    currentRawAnchors: new Set(["claim-print-a-01"]),
+    siteBaseUrl: "https://qwenworkguide.pages.dev/",
+  };
+  assert.equal(
+    resolveDocumentLink("#local-heading", context),
+    "#chapter-a--local-heading",
+  );
+  assert.equal(
+    resolveDocumentLink("#claim-print-a-01", context),
+    "#claim-print-a-01",
+  );
+  assert.equal(
+    resolveDocumentLink("chapter-b.md#same-heading", context),
+    "#chapter-b--same-heading",
+  );
+  assert.equal(resolveDocumentLink("chapter-b.md#r14", context), "#r14");
+  assert.equal(
+    resolveDocumentLink("appendices/sources.md#r15", context),
+    "#r15",
+  );
+  assert.equal(
+    resolveDocumentLink("https://example.com/x", context),
+    "https://example.com/x",
+  );
+});
+
+test("buildPrintDocument strips frontmatter and renders VitePress Markdown", async () => {
+  const manifest = JSON.parse(
+    await readFile(
+      new URL("fixtures/pdf/manifest-valid.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const html = await buildPrintDocument({
+    repoRoot: fileURLToPath(new URL("fixtures/pdf/repo/", import.meta.url)),
+    manifest,
+    css: "@page { size: A4; }",
+  });
+  assert.match(html, /<title>千问办公蓝皮书 V2\.0<\/title>/);
+  assert.match(html, /class="warning custom-block"/);
+  assert.match(html, /id="chapter-a--same-heading"/);
+  assert.match(html, /id="claim-print-a-01"/);
+  assert.doesNotMatch(html, /id="chapter-a--claim-print-a-01"/);
+  assert.match(html, /href="#chapter-b--same-heading"/);
+  assert.match(html, /<a href="#claim-print-a-01">同章原始锚点<\/a>/);
+  assert.match(html, /id="r14"/);
+  assert.match(html, /<a href="#r14">跨章原始锚点<\/a>/);
+  assert.doesNotMatch(html, /^---$/m);
 });
