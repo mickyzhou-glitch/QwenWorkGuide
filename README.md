@@ -6,7 +6,7 @@
 
 QwenWorkGuide 是一份非官方、开源、社区共创的千问办公指南。它不只告诉你「能做什么」，还会说清楚「怎么做」、「怎么验收」和「怎么在团队里复用」。
 
-[**在线阅读**](https://mickyzhou-glitch.github.io/QwenWorkGuide/) · [先读执行摘要](docs/bluebook/executive-summary.md) · [查看案例](docs/cases/index.md) · [下载 V2.0 PDF](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)
+[**Cloudflare 在线阅读**](https://qwenworkguide.pages.dev/) · [GitHub Pages 备用站](https://mickyzhou-glitch.github.io/QwenWorkGuide/) · [先读执行摘要](docs/bluebook/executive-summary.md) · [查看案例](docs/cases/index.md) · [下载 V2.0 PDF](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)
 
 > 本项目不代表千问办公、阿里巴巴或其关联方的官方立场。功能、价格、权益和可用范围请以官方资料及实际界面为准。
 
