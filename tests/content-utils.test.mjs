@@ -1689,17 +1689,115 @@ test("案例库保留历史案例正文并显式标注证据边界", async () =>
     "utf8",
   );
 
-  assert.match(caseIndex, /当前可阅读：2 个具名客户深度案例（4 个业务场景）\+ 32 个公开场景案例/);
+  assert.match(caseIndex, /当前可阅读：2 个具名客户深度案例（4 个业务场景）\+ 32 个公开场景线索/);
   assert.match(caseIndex, /客户陈述|独立审计|证据边界/);
+  assert.ok(
+    caseIndex.indexOf("## 先看可阅读案例与场景") <
+      caseIndex.indexOf("## 证据边界与合格案例"),
+  );
   assert.match(pisenCase, /^# 品胜电子：竞品调研与产品物料制作/m);
   assert.match(pisenCase, /客户陈述结果/);
+  assert.ok(pisenCase.indexOf("## 先看结论") > pisenCase.indexOf("# 品胜电子"));
+  assert.ok(
+    pisenCase.indexOf("#### 问题") <
+      pisenCase.indexOf("#### 最后得到的产物") &&
+      pisenCase.indexOf("#### 最后得到的产物") <
+        pisenCase.indexOf("#### 如果你要复用") &&
+      pisenCase.indexOf("#### 如果你要复用") <
+        pisenCase.indexOf("#### 证据边界"),
+  );
+  const pisenIntro = pisenCase.slice(
+    pisenCase.indexOf("## 先看结论"),
+    pisenCase.indexOf("## 两个场景一览"),
+  );
+  assert.doesNotMatch(pisenIntro, /外部记录 ID|发布门|来源映射/);
+  assert.match(pisenCase, /必须替换为自己的数据、规则或素材/);
+  assert.match(pisenCase, /客户材料中的结果不能直接照搬/);
+  assert.match(pisenCase, /产品经理|设计或品牌负责人/);
   assert.match(youkelaCase, /^# 优克拉：产品研发与考勤算薪/m);
   assert.match(youkelaCase, /客户陈述结果/);
+  assert.ok(youkelaCase.indexOf("## 先看结论") > youkelaCase.indexOf("# 优克拉"));
+  assert.ok(
+    youkelaCase.indexOf("#### 问题") <
+      youkelaCase.indexOf("#### 最后得到的产物") &&
+      youkelaCase.indexOf("#### 最后得到的产物") <
+        youkelaCase.indexOf("#### 如果你要复用") &&
+      youkelaCase.indexOf("#### 如果你要复用") <
+        youkelaCase.indexOf("#### 证据边界"),
+  );
+  const youkelaIntro = youkelaCase.slice(
+    youkelaCase.indexOf("## 先看结论"),
+    youkelaCase.indexOf("## 两个场景一览"),
+  );
+  assert.doesNotMatch(youkelaIntro, /外部记录 ID|发布门|来源映射/);
+  assert.match(youkelaCase, /必须替换为自己的数据、规则或素材/);
+  assert.match(youkelaCase, /客户材料中的结果不能直接照搬/);
+  assert.match(youkelaCase, /HR|财务/);
   assert.match(publicCaseAtlas, /^# 千问办公公开案例库：32 个场景图谱/m);
   assert.match(publicCaseAtlas, /32 个场景/);
   assert.match(publicCaseAtlas, /证据边界|待核验/);
+  for (const label of ["适合什么人", "需要准备什么", "最小试点", "交付物长什么样"]) {
+    assert.match(publicCaseAtlas, new RegExp(label));
+  }
+  assert.match(publicCaseAtlas, /低风险草稿|只读分析/);
   assert.match(publicCaseChapter, /## 可阅读案例/);
   assert.match(publicCaseChapter, /\/cases\//);
+  assert.ok(
+    publicCaseChapter.indexOf("## 可阅读案例") <
+      publicCaseChapter.indexOf("## 怎么读案例") &&
+      publicCaseChapter.indexOf("## 怎么读案例") <
+        publicCaseChapter.indexOf("## 如何复用") &&
+      publicCaseChapter.indexOf("## 如何复用") <
+        publicCaseChapter.indexOf("## 证据统计"),
+  );
+});
+
+test("32 个公开场景线索保留原始任务名称且不提升为已核验案例", async () => {
+  const publicCaseAtlas = await readFile(
+    join(docsRoot, "cases/submissions/qwenwork-public-case-atlas.md"),
+    "utf8",
+  );
+  const taskNames = [
+    "搭建电商经营数据看板",
+    "产出主流 AI 模型对比报告",
+    "分析电商经营数据",
+    "分析英伟达财报",
+    "抓取多平台选品数据",
+    "复盘多平台经营数据",
+    "复盘闪购经营数据",
+    "搭建营销复盘看板",
+    "输出全球智能手机竞品调研报告",
+    "分析商品宣传视频",
+    "分析直播切片",
+    "搭建达人矩阵管理看板",
+    "批量生成商品图片",
+    "浏览器自动化完成商品上下架",
+    "制作闪购活动策划并测算优惠成本",
+    "设计外卖商品页面",
+    "生成花店宣传官网首页",
+    "搭建民宿产品介绍网页",
+    "搭建科技公司动态官网首页",
+    "生成营销策划方案",
+    "定时多渠道分发营销内容",
+    "批量生成多平台营销素材",
+    "搭建求职简历网页",
+    "搭建飞机发动机教学网站",
+    "设计课堂 PPT 和配套教学资料",
+    "生成学情分析报告",
+    "搭建招生宣传网页",
+    "整理中考英语百日备考方案",
+    "设计论文初稿框架",
+    "调动钉钉完成从文档归纳到待办创建的系列任务",
+    "生成人才梯队发展规划",
+    "搭建校招面试管理看板",
+  ];
+
+  assert.equal(taskNames.length, 32);
+  for (const taskName of taskNames) {
+    assert.match(publicCaseAtlas, new RegExp(taskName));
+  }
+  assert.match(publicCaseAtlas, /待核验公开场景线索|不等同于客户背书/);
+  assert.doesNotMatch(publicCaseAtlas, /32 个已核验客户案例/);
 });
 
 test("reader-first navigation contract exposes a clear reader entry path", async () => {
