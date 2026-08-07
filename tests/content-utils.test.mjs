@@ -114,6 +114,22 @@ const EXPECTED_LEGACY_PAGE_MAP = [
 const EXPECTED_BLUEBOOK_V2_NEXT_CHAIN = [
   [
     "docs/bluebook/executive-summary.md",
+    "/bluebook/part-3/09-public-case-atlas",
+  ],
+  [
+    "docs/bluebook/part-3/09-public-case-atlas.md",
+    "/bluebook/part-3/06-office-delivery",
+  ],
+  [
+    "docs/bluebook/part-3/06-office-delivery.md",
+    "/bluebook/part-3/07-role-roadmaps",
+  ],
+  [
+    "docs/bluebook/part-3/07-role-roadmaps.md",
+    "/bluebook/part-3/08-research-evidence-chain",
+  ],
+  [
+    "docs/bluebook/part-3/08-research-evidence-chain.md",
     "/bluebook/part-1/01-delivery-standard",
   ],
   [
@@ -134,22 +150,6 @@ const EXPECTED_BLUEBOOK_V2_NEXT_CHAIN = [
   ],
   [
     "docs/bluebook/part-2/05-automation-boundaries.md",
-    "/bluebook/part-3/06-office-delivery",
-  ],
-  [
-    "docs/bluebook/part-3/06-office-delivery.md",
-    "/bluebook/part-3/07-role-roadmaps",
-  ],
-  [
-    "docs/bluebook/part-3/07-role-roadmaps.md",
-    "/bluebook/part-3/08-research-evidence-chain",
-  ],
-  [
-    "docs/bluebook/part-3/08-research-evidence-chain.md",
-    "/bluebook/part-3/09-public-case-atlas",
-  ],
-  [
-    "docs/bluebook/part-3/09-public-case-atlas.md",
     "/bluebook/part-4/10-pilot-roadmap",
   ],
   [
@@ -185,7 +185,16 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
     ],
   },
   {
-    text: "第一篇：完成一次交付",
+    text: "先看案例与场景",
+    items: [
+      {
+        text: "第 9 章 公开案例图谱",
+        link: "/bluebook/part-3/09-public-case-atlas",
+      },
+    ],
+  },
+  {
+    text: "从任务到交付",
     items: [
       {
         text: "第 1 章 交付新标准",
@@ -195,11 +204,6 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
         text: "第 2 章 任务拆解与验收",
         link: "/bluebook/part-1/02-task-delivery-protocol",
       },
-    ],
-  },
-  {
-    text: "第二篇：沉淀一条工作流",
-    items: [
       {
         text: "第 3 章 工作环境与能力架构",
         link: "/bluebook/part-2/03-work-environment-architecture",
@@ -215,7 +219,7 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
     ],
   },
   {
-    text: "第三篇：应用于专业场景",
+    text: "专业办公任务",
     items: [
       {
         text: "第 6 章 办公交付",
@@ -229,14 +233,10 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
         text: "第 8 章 研究与证据链",
         link: "/bluebook/part-3/08-research-evidence-chain",
       },
-      {
-        text: "第 9 章 公开案例图谱",
-        link: "/bluebook/part-3/09-public-case-atlas",
-      },
     ],
   },
   {
-    text: "第四篇：扩展为组织能力",
+    text: "团队落地",
     items: [
       {
         text: "第 10 章 场景选择与试点",
@@ -281,16 +281,16 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
         link: "/bluebook/appendices/launch-checklist",
       },
       {
+        text: "来源与延伸阅读",
+        link: "/bluebook/appendices/sources",
+      },
+      {
         text: "主张证据台账",
         link: "/bluebook/appendices/evidence-ledger",
       },
       {
         text: "案例来源映射",
         link: "/bluebook/appendices/case-source-map",
-      },
-      {
-        text: "来源与延伸阅读",
-        link: "/bluebook/appendices/sources",
       },
     ],
   },
@@ -1364,9 +1364,12 @@ test("Legacy page map has exactly the 17 compatibility routes", () => {
   assert.deepEqual([...LEGACY_PAGE_MAP], EXPECTED_LEGACY_PAGE_MAP);
 });
 
-test("V2 sidebar has exactly 21 canonical items in path order", () => {
+test("V2 sidebar has exactly 21 canonical items in reader-first group order", () => {
   const items = flattenBluebookSidebar(BLUEBOOK_V2_SIDEBAR_GROUPS);
   const expectedLinks = BLUEBOOK_V2_PATHS.map(bluebookPathToUrl);
+  const expectedSidebarLinks = flattenBluebookSidebar(
+    EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS,
+  ).map((item) => item.link);
   const legacyLinks = new Set([...LEGACY_PAGE_MAP.keys()].map(bluebookPathToUrl));
 
   assert.equal(BLUEBOOK_V2_PATHS.length, 21);
@@ -1377,7 +1380,11 @@ test("V2 sidebar has exactly 21 canonical items in path order", () => {
   assert.equal(items.length, 21);
   assert.deepEqual(
     items.map((item) => item.link),
-    expectedLinks,
+    expectedSidebarLinks,
+  );
+  assert.deepEqual(
+    [...new Set(items.map((item) => item.link))].sort(),
+    [...new Set(expectedLinks)].sort(),
   );
   assert.equal(items.some((item) => legacyLinks.has(item.link)), false);
 });

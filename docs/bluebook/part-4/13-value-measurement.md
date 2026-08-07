@@ -121,4 +121,4 @@ sources: []
 
 价值度量决定工作流是否值得继续投入，不决定产品官方路线。产品、伙伴和生态建议应单独标注公开事实、已实测组合、可行推断与待验证假设，避免把建议写成承诺。
 
-[下一篇：产品与生态路线建议](/bluebook/conclusion-product-ecosystem)
+[下一章：产品与生态路线建议](/bluebook/conclusion-product-ecosystem)

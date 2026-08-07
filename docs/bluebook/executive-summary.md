@@ -76,4 +76,4 @@ sources: []
 
 ## 边界与下一步
 
-[下一章：交付新标准](/bluebook/part-1/01-delivery-standard)
+[下一章：公开案例图谱](/bluebook/part-3/09-public-case-atlas)

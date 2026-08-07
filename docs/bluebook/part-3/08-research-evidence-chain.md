@@ -90,4 +90,4 @@ sources:
 
 本章定义研究证据方法，不决定哪些公开案例可以发布。案例进入蓝皮书还需满足独立的来源定位和公开计数门槛。
 
-[下一章：公开案例图谱](/bluebook/part-3/09-public-case-atlas)
+[下一章：交付新标准](/bluebook/part-1/01-delivery-standard)
