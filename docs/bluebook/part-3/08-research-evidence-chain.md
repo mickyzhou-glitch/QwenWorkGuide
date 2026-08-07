@@ -1,19 +1,19 @@
 ---
-title: 研究与证据链：从问题树到发布记录
-description: 用统一证据卡、冲突登记和人机流程形成可核验研究交付
+title: 研究与证据链：从问题树（把大问题拆成小问题的提问框架）到发布记录
+description: 用统一证据卡（记录来源、口径和限制的小卡片）、冲突登记（把不同来源的差异记下来的记录）和人机流程形成可核验研究交付
 status: community-practice
 verifiedAt: 2026-08-01
 sources:
   - https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8DMGQKRatejr3EKoWxLq0Ee4
 ---
 
-# 研究与证据链：从问题树到发布记录
+# 研究与证据链：从问题树（把大问题拆成小问题的提问框架）到发布记录
 
 ## 30 秒结论
 
-<span id="claim-evidence-card-fields-01" data-claim-id="claim-evidence-card-fields-01"></span>本章将研究证据卡唯一规范定义为九个字段：主张、来源原文、来源类型、日期、统计口径、适用范围、限制、冲突、状态。
+<span id="claim-evidence-card-fields-01" data-claim-id="claim-evidence-card-fields-01"></span>本章将证据卡（记录来源、口径和限制的小卡片）唯一规范定义为九个字段：主张、来源原文、来源类型、日期、统计口径、适用范围、限制、冲突、状态。
 
-<span id="claim-research-question-tree-01" data-claim-id="claim-research-question-tree-01"></span>本书建议：研究先把决策问题拆成可由证据回答的问题树，再检索和写作，避免“搜索到什么就写什么”。
+<span id="claim-research-question-tree-01" data-claim-id="claim-research-question-tree-01"></span>本书建议：研究先把决策问题拆成可由证据回答的问题树（把大问题拆成小问题的提问框架），再检索和写作，避免“搜索到什么就写什么”。
 
 ## 你可能遇到的场景
 
@@ -24,8 +24,8 @@ sources:
 最终产物是一套可发布的研究包，结构为：
 
 1. 问题树和来源计划：每个子问题、优先来源、备选来源和停止条件；
-2. 证据卡：主张、来源原文、来源类型、日期、统计口径、适用范围、限制、冲突、状态；
-3. 冲突登记：编号、相关卡片、差异、可能原因、处理动作、Owner 和状态；
+2. 证据卡（记录来源、口径和限制的小卡片）：主张、来源原文、来源类型、日期、统计口径、适用范围、限制、冲突、状态；
+3. 冲突登记（把不同来源的差异记下来的记录）：编号、相关卡片、差异、可能原因、处理动作、负责核对和处理这条证据的人（Owner）和状态；
 4. 分层结论：已核验事实、基于证据的推断、建议、待确认问题和发布前复核记录。
 
 ## 照着做
