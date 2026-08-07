@@ -4,14 +4,16 @@ import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
   chmod,
+  copyFile,
   mkdir,
   mkdtemp,
+  readdir,
   readFile,
   rm,
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
@@ -61,6 +63,113 @@ exit ${exitCode}
   await writeFile(chrome, source, "utf8");
   await chmod(chrome, 0o755);
   return chrome;
+}
+
+async function writeExecutable(path, source) {
+  await writeFile(path, source, "utf8");
+  await chmod(path, 0o755);
+}
+
+async function createFakePdfRepository(t) {
+  const root = await mkdtemp(join(tmpdir(), "qwenwork-pdf-repo-"));
+  const bin = join(root, "bin");
+  const tmp = join(root, "tmp");
+  const output = join(
+    root,
+    "docs/public/downloads/qwenwork-bluebook-v2.0.pdf",
+  );
+  await mkdir(bin, { recursive: true });
+  await mkdir(tmp, { recursive: true });
+  await mkdir(join(root, "scripts"), { recursive: true });
+  await mkdir(join(root, "docs/public/downloads"), { recursive: true });
+  await copyFile(
+    new URL("../scripts/build-bluebook-pdf.sh", import.meta.url),
+    join(root, "scripts/build-bluebook-pdf.sh"),
+  );
+  await writeExecutable(
+    join(root, "scripts/html-to-pdf.sh"),
+    `#!/bin/sh
+if [ "$1" = "--check" ]; then
+  echo "Fake Chrome 150.0.0.0"
+  exit 0
+fi
+last=""
+for argument in "$@"; do last="$argument"; done
+printf "%s" "%PDF-1.4 new" > "$last"
+`,
+  );
+  await writeExecutable(
+    join(bin, "node"),
+    `#!/bin/sh
+if [ "$1" = "--version" ]; then echo "v22.0.0"; exit 0; fi
+output=""
+previous=""
+for argument in "$@"; do
+  if [ "$previous" = "--output" ]; then output="$argument"; fi
+  previous="$argument"
+done
+if [ -n "$output" ]; then printf "%s" "<!doctype html><title>V2.0</title>" > "$output"; fi
+`,
+  );
+  await writeExecutable(
+    join(bin, "npm"),
+    `#!/bin/sh
+if [ "$1" = "--version" ]; then echo "10.0.0"; fi
+exit 0
+`,
+  );
+  await writeExecutable(
+    join(bin, "pdfinfo"),
+    `#!/bin/sh
+if [ "$1" = "-v" ]; then echo "pdfinfo version 24.02" >&2; exit 0; fi
+if [ "\${QWG_FAKE_PDFINFO_MODE:-valid}" = "invalid" ]; then
+  printf "%s\\n" "Title: invalid" "Pages: 0"
+else
+  printf "%s\\n" "Title: 千问办公蓝皮书 V2.0" "Pages: 2"
+fi
+`,
+  );
+  await writeExecutable(
+    join(bin, "pdftoppm"),
+    `#!/bin/sh
+if [ "$1" = "-v" ]; then echo "pdftoppm version 24.02" >&2; exit 0; fi
+prefix=""
+for argument in "$@"; do prefix="$argument"; done
+pages="\${QWG_FAKE_RENDERED_PAGES:-2}"
+i=1
+while [ "$i" -le "$pages" ]; do
+  printf "%s" "png" > "$prefix-$i.png"
+  i=$((i + 1))
+done
+`,
+  );
+  t.after(() => rm(root, { recursive: true, force: true }));
+  return { root, bin, tmp, output };
+}
+
+async function runFakePdfBuild(t, options = {}) {
+  const {
+    previous = "previous",
+    pdfinfoMode = "valid",
+    renderedPages = "2",
+  } = options;
+  const fixture = await createFakePdfRepository(t);
+  await writeFile(fixture.output, previous, "utf8");
+  const execution = execFileAsync(
+    "bash",
+    ["scripts/build-bluebook-pdf.sh"],
+    {
+      cwd: fixture.root,
+      env: {
+        ...process.env,
+        PATH: `${fixture.bin}:${process.env.PATH}`,
+        TMPDIR: fixture.tmp,
+        QWG_FAKE_PDFINFO_MODE: pdfinfoMode,
+        QWG_FAKE_RENDERED_PAGES: renderedPages,
+      },
+    },
+  );
+  return { ...fixture, execution };
 }
 
 test("validateContentRoots aggregates missing roots and recursive page errors", async (t) => {
@@ -809,5 +918,45 @@ test("html-to-pdf requires Chrome major version 131 or newer", async (t) => {
       "--chrome",
       chrome,
     ]),
+  );
+});
+
+test("build-bluebook-pdf success replaces the previous output", async (t) => {
+  const { output, execution } = await runFakePdfBuild(t);
+  await execution;
+  assert.equal(await readFile(output, "utf8"), "%PDF-1.4 new");
+  assert.deepEqual(
+    (await readdir(join(dirname(output)))).filter((name) =>
+      name.startsWith(".qwenwork-bluebook-v2.0.pdf."),
+    ),
+    [],
+  );
+});
+
+test("build-bluebook-pdf invalid pdfinfo preserves the previous output", async (t) => {
+  const { output, execution } = await runFakePdfBuild(t, {
+    pdfinfoMode: "invalid",
+  });
+  await assert.rejects(execution);
+  assert.equal(await readFile(output, "utf8"), "previous");
+  assert.deepEqual(
+    (await readdir(join(dirname(output)))).filter((name) =>
+      name.startsWith(".qwenwork-bluebook-v2.0.pdf."),
+    ),
+    [],
+  );
+});
+
+test("build-bluebook-pdf page-count failure preserves the previous output", async (t) => {
+  const { output, execution } = await runFakePdfBuild(t, {
+    renderedPages: "1",
+  });
+  await assert.rejects(execution);
+  assert.equal(await readFile(output, "utf8"), "previous");
+  assert.deepEqual(
+    (await readdir(join(dirname(output)))).filter((name) =>
+      name.startsWith(".qwenwork-bluebook-v2.0.pdf."),
+    ),
+    [],
   );
 });
