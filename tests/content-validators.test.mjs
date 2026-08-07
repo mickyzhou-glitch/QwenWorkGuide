@@ -751,13 +751,17 @@ test("resolveDocumentLink namespaces headings but preserves globally unique raw 
         },
       ],
     ]),
-    currentHeadingAnchors: new Set(["local-heading"]),
+    currentHeadingAnchors: new Set(["local-heading", "公开案例"]),
     currentRawAnchors: new Set(["claim-print-a-01"]),
     siteBaseUrl: "https://qwenworkguide.pages.dev/",
   };
   assert.equal(
     resolveDocumentLink("#local-heading", context),
     "#chapter-a--local-heading",
+  );
+  assert.equal(
+    resolveDocumentLink(`#${encodeURIComponent("公开案例")}`, context),
+    "#chapter-a--公开案例",
   );
   assert.equal(
     resolveDocumentLink("#claim-print-a-01", context),
