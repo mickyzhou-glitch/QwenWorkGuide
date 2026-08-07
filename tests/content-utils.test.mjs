@@ -1714,8 +1714,14 @@ test("reader-first navigation contract exposes a clear reader entry path", async
   assert.match(bluebookHome, /基本介绍|案例与场景|阶段、治理、权限/);
   assert.match(executiveSummary, /普通办公用户|先做完一件事|真实案例/);
 
-  assert.ok(
-    BLUEBOOK_V2_PATHS.indexOf("docs/bluebook/part-3/09-public-case-atlas.md") <
-      BLUEBOOK_V2_PATHS.indexOf("docs/bluebook/part-1/01-delivery-standard.md"),
+  const publicCaseIndex = BLUEBOOK_V2_PATHS.indexOf(
+    "docs/bluebook/part-3/09-public-case-atlas.md",
   );
+  const deliveryStandardIndex = BLUEBOOK_V2_PATHS.indexOf(
+    "docs/bluebook/part-1/01-delivery-standard.md",
+  );
+
+  assert.ok(publicCaseIndex >= 0);
+  assert.ok(deliveryStandardIndex >= 0);
+  assert.ok(publicCaseIndex < deliveryStandardIndex);
 });
