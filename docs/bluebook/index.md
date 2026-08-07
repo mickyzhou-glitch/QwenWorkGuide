@@ -14,17 +14,37 @@ sources:
 
 **当前在线版：V2｜内容快照：2026-08-01**
 
-V2 按“完成一次交付、沉淀一条工作流、应用于专业场景、扩展为组织能力”组织正文，并以统一的任务协议、阶段门、治理责任和证据台账保持章节间口径一致。
+这本蓝皮书建议从一件具体的办公工作开始，再逐步扩展到团队。普通办公用户的推荐阅读顺序是：**基本介绍 → 案例与场景图谱 → 方法与操作 → 阶段、治理、权限与组织落地**。书中的方法术语会在对应章节解释，但你可以先按任务和产物来读，不必先掌握全部概念。
 
-## 从这里开始
+## 四层阅读路径
 
-- **先看全书判断**：阅读[执行摘要](/bluebook/executive-summary)。
-- **要完成一次具体交付**：阅读[第 1 章](/bluebook/part-1/01-delivery-standard)与[第 2 章](/bluebook/part-1/02-task-delivery-protocol)。
-- **要沉淀可复用工作流**：阅读[第 3 章](/bluebook/part-2/03-work-environment-architecture)至[第 5 章](/bluebook/part-2/05-automation-boundaries)。
-- **要进入专业场景**：阅读[第 6 章](/bluebook/part-3/06-office-delivery)至[第 9 章](/bluebook/part-3/09-public-case-atlas)。
-- **要推进组织试点**：阅读[第 10 章](/bluebook/part-4/10-pilot-roadmap)至[第 13 章](/bluebook/part-4/13-value-measurement)。
+- **基本介绍：** 先读[执行摘要](/bluebook/executive-summary)，知道千问办公能帮你处理哪些工作，以及一份结果怎样才方便继续使用。
+- **案例与场景图谱：** 再看[案例库](/cases/)和[公开案例图谱](/bluebook/part-3/09-public-case-atlas)，从别人遇到的问题和产物中找到相近的任务。
+- **方法与操作：** 手上有具体任务时，进入[办公交付](/bluebook/part-3/06-office-delivery)、[场景速查](/bluebook/appendices/scenario-index)和[任务拆解与验收](/bluebook/part-1/02-task-delivery-protocol)，照着做出第一版。
+- **阶段、治理、权限与组织落地：** 准备让团队一起使用时，最后阅读[场景选择与试点](/bluebook/part-4/10-pilot-roadmap)、[安全、权限与责任](/bluebook/part-4/11-security-governance)和[团队工作流运营](/bluebook/part-4/12-workflow-operations)。
 
-## 历史离线版
+## 你可以从这里开始
+
+<div class="qwg-reading-paths">
+  <a class="qwg-reading-path" href="/bluebook/executive-summary">
+    <strong>第一次接触</strong>
+    <span>先看千问办公能帮你做什么，再从一件普通办公工作开始。</span>
+  </a>
+  <div class="qwg-reading-path">
+    <strong>想看别人怎么做</strong>
+    <span>先看 <a href="/cases/submissions/pisen-competitive-research-product-materials">品胜电子</a>、<a href="/cases/submissions/youkela-product-rd-payroll">优克拉</a> 和 <a href="/cases/submissions/qwenwork-public-case-atlas">32 个场景案例</a>。</span>
+  </div>
+  <a class="qwg-reading-path" href="/bluebook/part-3/06-office-delivery">
+    <strong>手上有具体任务</strong>
+    <span>直接进入对应的交付方法，从输入、产物、检查和人工确认开始。</span>
+  </a>
+  <a class="qwg-reading-path" href="/bluebook/part-4/10-pilot-roadmap">
+    <strong>准备团队使用</strong>
+    <span>最后再阅读阶段、治理和权限，确认谁负责、谁能操作、何时可以推广。</span>
+  </a>
+</div>
+
+## PDF 与历史离线版
 
 - [下载 V2.0 PDF](/downloads/qwenwork-bluebook-v2.0.pdf)
 - [下载 V1.3 PDF 离线版](/downloads/qwenwork-bluebook-v1.3.pdf)
@@ -74,8 +94,8 @@ V2 按“完成一次交付、沉淀一条工作流、应用于专业场景、�
 - [案例来源映射](/bluebook/appendices/case-source-map)
 - [来源与延伸阅读](/bluebook/appendices/sources)
 
-## 内容状态
+## 内容状态与阅读边界
 
-- `verified`：可在所列官方页面核验的产品事实；核验日期见页面元数据。
-- `community-practice`：社区方法、案例、判断与建议，需要结合本组织环境验证。
+- `verified`：可以在所列官方页面核验的产品事实；核验日期见页面元数据。
+- `community-practice`：社区方法、案例、判断与建议，使用前需要结合本组织环境验证。
 - `review-needed`：产品变化后需要补充来源或重新核验的内容。
