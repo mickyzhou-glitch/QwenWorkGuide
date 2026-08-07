@@ -20,8 +20,8 @@ sources:
 
 - **序章：** 先读[执行摘要](/bluebook/executive-summary)，知道千问办公能帮你处理哪些工作，以及一份结果怎样才方便继续使用。
 - **先看案例与场景：** 再看[案例库](/cases/)和[公开案例图谱](/bluebook/part-3/09-public-case-atlas)，从别人遇到的问题和产物中找到相近的任务。
-- **从任务到交付：** 回到[第 1 章交付新标准](/bluebook/part-1/01-delivery-standard)，再按顺序阅读第 2–5 章，把相近任务做成可验收、可复用的结果。
 - **专业办公任务：** 继续阅读[第 6 章办公交付](/bluebook/part-3/06-office-delivery)、[第 7 章岗位路线](/bluebook/part-3/07-role-roadmaps)和[第 8 章研究与证据链](/bluebook/part-3/08-research-evidence-chain)，把方法落到具体岗位。
+- **从任务到交付：** 回到[第 1 章交付新标准](/bluebook/part-1/01-delivery-standard)，再按顺序阅读第 2–5 章，把相近任务做成可验收、可复用的结果。
 - **团队落地：** 准备让团队一起使用时，再阅读[第 10 章场景选择与试点](/bluebook/part-4/10-pilot-roadmap)至[第 13 章价值度量](/bluebook/part-4/13-value-measurement)，确认阶段、治理、权限和责任。
 - **结语：** 最后阅读[产品与生态路线建议](/bluebook/conclusion-product-ecosystem)，把建议和证据状态分开。
 - **附录：** 需要查模板、评分表、来源或证据时，再进入页面底部的[附录](#附录)。
