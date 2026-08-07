@@ -55,7 +55,7 @@ features:
     <strong>还没想好从哪里开始</strong>
     <span>先看基本介绍，再挑一件今天能做完的办公任务。</span>
   </a>
-  <a class="qwg-reading-path" href="./bluebook/appendices/scenario-index">
+  <a class="qwg-reading-path" href="/cases/">
     <strong>想看看别人怎么做</strong>
     <span>先看案例库，再回到与你的任务最接近的场景。</span>
   </a>
