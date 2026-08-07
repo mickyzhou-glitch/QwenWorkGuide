@@ -38,7 +38,7 @@ features:
 本项目由社区独立维护，不代表千问办公或阿里巴巴官方立场。功能、价格、权益和可用范围请以千问办公官方渠道为准。
 :::
 
-下载：[千问办公蓝皮书 V2.0 PDF 本地 RC](/downloads/qwenwork-bluebook-v2.0.pdf)
+下载：[千问办公蓝皮书 V2.0 PDF](/downloads/qwenwork-bluebook-v2.0.pdf)
 
 ## 选择你的阅读入口
 
