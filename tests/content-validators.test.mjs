@@ -723,6 +723,10 @@ test("Official Manifest contains the exact ordered 21-item sequence", async () =
     { id: "appendix-evidence", path: "docs/bluebook/appendices/evidence-ledger.md", kind: "appendix" },
     { id: "appendix-cases", path: "docs/bluebook/appendices/case-source-map.md", kind: "appendix" },
   ]);
+  assert.equal(
+    manifest.items.find((item) => item.id === "chapter-09").title,
+    "第 9 章 公开案例图谱：按证据门发布",
+  );
 });
 
 test("resolveDocumentLink namespaces headings but preserves globally unique raw IDs", () => {

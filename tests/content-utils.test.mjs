@@ -179,7 +179,7 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
     text: "序章",
     items: [
       {
-        text: "企业 AI 从功能竞赛走向工作流竞赛",
+        text: "先做完一件办公工作，再考虑推广",
         link: "/bluebook/executive-summary",
       },
     ],
@@ -188,8 +188,25 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
     text: "先看案例与场景",
     items: [
       {
-        text: "第 9 章 公开案例图谱",
+        text: "第 9 章 公开案例图谱：按证据门发布",
         link: "/bluebook/part-3/09-public-case-atlas",
+      },
+    ],
+  },
+  {
+    text: "专业办公任务",
+    items: [
+      {
+        text: "第 6 章 办公交付",
+        link: "/bluebook/part-3/06-office-delivery",
+      },
+      {
+        text: "第 7 章 岗位路线",
+        link: "/bluebook/part-3/07-role-roadmaps",
+      },
+      {
+        text: "第 8 章 研究与证据链",
+        link: "/bluebook/part-3/08-research-evidence-chain",
       },
     ],
   },
@@ -215,23 +232,6 @@ const EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS = [
       {
         text: "第 5 章 自动化及其边界",
         link: "/bluebook/part-2/05-automation-boundaries",
-      },
-    ],
-  },
-  {
-    text: "专业办公任务",
-    items: [
-      {
-        text: "第 6 章 办公交付",
-        link: "/bluebook/part-3/06-office-delivery",
-      },
-      {
-        text: "第 7 章 岗位路线",
-        link: "/bluebook/part-3/07-role-roadmaps",
-      },
-      {
-        text: "第 8 章 研究与证据链",
-        link: "/bluebook/part-3/08-research-evidence-chain",
       },
     ],
   },
@@ -1364,12 +1364,9 @@ test("Legacy page map has exactly the 17 compatibility routes", () => {
   assert.deepEqual([...LEGACY_PAGE_MAP], EXPECTED_LEGACY_PAGE_MAP);
 });
 
-test("V2 sidebar has exactly 21 canonical items in reader-first group order", () => {
+test("V2 sidebar has exactly 21 canonical items in canonical path order", () => {
   const items = flattenBluebookSidebar(BLUEBOOK_V2_SIDEBAR_GROUPS);
   const expectedLinks = BLUEBOOK_V2_PATHS.map(bluebookPathToUrl);
-  const expectedSidebarLinks = flattenBluebookSidebar(
-    EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS,
-  ).map((item) => item.link);
   const legacyLinks = new Set([...LEGACY_PAGE_MAP.keys()].map(bluebookPathToUrl));
 
   assert.equal(BLUEBOOK_V2_PATHS.length, 21);
@@ -1378,14 +1375,7 @@ test("V2 sidebar has exactly 21 canonical items in reader-first group order", ()
     EXPECTED_BLUEBOOK_V2_SIDEBAR_GROUPS,
   );
   assert.equal(items.length, 21);
-  assert.deepEqual(
-    items.map((item) => item.link),
-    expectedSidebarLinks,
-  );
-  assert.deepEqual(
-    [...new Set(items.map((item) => item.link))].sort(),
-    [...new Set(expectedLinks)].sort(),
-  );
+  assert.deepEqual(items.map((item) => item.link), expectedLinks);
   assert.equal(items.some((item) => legacyLinks.has(item.link)), false);
 });
 

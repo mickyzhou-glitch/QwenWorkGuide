@@ -209,13 +209,21 @@ export const BLUEBOOK_V2_SIDEBAR_GROUPS = [
   {
     text: "序章",
     items: [
-      bluebookSidebarItem(0, "企业 AI 从功能竞赛走向工作流竞赛"),
+      bluebookSidebarItem(0, "先做完一件办公工作，再考虑推广"),
     ],
   },
   {
     text: "先看案例与场景",
     items: [
-      bluebookSidebarItem(1, "第 9 章 公开案例图谱"),
+      bluebookSidebarItem(1, "第 9 章 公开案例图谱：按证据门发布"),
+    ],
+  },
+  {
+    text: "专业办公任务",
+    items: [
+      bluebookSidebarItem(2, "第 6 章 办公交付"),
+      bluebookSidebarItem(3, "第 7 章 岗位路线"),
+      bluebookSidebarItem(4, "第 8 章 研究与证据链"),
     ],
   },
   {
@@ -226,14 +234,6 @@ export const BLUEBOOK_V2_SIDEBAR_GROUPS = [
       bluebookSidebarItem(7, "第 3 章 工作环境与能力架构"),
       bluebookSidebarItem(8, "第 4 章 Skill、连接器与专家套件"),
       bluebookSidebarItem(9, "第 5 章 自动化及其边界"),
-    ],
-  },
-  {
-    text: "专业办公任务",
-    items: [
-      bluebookSidebarItem(2, "第 6 章 办公交付"),
-      bluebookSidebarItem(3, "第 7 章 岗位路线"),
-      bluebookSidebarItem(4, "第 8 章 研究与证据链"),
     ],
   },
   {
@@ -661,13 +661,8 @@ export function validateBluebookStructure(documents) {
   const actualLinks = flattenBluebookSidebar(BLUEBOOK_V2_SIDEBAR_GROUPS).map(
     (item) => item.link,
   );
-  if (
-    actualLinks.length !== expectedLinks.length ||
-    new Set(actualLinks).size !== actualLinks.length ||
-    JSON.stringify([...actualLinks].sort()) !==
-      JSON.stringify([...expectedLinks].sort())
-  ) {
-    errors.push("蓝皮书侧栏必须完整且仅包含 BLUEBOOK_V2_PATHS 中的 canonical 页面");
+  if (JSON.stringify(actualLinks) !== JSON.stringify(expectedLinks)) {
+    errors.push("蓝皮书侧栏必须与 BLUEBOOK_V2_PATHS 顺序完全一致");
   }
   errors.push(...validateBluebookNextChain(documents));
   return errors;

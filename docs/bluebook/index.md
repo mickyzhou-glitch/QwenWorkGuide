@@ -61,7 +61,13 @@ sources:
 
 ### 先看案例与场景
 
-- [第 9 章 公开案例图谱](/bluebook/part-3/09-public-case-atlas)
+- [第 9 章 公开案例图谱：按证据门发布](/bluebook/part-3/09-public-case-atlas)
+
+### 专业办公任务
+
+- [第 6 章 办公交付](/bluebook/part-3/06-office-delivery)
+- [第 7 章 岗位路线](/bluebook/part-3/07-role-roadmaps)
+- [第 8 章 研究与证据链](/bluebook/part-3/08-research-evidence-chain)
 
 ### 从任务到交付
 
@@ -70,12 +76,6 @@ sources:
 - [第 3 章 工作环境与能力架构](/bluebook/part-2/03-work-environment-architecture)
 - [第 4 章 Skill、连接器与专家套件](/bluebook/part-2/04-skills-connectors-expert-kits)
 - [第 5 章 自动化及其边界](/bluebook/part-2/05-automation-boundaries)
-
-### 专业办公任务
-
-- [第 6 章 办公交付](/bluebook/part-3/06-office-delivery)
-- [第 7 章 岗位路线](/bluebook/part-3/07-role-roadmaps)
-- [第 8 章 研究与证据链](/bluebook/part-3/08-research-evidence-chain)
 
 ### 团队落地
 
