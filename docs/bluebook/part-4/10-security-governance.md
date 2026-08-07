@@ -1,33 +1,17 @@
 ---
-title: 安全、权限与人机责任
-description: 用动作分级、人工确认和最小治理包控制办公 Agent 风险
+title: 旧章节已迁移
+description: 此旧章节入口保留用于兼容历史链接
 status: community-practice
-verifiedAt: 2026-07-29
+verifiedAt: 2026-08-01
 sources:
-  - https://qwenwork.cn/docs/getting-started/privacy-security
+  - https://qwenwork.cn/docs/product-introduction
+canonical: /bluebook/part-4/11-security-governance
+robots: noindex,follow
+search: false
+prev: false
+next: false
 ---
 
-# 安全、权限与人机责任
+# 旧章节已迁移
 
-风险不仅是说错话，还包括读错数据、跨越组织边界、在错误对象上操作、把草稿当正式结论、自动发送或删除，以及凭证和敏感文件泄露。
-
-## 四级动作分层
-
-| 风险级别 | 动作示例 | 默认策略 |
-|---|---|---|
-| G0 只读 | 搜索、读取、汇总 | 可自动执行，保留来源 |
-| G1 可逆写入 | 新建草稿、另存、创建未发布页面 | 自动执行后通知 |
-| G2 业务写入 | 创建待办、更新台账、提交日志草稿 | 执行前确认或抽样复核 |
-| G3 高风险 | 对外发送、审批、付款、删除、公开发布 | 强制人工确认与审计 |
-
-## 人必须保留的责任
-
-定义目标与范围；提供正确数据口径；审阅专业结论和高风险内容；确认不可逆或对外动作；对最终业务结果负责。
-
-## 最小治理包
-
-- 数据分级与允许使用范围；
-- 连接器清单、Owner 与授权期限；
-- 高风险动作确认规则；
-- 产物版本、来源与抽检规则；
-- 事故上报、权限回收与供应商更新评估。
+[前往规范页面](/bluebook/part-4/11-security-governance)

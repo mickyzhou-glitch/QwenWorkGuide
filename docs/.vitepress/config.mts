@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitepress'
+import { BLUEBOOK_V2_SIDEBAR_GROUPS } from '../../scripts/content-utils.mjs'
 
 const isCloudflarePages = process.env.CF_PAGES === '1'
 const siteBase = isCloudflarePages ? '/' : '/QwenWorkGuide/'
+const canonicalOrigin = 'https://qwenworkguide.pages.dev'
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -15,6 +17,25 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   srcExclude: ['superpowers/**'],
+  transformPageData(pageData) {
+    const { canonical, robots } = pageData.frontmatter
+    if (canonical === undefined && robots === undefined) return
+
+    const head = pageData.frontmatter.head ?? []
+    if (canonical !== undefined) {
+      head.push([
+        'link',
+        {
+          rel: 'canonical',
+          href: new URL(canonical, canonicalOrigin).href
+        }
+      ])
+    }
+    if (robots !== undefined) {
+      head.push(['meta', { name: 'robots', content: robots }])
+    }
+    pageData.frontmatter.head = head
+  },
   // 离线蓝皮书文件在构建文档后由发布流程放入 public/downloads。
   ignoreDeadLinks: [
     '/downloads/qwenwork-bluebook-v1.pdf',
@@ -30,55 +51,7 @@ export default defineConfig({
       { text: '联系我', link: '/contact' }
     ],
     sidebar: {
-      '/bluebook/': [
-        {
-          text: '第一篇 重新理解 AI 办公',
-          collapsed: false,
-          items: [
-            { text: '从回答问题到交付结果', link: '/bluebook/part-1/01-from-answer-to-delivery' },
-            { text: '三端一体', link: '/bluebook/part-1/02-three-surfaces' },
-            { text: '六层能力架构', link: '/bluebook/part-1/03-capability-architecture' }
-          ]
-        },
-        {
-          text: '第二篇 先把千问办公用起来',
-          items: [
-            { text: '完成第一项任务', link: '/bluebook/part-2/04-first-task' },
-            { text: 'Skill、连接器与专家套件', link: '/bluebook/part-2/05-skills-connectors-experts' },
-            { text: '自动化', link: '/bluebook/part-2/06-automation' },
-            { text: '任务拆解与交付协议', link: '/bluebook/part-2/13-task-delivery-protocol' }
-          ]
-        },
-        {
-          text: '第三篇 真实工作流案例',
-          items: [
-            { text: '办公交付', link: '/bluebook/part-3/07-office-delivery' },
-            { text: '岗位路线', link: '/bluebook/part-3/08-role-roadmaps' },
-            { text: '研究与证据链', link: '/bluebook/part-3/14-research-evidence-chain' },
-            { text: '公开案例图谱', link: '/bluebook/part-3/17-public-case-atlas' }
-          ]
-        },
-        {
-          text: '第四篇 企业落地与商业化',
-          items: [
-            { text: '组织落地', link: '/bluebook/part-4/09-organization-rollout' },
-            { text: '安全与治理', link: '/bluebook/part-4/10-security-governance' },
-            { text: '价值度量', link: '/bluebook/part-4/11-value-measurement' },
-            { text: '产品与生态建议', link: '/bluebook/part-4/12-product-ecosystem' },
-            { text: '团队工作流运营', link: '/bluebook/part-4/15-team-workflow-operations' },
-            { text: '价值度量实战', link: '/bluebook/part-4/16-value-measurement-playbook' }
-          ]
-        },
-        {
-          text: '附录',
-          items: [
-            { text: '指令模板', link: '/bluebook/appendices/prompt-templates' },
-            { text: '场景速查', link: '/bluebook/appendices/scenario-index' },
-            { text: '上线验收', link: '/bluebook/appendices/launch-checklist' },
-            { text: '来源', link: '/bluebook/appendices/sources' }
-          ]
-        }
-      ],
+      '/bluebook/': BLUEBOOK_V2_SIDEBAR_GROUPS,
       '/guides/': [
         { text: '上手指南', items: [{ text: '快速开始', link: '/guides/quick-start' }] }
       ]

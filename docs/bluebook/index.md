@@ -1,78 +1,108 @@
 ---
-title: 千问办公蓝皮书
-description: 从一句话到可交付工作系统的开源实践指南
+title: 千问办公蓝皮书 V2.0
+description: 从一次交付到组织工作流的开源实践规范
 status: community-practice
-verifiedAt: 2026-07-31
+verifiedAt: 2026-08-01
 sources:
   - https://qwenwork.cn/docs/product-introduction
   - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
 ---
 
-# 千问办公蓝皮书
+# 千问办公蓝皮书 V2.0
 
-> 非官方、开源、社区共创的实践指南。产品能力以[官方来源](./appendices/sources)为准；方法、判断与路线图属于社区实践。
+> 非官方、开源、社区共创的实践规范。产品能力以[官方来源](/bluebook/appendices/sources)为准；方法、判断与路线建议属于社区实践。
 
-**当前版本：V1.3｜研究快照：2026 年 7 月 31 日**
+**当前在线版：V2.0｜内容快照：2026-08-01**
 
-V1.3 结合 7 月 30 日全网公开直播所呈现的产品方向，新增 Beta 试用边界、公开能力与现场演示的证据分层、Skill 资产化，以及订阅与积分制的成本口径。直播用于识别值得验证的工作流；功能、价格、权益和可用范围仍以官方页面与目标账号实测为准。
+这本蓝皮书建议从一件具体的办公工作开始，再逐步扩展到团队。普通办公用户的推荐阅读顺序是：**基本介绍 → 案例与场景图谱 → 方法与操作 → 阶段、治理、权限与组织落地**。书中的方法术语会在对应章节解释，但你可以先按任务和产物来读，不必先掌握全部概念。
 
-## 从这里开始
+## 七组阅读路径
 
-- **第一次使用**：依次阅读[第 1 章](./part-1/01-from-answer-to-delivery)、[第 4 章](./part-2/04-first-task)与[快速开始](../guides/quick-start)。
-- **已有具体任务**：从[办公交付](./part-3/07-office-delivery)、[岗位路线](./part-3/08-role-roadmaps)、[32 个公开案例图谱](./part-3/17-public-case-atlas)或[场景速查](./appendices/scenario-index)进入。
-- **准备团队落地**：阅读[组织落地](./part-4/09-organization-rollout)、[安全治理](./part-4/10-security-governance)与[上线验收](./appendices/launch-checklist)。
-- **想把一次任务做扎实**：使用[任务拆解与交付协议](./part-2/13-task-delivery-protocol)；研究类任务配合[研究与证据链](./part-3/14-research-evidence-chain)。
-- **已经在团队试点**：用[团队工作流运营](./part-4/15-team-workflow-operations)和[价值度量实战](./part-4/16-value-measurement-playbook)做持续复盘。
+- **序章：** 先读[执行摘要](/bluebook/executive-summary)，知道千问办公能帮你处理哪些工作，以及一份结果怎样才方便继续使用。
+- **先看案例与场景：** 再看[案例库](/cases/)和[公开案例图谱](/bluebook/part-3/09-public-case-atlas)，从别人遇到的问题和产物中找到相近的任务。
+- **专业办公任务：** 继续阅读[第 6 章办公交付](/bluebook/part-3/06-office-delivery)、[第 7 章岗位路线](/bluebook/part-3/07-role-roadmaps)和[第 8 章研究与证据链](/bluebook/part-3/08-research-evidence-chain)，把方法落到具体岗位。
+- **从任务到交付：** 回到[第 1 章交付新标准](/bluebook/part-1/01-delivery-standard)，再按顺序阅读第 2–5 章，把相近任务做成可验收、可复用的结果。
+- **团队落地：** 准备让团队一起使用时，再阅读[第 10 章场景选择与试点](/bluebook/part-4/10-pilot-roadmap)至[第 13 章价值度量](/bluebook/part-4/13-value-measurement)，确认阶段、治理、权限和责任。
+- **结语：** 最后阅读[产品与生态路线建议](/bluebook/conclusion-product-ecosystem)，把建议和证据状态分开。
+- **附录：** 需要查模板、评分表、来源或证据时，再进入页面底部的[附录](#附录)。
 
-## 离线版下载
+## 你可以从这里开始
 
+<div class="qwg-reading-paths">
+  <a class="qwg-reading-path" href="/bluebook/executive-summary">
+    <strong>第一次接触</strong>
+    <span>先看千问办公能帮你做什么，再从一件普通办公工作开始。</span>
+  </a>
+  <div class="qwg-reading-path">
+    <strong>想看别人怎么做</strong>
+    <span>先看 <a href="/cases/submissions/pisen-competitive-research-product-materials">品胜电子</a>、<a href="/cases/submissions/youkela-product-rd-payroll">优克拉</a> 和 <a href="/cases/submissions/qwenwork-public-case-atlas">32 个待核验场景线索</a>。</span>
+  </div>
+  <a class="qwg-reading-path" href="/bluebook/part-1/01-delivery-standard">
+    <strong>手上有具体任务</strong>
+    <span>直接进入对应的交付方法，从输入、产物、检查和人工确认开始。</span>
+  </a>
+  <a class="qwg-reading-path" href="/bluebook/part-4/10-pilot-roadmap">
+    <strong>准备团队使用</strong>
+    <span>最后再阅读阶段、治理和权限，确认谁负责、谁能操作、何时可以推广。</span>
+  </a>
+</div>
+
+## PDF 与历史离线版
+
+- [下载 V2.0 PDF](/downloads/qwenwork-bluebook-v2.0.pdf)
 - [下载 V1.3 PDF 离线版](/downloads/qwenwork-bluebook-v1.3.pdf)
 - [下载 V1.2 PDF 离线版（存档）](/downloads/qwenwork-bluebook-v1.pdf)
 
-## 公开直播后的试点方法
-
-直播演示不等于企业环境中的稳定交付。采用方应把信息分成三层：产品方向（适合选择试点假设）、公开能力（回到官网和帮助中心核验）、现场演示（记录输入、耗时、积分、返工与异常）。先选一个低风险、高频、结果可验收的任务，用目标账号逐项验权限和端侧，再决定是否固化为 Skill、专家套件或自动化任务。
-
 ## 目录
 
-### 第一篇：重新理解 AI 办公（个人与团队）
+### 序章
 
-1. [从回答问题到交付结果](./part-1/01-from-answer-to-delivery)
-2. [三端一体：Web、桌面与钉钉](./part-1/02-three-surfaces)
-3. [六层能力架构](./part-1/03-capability-architecture)
+- [执行摘要](/bluebook/executive-summary)
 
-### 第二篇：先把千问办公用起来（任务执行者）
+### 先看案例与场景
 
-4. [完成第一项任务](./part-2/04-first-task)
-5. [Skill、连接器与专家套件](./part-2/05-skills-connectors-experts)
-6. [自动化](./part-2/06-automation)
-7. [任务拆解与交付协议](./part-2/13-task-delivery-protocol)
+- [第 9 章 公开案例图谱：按证据门发布](/bluebook/part-3/09-public-case-atlas)
 
-### 第三篇：真实工作流案例（专业岗位）
+### 专业办公任务
 
-8. [办公交付：Word、Excel、PPT 与网页](./part-3/07-office-delivery)
-9. [岗位路线：从个人提效到专业套件](./part-3/08-role-roadmaps)
-10. [研究与证据链](./part-3/14-research-evidence-chain)
-11. [公开客户与场景案例图谱：32 个场景](./part-3/17-public-case-atlas)
+- [第 6 章 办公交付](/bluebook/part-3/06-office-delivery)
+- [第 7 章 岗位路线](/bluebook/part-3/07-role-roadmaps)
+- [第 8 章 研究与证据链](/bluebook/part-3/08-research-evidence-chain)
 
-### 第四篇：企业落地与商业化（负责人和生态伙伴）
+### 从任务到交付
 
-12. [组织落地](./part-4/09-organization-rollout)
-13. [安全、权限与人机责任](./part-4/10-security-governance)
-14. [如何衡量价值](./part-4/11-value-measurement)
-15. [产品与生态路线建议](./part-4/12-product-ecosystem)
-16. [团队工作流运营](./part-4/15-team-workflow-operations)
-17. [价值度量实战](./part-4/16-value-measurement-playbook)
+- [第 1 章 交付新标准](/bluebook/part-1/01-delivery-standard)
+- [第 2 章 任务拆解与验收](/bluebook/part-1/02-task-delivery-protocol)
+- [第 3 章 工作环境与能力架构](/bluebook/part-2/03-work-environment-architecture)
+- [第 4 章 Skill、连接器与专家套件](/bluebook/part-2/04-skills-connectors-expert-kits)
+- [第 5 章 自动化及其边界](/bluebook/part-2/05-automation-boundaries)
 
-### 附录
+### 团队落地
 
-- [常用指令模板](./appendices/prompt-templates)
-- [场景速查表](./appendices/scenario-index)
-- [组织上线验收清单](./appendices/launch-checklist)
-- [来源与延伸阅读](./appendices/sources)
+- [第 10 章 场景选择与试点](/bluebook/part-4/10-pilot-roadmap)
+- [第 11 章 安全、权限与责任](/bluebook/part-4/11-security-governance)
+- [第 12 章 团队工作流运营](/bluebook/part-4/12-workflow-operations)
+- [第 13 章 价值度量](/bluebook/part-4/13-value-measurement)
 
-## 内容状态
+### 结语
 
-- `verified`：可在所列官方页面核验的产品事实；核验日期见页面元数据。
-- `community-practice`：社区方法、案例、判断与建议，需要结合本组织环境验证。
-- `review-needed`：等待补充来源或复核的内容；请通过 Issue 或 PR 帮助更新。
+- [产品与生态路线建议](/bluebook/conclusion-product-ecosystem)
+
+## 附录
+
+- [常用指令模板](/bluebook/appendices/prompt-templates)
+- [场景速查与评分表](/bluebook/appendices/scenario-index)
+- [组织上线验收清单](/bluebook/appendices/launch-checklist)
+- [来源与延伸阅读](/bluebook/appendices/sources)
+- [主张证据台账](/bluebook/appendices/evidence-ledger)
+- [案例来源映射](/bluebook/appendices/case-source-map)
+
+> 证据边界：公开演示只能说明产物形态，不能推导客户效果。候选场景仍可阅读，但不代表客户背书；公开案例数量以[案例来源映射](/bluebook/appendices/case-source-map)和[主张证据台账](/bluebook/appendices/evidence-ledger)为准，当前通过案例级发布门为 0。
+
+## 内容状态与阅读边界
+
+- `verified`：可以在所列官方页面核验的产品事实；核验日期见页面元数据。
+- `community-practice`：社区方法、案例、判断与建议，使用前需要结合本组织环境验证。
+- `review-needed`：产品变化后需要补充来源或重新核验的内容。
+
+案例阅读不等于案例核验：公开演示只能帮助理解产物形态，不能据此推导客户效果；候选场景仍可阅读，但不代表客户背书。公开案例数量以案例来源映射和证据台账为准，当前通过案例级发布门为 0。

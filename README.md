@@ -6,7 +6,7 @@
 
 QwenWorkGuide 是一份非官方、开源、社区共创的千问办公指南。它不只告诉你「能做什么」，还会说清楚「怎么做」、「怎么验收」和「怎么在团队里复用」。
 
-[**在线阅读**](https://mickyzhou-glitch.github.io/QwenWorkGuide/) · [快速上手](docs/guides/quick-start.md) · [查看案例](docs/cases/index.md) · [下载 V1.3 PDF](https://mickyzhou-glitch.github.io/QwenWorkGuide/downloads/qwenwork-bluebook-v1.3.pdf)
+[**在线阅读**](https://mickyzhou-glitch.github.io/QwenWorkGuide/) · [先读执行摘要](docs/bluebook/executive-summary.md) · [查看案例](docs/cases/index.md) · [下载 V2.0 PDF](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)
 
 > 本项目不代表千问办公、阿里巴巴或其关联方的官方立场。功能、价格、权益和可用范围请以官方资料及实际界面为准。
 
@@ -21,19 +21,19 @@ QwenWorkGuide 是一份非官方、开源、社区共创的千问办公指南。
 | 你的目标 | 推荐入口 |
 | --- | --- |
 | 第一次用，想在 1 小时内跑通一个任务 | [快速开始](docs/guides/quick-start.md) |
-| 已经有具体任务，想找可参考的做法 | [社区案例库](docs/cases/index.md) 和 [场景速查](docs/bluebook/appendices/scenario-index.md) |
-| 想学会写清需求，少返工 | [任务拆解与交付协议](docs/bluebook/part-2/13-task-delivery-protocol.md) 和 [常用指令模板](docs/bluebook/appendices/prompt-templates.md) |
-| 准备在团队或企业中试点 | [组织落地](docs/bluebook/part-4/09-organization-rollout.md)、[安全治理](docs/bluebook/part-4/10-security-governance.md) 和 [上线验收](docs/bluebook/appendices/launch-checklist.md) |
-| 想从头到尾了解完整方法 | [阅读完整蓝皮书](docs/bluebook/index.md) |
+| 已经有具体任务，想找可参考的做法 | [社区案例库](docs/cases/index.md) 和 [公开案例图谱](docs/bluebook/part-3/09-public-case-atlas.md) |
+| 想学会写清需求，少返工 | [任务拆解与验收](docs/bluebook/part-1/02-task-delivery-protocol.md) 和 [常用指令模板](docs/bluebook/appendices/prompt-templates.md) |
+| 准备在团队或企业中试点 | [场景选择与试点](docs/bluebook/part-4/10-pilot-roadmap.md)、[安全与责任](docs/bluebook/part-4/11-security-governance.md) 和 [上线验收](docs/bluebook/appendices/launch-checklist.md) |
+| 想从头到尾了解完整方法 | 先读 [执行摘要](docs/bluebook/executive-summary.md)，再进入 [完整蓝皮书](docs/bluebook/index.md) |
 
 ## 你能在这里找到什么
 
-- **17 章完整蓝皮书：** 从完成第一个任务，到 Skill、自动化、团队运营和价值度量。
-- **可参考的真实场景：** 已收录 2 个具名客户深度案例（4 个业务场景）和 32 个公开场景案例。
-- **可直接改的工具：** 任务卡、指令模板、场景速查表和上线验收清单。
-- **更适合团队落地的方法：** 如何选试点、分配责任、管理风险，以及判断是否值得继续投入。
+- **完整的 V2.0 蓝皮书：** 包含执行摘要、13 章实践方法、结语和 6 个附录。
+- **可参考的案例与场景：** 当前可阅读 2 个具名客户深度案例（4 个业务场景）和 32 个公开场景线索。
+- **可直接改的工具：** 任务卡、指令模板、场景评分表和上线验收清单。
+- **团队落地方法：** 如何选试点、分配责任、管理风险，以及判断是否值得继续投入。
 
-案例和社区方法用来帮你形成试点假设，不代表所有企业都会得到同样的结果。
+32 个公开场景目前是待核验线索，不是已核验的客户案例；当前通过案例级发布门的公开案例为 0。它们可用来帮你形成试点假设，不代表所有企业都会得到同样的结果。
 
 ## 这份指南如何保持可信
 
@@ -44,7 +44,7 @@ QwenWorkGuide 是一份非官方、开源、社区共创的千问办公指南。
 - 未经独立审计的量化结果，会明确标注为客户陈述；
 - 产品更新后需要重新确认的内容，会标记为待复核。
 
-更详细的说明见 [阅读指南](docs/reading-guide.md) 和 [来源与延伸阅读](docs/bluebook/appendices/sources.md)。
+你可以在 [主张证据台账](docs/bluebook/appendices/evidence-ledger.md) 和 [案例来源映射](docs/bluebook/appendices/case-source-map.md) 中查看核验状态。更详细的阅读说明见 [阅读指南](docs/reading-guide.md)。
 
 ## 参与共创
 

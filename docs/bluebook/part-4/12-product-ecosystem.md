@@ -1,32 +1,17 @@
 ---
-title: 产品与生态路线建议
-description: 面向可验证、可治理和伙伴共创的社区建议
+title: 旧章节已迁移
+description: 此旧章节入口保留用于兼容历史链接
 status: community-practice
-verifiedAt: 2026-07-29
+verifiedAt: 2026-08-01
 sources:
-  - https://qwenwork.cn/
+  - https://qwenwork.cn/docs/product-introduction
+canonical: /bluebook/conclusion-product-ecosystem
+robots: noindex,follow
+search: false
+prev: false
+next: false
 ---
 
-# 产品与生态路线建议
+# 旧章节已迁移
 
-以下为社区建议，不代表千问办公或阿里巴巴官方路线。
-
-## 让可验证成为默认体验
-
-研究、数据分析和合同场景默认呈现来源、口径、计算检查与不确定项，让用户理解为什么可信。
-
-## 将关键确认做成产品能力
-
-对外发送、写入业务系统、删除、发布和高风险电脑操控可采用统一确认面板，说明动作、对象、影响、来源与可撤销性。
-
-## 建立 Skill 质量分层
-
-展示适用范围、所需权限、最近验证版本、维护者、测试样例、失败边界和企业可用等级。
-
-## 围绕业务结果建设专家套件
-
-关注缩短周期、减少错误与提升结果，而非仅统计技能数量；提供上线基线与成效看板。
-
-## 利用组织图谱与伙伴共创
-
-在权限允许时，将人、群、文档、知识、日程、待办、审批和业务应用连为工作图谱。由平台提供安全底座和评测框架，伙伴贡献行业知识、数据接口、Skill 和交付服务。
+[前往规范页面](/bluebook/conclusion-product-ecosystem)

@@ -8,7 +8,10 @@
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
     "test": "node --test",
-    "check:content": "node scripts/validate-content.mjs && node scripts/validate-cases.mjs",
+    "generate:evidence": "node scripts/generate-evidence-pages.mjs",
+    "check:evidence": "node scripts/generate-evidence-pages.mjs --check",
+    "build:bluebook-pdf": "bash scripts/build-bluebook-pdf.sh",
+    "check:content": "node scripts/validate-content.mjs && node scripts/validate-cases.mjs && npm run check:evidence",
     "check": "npm run test && npm run check:content && npm run build"
   },
   "devDependencies": {
