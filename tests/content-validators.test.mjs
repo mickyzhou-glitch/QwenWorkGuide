@@ -659,3 +659,27 @@ test("buildPrintDocument strips frontmatter and renders VitePress Markdown", asy
   assert.match(html, /<a href="#r14">跨章原始锚点<\/a>/);
   assert.doesNotMatch(html, /^---$/m);
 });
+
+test("print stylesheet covers pagination and overflow contracts", async () => {
+  const css = await readFile(
+    new URL("../docs/.vitepress/theme/print.css", import.meta.url),
+    "utf8",
+  );
+  for (const pattern of [
+    /@page\s*{[^}]*size:\s*A4/s,
+    /print-color-adjust:\s*exact/,
+    /break-before:\s*page/,
+    /thead\s*{[^}]*table-header-group/s,
+    /overflow-wrap:\s*anywhere/,
+    /white-space:\s*pre-wrap/,
+    /\.custom-block\.warning/,
+    /img\s*{[^}]*max-height:\s*240mm/s,
+    /counter\(page\)/,
+  ]) {
+    assert.match(css, pattern);
+  }
+  assert.doesNotMatch(
+    css,
+    /(?:^|\n)\s*(?:tr|th|td)(?:\s*,\s*(?:tr|th|td))*\s*{[^}]*break-inside:\s*avoid/s,
+  );
+});
