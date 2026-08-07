@@ -32,7 +32,7 @@ sources:
   </a>
   <div class="qwg-reading-path">
     <strong>想看别人怎么做</strong>
-    <span>先看 <a href="/cases/submissions/pisen-competitive-research-product-materials">品胜电子</a>、<a href="/cases/submissions/youkela-product-rd-payroll">优克拉</a> 和 <a href="/cases/submissions/qwenwork-public-case-atlas">32 个场景案例</a>。</span>
+    <span>先看 <a href="/cases/submissions/pisen-competitive-research-product-materials">品胜电子</a>、<a href="/cases/submissions/youkela-product-rd-payroll">优克拉</a> 和 <a href="/cases/submissions/qwenwork-public-case-atlas">32 个待核验场景线索</a>。</span>
   </div>
   <a class="qwg-reading-path" href="/bluebook/part-3/06-office-delivery">
     <strong>手上有具体任务</strong>
@@ -94,8 +94,12 @@ sources:
 - [案例来源映射](/bluebook/appendices/case-source-map)
 - [来源与延伸阅读](/bluebook/appendices/sources)
 
+> 证据边界：公开演示只能说明产物形态，不能推导客户效果。候选场景仍可阅读，但不代表客户背书；公开案例数量以[案例来源映射](/bluebook/appendices/case-source-map)和[主张证据台账](/bluebook/appendices/evidence-ledger)为准，当前通过案例级发布门为 0。
+
 ## 内容状态与阅读边界
 
 - `verified`：可以在所列官方页面核验的产品事实；核验日期见页面元数据。
 - `community-practice`：社区方法、案例、判断与建议，使用前需要结合本组织环境验证。
 - `review-needed`：产品变化后需要补充来源或重新核验的内容。
+
+案例阅读不等于案例核验：公开演示只能帮助理解产物形态，不能据此推导客户效果；候选场景仍可阅读，但不代表客户背书。公开案例数量以案例来源映射和证据台账为准，当前通过案例级发布门为 0。
