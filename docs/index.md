@@ -7,7 +7,7 @@ description: 非官方、开源、社区共创的千问办公实践指南
 hero:
   name: QwenWorkGuide
   text: 把今天的办公任务做完
-  tagline: 从汇报、会议、表格到研究，找到一个可以马上开始的做法
+  tagline: 从汇报、会议、表格到研究，先完成一件办公工作
   actions:
     - theme: brand
       text: 先做一件事
