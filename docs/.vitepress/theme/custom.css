@@ -79,6 +79,10 @@ body {
   text-wrap: balance;
 }
 
+.qwg-nobreak-term {
+  white-space: nowrap;
+}
+
 @media (min-width: 721px) {
   .VPHero .tagline {
     white-space: nowrap;

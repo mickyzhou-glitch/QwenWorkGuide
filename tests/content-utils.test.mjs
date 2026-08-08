@@ -1866,6 +1866,30 @@ test("32 个公开场景线索保留原始任务名称且不提升为已核验�
   assert.doesNotMatch(publicCaseAtlas, /32 个已核验客户案例/);
 });
 
+test("home hero keeps the research term together without changing visible copy", async () => {
+  const home = await readFile(join(docsRoot, "index.md"), "utf8");
+  const tagline = home.match(/^[ \t]+tagline:[ \t]+(.+)$/m)?.[1];
+
+  assert.ok(tagline, "home hero must define a tagline");
+  assert.equal(
+    tagline.replace(/<[^>]+>/g, ""),
+    "从汇报、会议、表格到研究，先完成一件办公工作",
+  );
+  assert.match(tagline, /<span class="qwg-nobreak-term">研究<\/span>/);
+});
+
+test("home hero no-break term class prevents internal wrapping", async () => {
+  const css = await readFile(
+    join(docsRoot, ".vitepress/theme/custom.css"),
+    "utf8",
+  );
+
+  assert.match(
+    css,
+    /\.qwg-nobreak-term\s*\{[^}]*white-space:\s*nowrap\s*;[^}]*\}/,
+  );
+});
+
 test("reader-first navigation contract exposes a clear reader entry path", async () => {
   const [home, bluebookHome, executiveSummary] = await Promise.all([
     readFile(join(docsRoot, "index.md"), "utf8"),
