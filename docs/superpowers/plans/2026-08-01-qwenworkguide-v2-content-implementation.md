@@ -234,7 +234,7 @@ export const VERIFICATION_STATUSES = new Set([
 
 ## 实施约束
 
-- 所有命令从工作树根目录 `/Users/micky/Desktop/不同视角看钉钉/AI商业化/千问办公/QwenWorkGuide/.worktrees/qwenworkguide-v2-content` 执行。
+- 所有命令从工作树根目录 `/Users/micky/Micky/资料库/不同视角看钉钉/AI商业化/千问办公/QwenWorkGuide/.worktrees/qwenworkguide-v2-content` 执行。
 - 本计划审核完成后必须先作为单独提交落库，该提交即实施基线；不得把任何实现文件混入该提交，执行期间也不得再修改本计划。
 - 不向远端推送、不创建 GitHub Release、不部署生产站点。
 - 不新增无法公开核验的名称、指标、授权或来源定位。
