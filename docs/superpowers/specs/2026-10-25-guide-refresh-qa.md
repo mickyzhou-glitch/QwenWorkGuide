@@ -25,3 +25,13 @@
 ## 发布方式
 
 生产分支为 main，推送后由 GitHub Actions 发布 GitHub Pages，并由已有 Cloudflare Pages GitHub 集成发布主站。发布完成后应确认两个正式地址的首页、任务页、更新页和历史 PDF；线上验证结果另记本地知识库项目索引。
+
+## 线上结果
+
+实现提交：`8d1fbf8`，已合并并推送 origin/main。
+
+- [GitHub Pages 发布](https://github.com/mickyzhou-glitch/QwenWorkGuide/actions/runs/40115927761)：成功。
+- [Quality 双路径校验](https://github.com/mickyzhou-glitch/QwenWorkGuide/actions/runs/40115927762)：成功。
+- Cloudflare Pages 对同一提交的检查：success，正式主站已返回新首页。
+- 两站共 18 项 HTTP 验证全部通过：各自首页、快速开始、任务索引、电商任务、更新页、旧蓝皮书章节，以及 V2.0 / V1.3 / V1 PDF。
+- 首页均含新版主标题与六张任务卡，旧章节显示历史参考提示。

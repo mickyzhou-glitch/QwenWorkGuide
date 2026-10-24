@@ -11,6 +11,6 @@
 - [x] 重写首页、快速开始、阅读指南；新增 docs/tasks 下六个实操页及 docs/guides 下能力说明；新增 docs/updates/index.md 记录公开更新和核验范围。
 - [x] 更新导航、README 与蓝皮书历史说明；移除蓝皮书首页原生绝对链接，兼容页保持不变。
 - [x] 新增 scripts/check-site.mjs：扫描构建 HTML 中全部站内链接和锚点，禁止越过部署子路径；执行 npm run check，随后 CF_PAGES=1 npm run build 并按根路径再检查。
-- [ ] 检查改动与公开资料边界，合并 main 并推送；等待 GitHub Actions 成功，通过 HTTP 检查两站首页、任务页、更新页与 PDF，更新发布记录。
+- [x] 检查改动与公开资料边界，合并 main 并推送；等待 GitHub Actions 成功，通过 HTTP 检查两站首页、任务页、更新页与 PDF，更新发布记录。
 
 浏览器入口在本次环境被禁用；通过源代码、SSR 结果和 HTTP 验证，最终报告需保留这一限制。
