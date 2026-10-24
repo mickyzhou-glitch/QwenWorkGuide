@@ -21,6 +21,8 @@ import {
 const CONTENT_DIRECTORIES = [
   "docs/bluebook",
   "docs/guides",
+  "docs/tasks",
+  "docs/updates",
   "docs/community",
   "docs/cases",
 ];

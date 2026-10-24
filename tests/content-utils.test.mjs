@@ -1873,8 +1873,11 @@ test("reader-first navigation contract exposes a clear reader entry path", async
     readFile(join(docsRoot, "bluebook/executive-summary.md"), "utf8"),
   ]);
 
-  assert.match(home, /你今天想把哪件办公工作做完/);
-  assert.match(home, /写一份汇报|整理一次会议|分析一批数据/);
+  assert.match(home, /<HomePage\s*\/>/);
+  const homeComponent = await readFile(join(docsRoot, ".vitepress/theme/components/HomePage.vue"), "utf8");
+  assert.match(homeComponent, /完成第一个任务/);
+  assert.match(homeComponent, /<TaskExplorer\s*\/>/);
+  assert.match(homeComponent, /withBase\('\/guides\/quick-start'\)/);
   assert.match(bluebookHome, /基本介绍|案例与场景|阶段、治理、权限/);
   assert.match(executiveSummary, /普通办公用户|先做完一件事|真实案例/);
 
@@ -1900,7 +1903,7 @@ test("reader-first navigation contract exposes a clear reader entry path", async
   assert.ok(publicCaseIndex < deliveryStandardIndex);
 });
 
-test("reader-first entry pages and manifest lead with basics and cases", async () => {
+test("task-first homepage preserves the historical bluebook reading order", async () => {
   const home = await readFile(join(docsRoot, "index.md"), "utf8");
   const bluebookIndex = await readFile(
     join(docsRoot, "bluebook/index.md"),
@@ -1913,10 +1916,12 @@ test("reader-first entry pages and manifest lead with basics and cases", async (
     ),
   );
 
-  assert.match(home, /你今天想把哪件办公工作做完/);
-  assert.match(home, /写一份汇报或周报/);
-  assert.match(home, /整理一次会议/);
-  assert.match(home, /做一张表或分析一批数据/);
+  assert.match(home, /<HomePage\s*\/>/);
+  const { tasks } = await import("../docs/.vitepress/data/tasks.mjs");
+  for (const taskId of ["presentation", "meeting-notes", "data-analysis"]) {
+    assert.ok(tasks.some(task => task.id === taskId && task.link === `/tasks/${taskId}`));
+  }
+  assert.match(bluebookIndex, /历史方法版：V2\.0｜内容快照：2026-08-01/);
   assert.match(bluebookIndex, /基本介绍/);
   assert.match(bluebookIndex, /案例与场景图谱/);
   assert.match(bluebookIndex, /阶段、治理、权限与组织落地/);

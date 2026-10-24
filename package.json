@@ -1,6 +1,6 @@
 {
   "name": "qwenworkguide",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,7 +12,8 @@
     "check:evidence": "node scripts/generate-evidence-pages.mjs --check",
     "build:bluebook-pdf": "bash scripts/build-bluebook-pdf.sh",
     "check:content": "node scripts/validate-content.mjs && node scripts/validate-cases.mjs && npm run check:evidence",
-    "check": "npm run test && npm run check:content && npm run build"
+    "check:site": "node scripts/check-site.mjs",
+    "check": "npm run test && npm run check:content && npm run build && npm run check:site"
   },
   "devDependencies": {
     "vitepress": "1.6.4"

@@ -1,85 +1,80 @@
 # QwenWorkGuide
 
-**一份帮你把 AI 办公从「能生成」做到「能交付」的开源实践指南。**
+**少一点摸索，把工作真正做完。**
 
-会让 AI 写文档、做表格，只是第一步。真正完成工作，还需要结果可编辑、数据可核对、流程可复用、风险有人把关。
+一份非官方、开源的千问办公实践指南。从具体任务开始，提供准备材料、操作步骤、可复制指令与结果检查方法，再逐步理解能力和团队落地。
 
-QwenWorkGuide 是一份非官方、开源、社区共创的千问办公指南。它不只告诉你「能做什么」，还会说清楚「怎么做」、「怎么验收」和「怎么在团队里复用」。
+[**在线阅读**](https://qwenworkguide.pages.dev/) · [GitHub Pages 备用站](https://mickyzhou-glitch.github.io/QwenWorkGuide/) · [完成第一个任务](docs/guides/quick-start.md) · [产品更新](docs/updates/index.md)
 
-[**Cloudflare 在线阅读**](https://qwenworkguide.pages.dev/) · [GitHub Pages 备用站](https://mickyzhou-glitch.github.io/QwenWorkGuide/) · [先读执行摘要](docs/bluebook/executive-summary.md) · [查看案例](docs/cases/index.md) · [下载 V2.0 PDF](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)
+> 本项目由社区独立维护，不代表千问办公或阿里巴巴官方立场。功能、开放范围、价格和权益以官方说明、当前账号及合同为准。
 
-> 本项目不代表千问办公、阿里巴巴或其关联方的官方立场。功能、价格、权益和可用范围请以官方资料及实际界面为准。
+## 2026 年 10 月版
 
-## 这份指南适合谁
+本轮资料核验于 **2026-10-25**，官方客户端日志核对至 **2026-10-15 / 1.3.1**。产品更新与本站版本分开记录，详见[更新与阅读提示](docs/updates/index.md)。
 
-- **企业 AI 负责人和业务负责人：** 找到值得试点的场景，建立验收、安全和价值衡量方法。
-- **正在推进 AI 落地的团队：** 把一次成功的任务整理成可复用、可维护的工作流。
-- **想先完成一件小事的办公用户：** 从低风险、容易检查的任务开始，一步步做出可用的结果。
+- **从练习开始：** 用虚构的会议记录完成一次“输入 → 生成 → 核对 → 保存”。
+- **按任务找做法：** 六类独立实操，支持站内关键词搜索与分类筛选。
+- **读懂新能力：** 移动入口、多人工作台、技能分享、电商模式、记忆与安全中心。
+- **明确运行条件：** 区分本地与云端定时任务，说明邀测、权限与尚未上线的能力。
+- **保留历史：** 旧章节网址与证据台账仍可访问；蓝皮书 V2.0 和 PDF 标记为 8 月快照。
 
-## 你现在想解决什么
+## 今天要做什么
 
-| 你的目标 | 推荐入口 |
-| --- | --- |
-| 第一次用，想在 1 小时内跑通一个任务 | [快速开始](docs/guides/quick-start.md) |
-| 已经有具体任务，想找可参考的做法 | [社区案例库](docs/cases/index.md) 和 [公开案例图谱](docs/bluebook/part-3/09-public-case-atlas.md) |
-| 想学会写清需求，少返工 | [任务拆解与验收](docs/bluebook/part-1/02-task-delivery-protocol.md) 和 [常用指令模板](docs/bluebook/appendices/prompt-templates.md) |
-| 准备在团队或企业中试点 | [场景选择与试点](docs/bluebook/part-4/10-pilot-roadmap.md)、[安全与责任](docs/bluebook/part-4/11-security-governance.md) 和 [上线验收](docs/bluebook/appendices/launch-checklist.md) |
-| 想从头到尾了解完整方法 | 先读 [执行摘要](docs/bluebook/executive-summary.md)，再进入 [完整蓝皮书](docs/bluebook/index.md) |
+| 目标 | 实操入口 | 带走什么 |
+| --- | --- | --- |
+| 整理会议 | [会议纪要](docs/tasks/meeting-notes.md) | 一页纪要、行动表、待确认项 |
+| 分析数据 | [可信的数据分析](docs/tasks/data-analysis.md) | 工作簿、图表、口径说明 |
+| 制作汇报 | [材料变成汇报](docs/tasks/presentation.md) | 可编辑 PPT 与讲述提纲 |
+| 调研竞品 | [有来源的研究](docs/tasks/research.md) | 对照表、来源清单、研究摘要 |
+| 团队协作 | [协作网页](docs/tasks/team-workspace.md) | 工作台原型与权限验证方法 |
+| 电商经营 | [店铺复盘](docs/tasks/commerce.md) | 经营复盘与优化假设 |
 
-## 你能在这里找到什么
+## 按需要继续读
 
-- **完整的 V2.0 蓝皮书：** 包含执行摘要、13 章实践方法、结语和 6 个附录。
-- **可参考的案例与场景：** 当前可阅读 2 个具名客户深度案例（4 个业务场景）和 32 个公开场景线索。
-- **可直接改的工具：** 任务卡、指令模板、场景评分表和上线验收清单。
-- **团队落地方法：** 如何选试点、分配责任、管理风险，以及判断是否值得继续投入。
+- **不确定用哪个入口：** [能力地图](docs/guides/capabilities.md)。
+- **想复用工作方法：** [技能、连接器与专家套件](docs/guides/extensions.md)、[定时任务](docs/guides/automation.md)。
+- **准备团队推广：** [小范围试点](docs/guides/team-adoption.md)。
+- **遇到问题：** [常见问题与排障](docs/guides/troubleshooting.md)。
+- **需要完整方法：** [蓝皮书](docs/bluebook/index.md)及[案例库](docs/cases/index.md)。
 
-32 个公开场景目前是待核验线索，不是已核验的客户案例；当前通过案例级发布门的公开案例为 0。它们可用来帮你形成试点假设，不代表所有企业都会得到同样的结果。
+## 当前指南与历史资料
 
-## 这份指南如何保持可信
+当前指南独立维护，不把产品更新追写成历史证据。蓝皮书 V2.0 与 [PDF](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)是 **2026-08-01 内容快照**，不含这次新增内容。
 
-我们尽量把「产品事实」和「社区经验」分开：
+案例库保留 2 个具名客户深度案例（4 个业务场景）与 32 个待核验场景线索。当前通过案例级发布门的公开案例为 0；这些材料不自动构成效果承诺。来源与核验状态见[证据台账](docs/bluebook/appendices/evidence-ledger.md)和[案例来源映射](docs/bluebook/appendices/case-source-map.md)。
 
-- 产品能力尽量附上官方来源和核验日期；
-- 社区方法会说明适用条件和安全边界；
-- 未经独立审计的量化结果，会明确标注为客户陈述；
-- 产品更新后需要重新确认的内容，会标记为待复核。
-
-你可以在 [主张证据台账](docs/bluebook/appendices/evidence-ledger.md) 和 [案例来源映射](docs/bluebook/appendices/case-source-map.md) 中查看核验状态。更详细的阅读说明见 [阅读指南](docs/reading-guide.md)。
-
-## 参与共创
-
-欢迎提交勘误、补充有来源的内容，或投稿已脱敏、可复现的案例。详细流程见 [贡献指南](CONTRIBUTING.md)，案例正文可从 [案例模板](.github/CASE_TEMPLATE.md) 开始。
-
-请勿提交客户隐私、企业内部资料、账号口令、访问令牌、未授权截图或无法公开的原始文件。
-
-## 本地阅读与检查
+## 本地开发与检查
 
 需要 Node.js 20–24。
 
 ```bash
-npm install
+npm ci
 npm run dev
 npm run check
 ```
 
-<details>
-<summary>Cloudflare Pages 部署配置</summary>
+`check` 包含单元测试、内容与证据校验、生产构建、渲染后站内链接和锚点检查。根路径托管另行检查：
 
-使用 Cloudflare Pages 的 GitHub 集成连接 `mickyzhou-glitch/QwenWorkGuide`：
+```bash
+CF_PAGES=1 npm run build
+CF_PAGES=1 npm run check:site
+```
 
-- 生产分支：`main`
-- 框架预设：VitePress
-- 构建命令：`npm run build`
-- 构建输出目录：`docs/.vitepress/dist`
-- 根目录：留空
+内容在 `docs/guides`、`docs/tasks`、`docs/updates`；任务索引在 `docs/.vitepress/data/tasks.mjs`；导航在 `docs/.vitepress/navigation.mjs`；组件与样式在 `docs/.vitepress/theme`。更新任务名称或路径时同时维护索引与页面，检查会验证它们一致。
 
-Cloudflare Pages 会自动注入 `CF_PAGES=1`，站点使用根路径 `/`。GitHub Pages 继续使用 `/QwenWorkGuide/`，两种托管方式可以并存。
+## 发布
 
-</details>
+生产分支为 `main`。GitHub Actions 执行全部检查后部署到 `/QwenWorkGuide/`。Cloudflare Pages 使用 GitHub 集成，配置：
 
-## 许可证与商标
+- 构建命令：`npm run check`
+- 输出目录：`docs/.vitepress/dist`
+- 根目录：仓库根目录
+- `CF_PAGES=1` 由 Cloudflare 注入，使用 `/` 部署路径
 
-- 代码、构建脚本与配置：[MIT](LICENSE)
-- QwenWorkGuide 创作的文档文字：[CC BY 4.0](LICENSE-DOCS.md)
+已有 Cloudflare 项目若仍配置 `npm run build`，GitHub Quality 工作流仍会验证两种路径；调整控制台配置时建议使用上述完整检查命令。
 
-第三方图片、商标和引用材料不因上述许可证自动获得再许可。千问办公及相关商标归其各自权利人所有。
+## 共创与许可
+
+欢迎通过 [Issue](https://github.com/mickyzhou-glitch/QwenWorkGuide/issues/new/choose)报告勘误，或按[贡献指南](CONTRIBUTING.md)补充有来源的内容。请勿提交客户私密材料、账号凭据或未获授权的截图。
+
+代码与脚本采用 [MIT](LICENSE)，原创文档采用 [CC BY 4.0](LICENSE-DOCS.md)。第三方图片、商标和引用材料不因上述许可自动获得再许可。

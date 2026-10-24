@@ -22,3 +22,8 @@ jobs:
       - run: npm test
       - run: npm run check:content
       - run: npm run build
+      - run: npm run check:site
+      - name: Verify root-path hosting
+        run: npm run build && npm run check:site
+        env:
+          CF_PAGES: '1'

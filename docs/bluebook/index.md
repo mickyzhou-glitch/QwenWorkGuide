@@ -12,7 +12,9 @@ sources:
 
 > 非官方、开源、社区共创的实践规范。产品能力以[官方来源](/bluebook/appendices/sources)为准；方法、判断与路线建议属于社区实践。
 
-**当前在线版：V2.0｜内容快照：2026-08-01**
+**历史方法版：V2.0｜内容快照：2026-08-01**
+
+这份蓝皮书保留原有方法、案例来源与证据记录。第一次使用请先读[快速开始](/guides/quick-start)；产品新变化请读[当前能力地图](/guides/capabilities)和[更新记录](/updates/)。下列 PDF 也为历史版本，不包含 10 月新增内容。
 
 这本蓝皮书建议从一件具体的办公工作开始，再逐步扩展到团队。普通办公用户的推荐阅读顺序是：**基本介绍 → 案例与场景图谱 → 方法与操作 → 阶段、治理、权限与组织落地**。书中的方法术语会在对应章节解释，但你可以先按任务和产物来读，不必先掌握全部概念。
 
@@ -28,28 +30,17 @@ sources:
 
 ## 你可以从这里开始
 
-<div class="qwg-reading-paths">
-  <a class="qwg-reading-path" href="/bluebook/executive-summary">
-    <strong>第一次接触</strong>
-    <span>先看千问办公能帮你做什么，再从一件普通办公工作开始。</span>
-  </a>
-  <div class="qwg-reading-path">
-    <strong>想看别人怎么做</strong>
-    <span>先看 <a href="/cases/submissions/pisen-competitive-research-product-materials">品胜电子</a>、<a href="/cases/submissions/youkela-product-rd-payroll">优克拉</a> 和 <a href="/cases/submissions/qwenwork-public-case-atlas">32 个待核验场景线索</a>。</span>
-  </div>
-  <a class="qwg-reading-path" href="/bluebook/part-1/01-delivery-standard">
-    <strong>手上有具体任务</strong>
-    <span>直接进入对应的交付方法，从输入、产物、检查和人工确认开始。</span>
-  </a>
-  <a class="qwg-reading-path" href="/bluebook/part-4/10-pilot-roadmap">
-    <strong>准备团队使用</strong>
-    <span>最后再阅读阶段、治理和权限，确认谁负责、谁能操作、何时可以推广。</span>
-  </a>
-</div>
+| 你的目标 | 推荐入口 |
+| --- | --- |
+| 第一次接触千问办公 | [完成第一个任务](/guides/quick-start) |
+| 手上有具体工作 | [任务实战](/tasks/) |
+| 想看别人怎么做 | [案例库与阅读边界](/cases/) |
+| 准备团队使用 | [团队试点](/guides/team-adoption) |
 
-## PDF 与历史离线版
 
-- [下载 V2.0 PDF](/downloads/qwenwork-bluebook-v2.0.pdf)
+## PDF 与历史离线版（不随网站自动更新）
+
+- [下载 V2.0 PDF（2026-08-01 快照）](/downloads/qwenwork-bluebook-v2.0.pdf)
 - [下载 V1.3 PDF 离线版](/downloads/qwenwork-bluebook-v1.3.pdf)
 - [下载 V1.2 PDF 离线版（存档）](/downloads/qwenwork-bluebook-v1.pdf)
 

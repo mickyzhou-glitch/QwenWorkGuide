@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { BLUEBOOK_V2_SIDEBAR_GROUPS } from '../../scripts/content-utils.mjs'
+import { GUIDE_SIDEBAR, TASK_SIDEBAR } from './navigation.mjs'
 
 const isCloudflarePages = process.env.CF_PAGES === '1'
 const siteBase = isCloudflarePages ? '/' : '/QwenWorkGuide/'
@@ -8,10 +9,10 @@ const canonicalOrigin = 'https://qwenworkguide.pages.dev'
 export default defineConfig({
   lang: 'zh-CN',
   title: 'QwenWorkGuide',
-  description: '非官方、开源、社区共创的千问办公实践指南',
+  description: '从一个任务开始，学会使用千问办公。包含上手练习、任务实操、能力说明与产品更新。非官方社区指南。',
   base: siteBase,
   head: [
-    ['meta', { name: 'theme-color', content: '#4ce285' }],
+    ['meta', { name: 'theme-color', content: '#176b4b' }],
     ['link', { rel: 'icon', href: `${siteBase}q-logo.svg`, type: 'image/svg+xml' }]
   ],
   cleanUrls: true,
@@ -44,17 +45,30 @@ export default defineConfig({
   themeConfig: {
     logo: '/q-logo.svg',
     nav: [
-      { text: '蓝皮书', link: '/bluebook/' },
-      { text: '案例库', link: '/cases/' },
-      { text: '阅读指南', link: '/reading-guide' },
-      { text: '参与共创', link: '/community/contributing' },
-      { text: '联系我', link: '/contact' }
+      { text: '开始使用', link: '/guides/quick-start', activeMatch: '/guides/quick-start' },
+      { text: '任务实战', link: '/tasks/', activeMatch: '/tasks/' },
+      { text: '能力指南', link: '/guides/capabilities', activeMatch: '/guides/(?!quick-start)' },
+      { text: '产品更新', link: '/updates/' },
+      { text: '深入阅读', items: [
+        { text: '蓝皮书 · 方法与实践', link: '/bluebook/' },
+        { text: '案例与证据', link: '/cases/' },
+        { text: '阅读指南', link: '/reading-guide' },
+        { text: '参与共创', link: '/community/contributing' },
+        { text: '联系作者', link: '/contact' }
+      ] }
     ],
     sidebar: {
       '/bluebook/': BLUEBOOK_V2_SIDEBAR_GROUPS,
-      '/guides/': [
-        { text: '上手指南', items: [{ text: '快速开始', link: '/guides/quick-start' }] }
-      ]
+      '/guides/': GUIDE_SIDEBAR,
+      '/tasks/': TASK_SIDEBAR,
+      '/updates/': GUIDE_SIDEBAR,
+      '/cases/': [{ text: '案例与来源', items: [
+        { text: '案例库与阅读边界', link: '/cases/' },
+        { text: '品胜 · 研究与物料', link: '/cases/submissions/pisen-competitive-research-product-materials' },
+        { text: '优克拉 · 研发与薪资', link: '/cases/submissions/youkela-product-rd-payroll' },
+        { text: '公开场景线索', link: '/cases/submissions/qwenwork-public-case-atlas' },
+        { text: '回到任务实战', link: '/tasks/' }
+      ] }]
     },
     search: {
       provider: 'local',
@@ -98,6 +112,10 @@ export default defineConfig({
     },
     returnToTopLabel: '回到顶部',
     sidebarMenuLabel: '打开章节导航',
+    footer: {
+      message: '非官方社区项目 · 代码 MIT / 原创文档 CC BY 4.0',
+      copyright: 'QwenWorkGuide · 以具体任务，连接新的工作方法'
+    },
     darkModeSwitchLabel: '切换外观',
     lightModeSwitchTitle: '切换到浅色模式',
     darkModeSwitchTitle: '切换到深色模式',

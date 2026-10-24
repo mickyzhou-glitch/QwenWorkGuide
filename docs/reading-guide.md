@@ -1,37 +1,41 @@
 ---
-title: 阅读指南
-description: 按交付、工作流、专业场景或组织能力选择 V2 阅读路径
+title: 怎么使用这份指南
+description: 按上手、任务实操、能力理解与组织实践选择阅读路径。
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
-  - https://qwenwork.cn/docs/product-introduction
+  - https://docs.qwenwork.cn/product-introduction
 ---
 
-# 阅读指南
+# 怎么使用这份指南
 
-## 新手顺序阅读路线
+你不需要从第一章开始顺序读完。先选最接近当前目标的一条路。
 
-1. [执行摘要](/bluebook/executive-summary)
-2. [交付新标准](/bluebook/part-1/01-delivery-standard)
-3. [任务拆解与验收](/bluebook/part-1/02-task-delivery-protocol)
-4. [工作环境与能力架构](/bluebook/part-2/03-work-environment-architecture)
-5. [快速开始](/guides/quick-start)
+## 第一次用
 
-目标是先完成一个可验收、可编辑、可回退的产物，再决定是否沉淀工作流。
+从[完成第一个任务](/guides/quick-start)开始。复制练习材料，生成纪要，核对并保存，先体验一次完整过程。
 
-## 按任务查找路线
+## 手上有任务
 
-- 文档、表格、汇报与网页：读[办公交付](/bluebook/part-3/06-office-delivery)。
-- 研究与公开案例：读[研究与证据链](/bluebook/part-3/08-research-evidence-chain)和[公开案例图谱](/bluebook/part-3/09-public-case-atlas)。
-- 复用成功方法：读[Skill、连接器与专家套件](/bluebook/part-2/04-skills-connectors-expert-kits)和[自动化及其边界](/bluebook/part-2/05-automation-boundaries)。
-- 按岗位选择场景：读[岗位路线](/bluebook/part-3/07-role-roadmaps)和[场景速查与评分表](/bluebook/appendices/scenario-index)。
+进入[任务实战](/tasks/)，按会议、数据、汇报、研究、协作或经营查找。每个任务都给出准备材料、操作步骤、可复制指令和检查方法。
 
-## 团队负责人路线
+## 想了解新能力
 
-依次阅读[场景选择与试点](/bluebook/part-4/10-pilot-roadmap)、[安全、权限与责任](/bluebook/part-4/11-security-governance)、[团队工作流运营](/bluebook/part-4/12-workflow-operations)、[价值度量](/bluebook/part-4/13-value-measurement)和[组织上线验收清单](/bluebook/appendices/launch-checklist)。
+先看[能力地图](/guides/capabilities)，再按需要了解[扩展](/guides/extensions)与[定时任务](/guides/automation)。[更新页](/updates/)同时列出资料日期、核验时间和开放范围。
 
-## 内容标识
+## 准备让团队使用
 
-- `verified`：可回到官方页面核验的事实。
-- `community-practice`：需在自身环境验证的方法、案例和建议。
-- `review-needed`：产品变化后需要补充来源或重新核验。
+从[团队试点](/guides/team-adoption)开始，再进入[蓝皮书](/bluebook/)中更完整的场景选择、组织治理和价值衡量方法。组织方法用于需要管理的工作流，不要求每次个人练习都执行完整流程。
+
+## 如何理解来源与日期
+
+- **社区实践：** 本站整理的操作建议、指令和检查方法，需要在你的材料与环境中验证。
+- **公开事实：** 回到页面附带的官方来源核对，核验日不等于产品发布日期。
+- **历史快照：** 蓝皮书 V2.0 与 PDF 记录 2026 年 8 月的内容，不追认其中所有产品说明仍为最新。
+- **案例线索：** 可帮助发现任务，不等于已经核验的客户效果。详见[案例库](/cases/)。
+
+页面“最后更新”反映仓库修改时间；页面顶部的核验日期反映这次资料复核时间，两者含义不同。
+
+## 遇到问题
+
+产品操作问题先看[排障指南](/guides/troubleshooting)。发现本站错误，可[提交勘误](https://github.com/mickyzhou-glitch/QwenWorkGuide/issues/new/choose)，附问题页、当前界面版本与可公开来源。请勿上传账号凭据或未获授权的客户材料。
