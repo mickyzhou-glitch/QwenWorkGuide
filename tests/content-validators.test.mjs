@@ -76,7 +76,7 @@ async function createFakePdfRepository(t) {
   const tmp = join(root, "tmp");
   const output = join(
     root,
-    "docs/public/downloads/qwenwork-bluebook-v2.0.pdf",
+    "docs/public/downloads/qwenwork-bluebook-v2.1.pdf",
   );
   await mkdir(bin, { recursive: true });
   await mkdir(tmp, { recursive: true });
@@ -125,7 +125,7 @@ if [ "$1" = "-v" ]; then echo "pdfinfo version 24.02" >&2; exit 0; fi
 if [ "\${QWG_FAKE_PDFINFO_MODE:-valid}" = "invalid" ]; then
   printf "%s\\n" "Title: invalid" "Pages: 0"
 else
-  printf "%s\\n" "Title: 千问办公蓝皮书 V2.0" "Pages: 2"
+  printf "%s\\n" "Title: 千问办公蓝皮书 V2.1" "Pages: 2"
 fi
 `,
   );
@@ -936,7 +936,7 @@ test("build-bluebook-pdf success replaces the previous output", async (t) => {
   assert.equal(await readFile(output, "utf8"), "%PDF-1.4 new");
   assert.deepEqual(
     (await readdir(join(dirname(output)))).filter((name) =>
-      name.startsWith(".qwenwork-bluebook-v2.0.pdf."),
+      name.startsWith(".qwenwork-bluebook-v2.1.pdf."),
     ),
     [],
   );
@@ -950,7 +950,7 @@ test("build-bluebook-pdf invalid pdfinfo preserves the previous output", async (
   assert.equal(await readFile(output, "utf8"), "previous");
   assert.deepEqual(
     (await readdir(join(dirname(output)))).filter((name) =>
-      name.startsWith(".qwenwork-bluebook-v2.0.pdf."),
+      name.startsWith(".qwenwork-bluebook-v2.1.pdf."),
     ),
     [],
   );
@@ -964,7 +964,7 @@ test("build-bluebook-pdf page-count failure preserves the previous output", asyn
   assert.equal(await readFile(output, "utf8"), "previous");
   assert.deepEqual(
     (await readdir(join(dirname(output)))).filter((name) =>
-      name.startsWith(".qwenwork-bluebook-v2.0.pdf."),
+      name.startsWith(".qwenwork-bluebook-v2.1.pdf."),
     ),
     [],
   );

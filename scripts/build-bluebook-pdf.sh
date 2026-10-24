@@ -5,6 +5,15 @@ QWG_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 QWG_REPO_ROOT="$(cd "$QWG_SCRIPT_DIR/.." && pwd)"
 cd "$QWG_REPO_ROOT"
 
+QWG_PDF_VERSION="v2.1"
+QWG_PDF_TITLE="V2.1"
+QWG_MANIFEST="scripts/bluebook-v21-manifest.json"
+if [[ "${1:-}" = "--current" ]]; then shift; fi
+if [[ $# -gt 0 ]]; then
+  echo "未知参数：$1" >&2
+  exit 2
+fi
+
 require_command() {
   command -v "$1" || {
     echo "缺少必需命令：$1" >&2
@@ -44,7 +53,7 @@ fi
 QWG_WORK_DIR="$(mktemp -d)"
 QWG_OUTPUT_DIR="docs/public/downloads"
 mkdir -p "$QWG_OUTPUT_DIR"
-QWG_STAGE_PDF="$(mktemp "$QWG_OUTPUT_DIR/.qwenwork-bluebook-v2.0.pdf.XXXXXX")"
+QWG_STAGE_PDF="$(mktemp "$QWG_OUTPUT_DIR/.qwenwork-bluebook-${QWG_PDF_VERSION}.pdf.XXXXXX")"
 QWG_SUCCESS="0"
 cleanup() {
   rm -f "$QWG_STAGE_PDF"
@@ -55,9 +64,10 @@ cleanup() {
 trap cleanup EXIT
 
 npm run generate:evidence
-npm run build
+npm run generate:cases
+node scripts/check-bluebook-pdf.mjs --snapshot "$QWG_WORK_DIR/sources.json"
 node scripts/build-bluebook-print.mjs \
-  --manifest scripts/bluebook-v2-manifest.json \
+  --manifest "$QWG_MANIFEST" \
   --output "$QWG_WORK_DIR/print.html"
 if [[ ${#QWG_CHROME_ARGS[@]} -gt 0 ]]; then
   scripts/html-to-pdf.sh "${QWG_CHROME_ARGS[@]}" \
@@ -77,8 +87,8 @@ if ! [[ "$QWG_PAGES" =~ ^[1-9][0-9]*$ ]]; then
   echo "PDF 页数无效" >&2
   exit 1
 fi
-if [[ "$QWG_TITLE" != *"V2.0"* ]]; then
-  echo "PDF 标题缺少 V2.0" >&2
+if [[ "$QWG_TITLE" != *"$QWG_PDF_TITLE"* ]]; then
+  echo "PDF 标题缺少 $QWG_PDF_TITLE" >&2
   exit 1
 fi
 
@@ -91,7 +101,8 @@ if [[ "$QWG_RENDERED_PAGES" != "$QWG_PAGES" ]]; then
 fi
 
 cp "$QWG_WORK_DIR/bluebook.pdf" "$QWG_STAGE_PDF"
-mv -f "$QWG_STAGE_PDF" "$QWG_OUTPUT_DIR/qwenwork-bluebook-v2.0.pdf"
+mv -f "$QWG_STAGE_PDF" "$QWG_OUTPUT_DIR/qwenwork-bluebook-${QWG_PDF_VERSION}.pdf"
+node scripts/check-bluebook-pdf.mjs --capture "$QWG_WORK_DIR/sources.json"
 QWG_SUCCESS="1"
-printf 'PDF: %s\n' "$QWG_REPO_ROOT/$QWG_OUTPUT_DIR/qwenwork-bluebook-v2.0.pdf"
+printf 'PDF: %s\n' "$QWG_REPO_ROOT/$QWG_OUTPUT_DIR/qwenwork-bluebook-${QWG_PDF_VERSION}.pdf"
 printf 'QA pages: %s\n' "$QWG_WORK_DIR/pages"

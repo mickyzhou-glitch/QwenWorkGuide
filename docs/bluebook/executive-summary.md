@@ -1,12 +1,25 @@
 ---
 title: 先做完一件办公工作，再考虑推广
-description: 千问办公蓝皮书 V2.0 执行摘要
+description: 千问办公蓝皮书 V2.1 执行摘要
 status: community-practice
-verifiedAt: 2026-08-01
-sources: []
+verifiedAt: 2026-10-25
+sources:
+  - https://docs.qwenwork.cn/release-notes/desktop
+  - https://learn.qwenwork.cn/whatsnew/
 ---
 
 # 先做完一件办公工作，再考虑推广
+
+## V2.1：从个人交付走向经营与团队协作
+
+<span id="claim-v21-summary-01" data-claim-id="claim-v21-summary-01"></span>这次修订覆盖 2026 年 9—10 月公开资料。客户端日志已核对到 10 月 15 日的 1.3.1；这是资料范围，不代表所有账号已开放全部功能。移动端、技能分享、安全中心和电商经营入口，让试点不再只限于“生成一份文档”。但每条流程仍需回答：资料从哪里来、用什么规则处理、谁验收、执行哪些动作。 局限：公开日志不能证明所有账号已开放相同功能。
+
+<span id="claim-v21-summary-02" data-claim-id="claim-v21-summary-02"></span>本书建议：推荐三条起步路线：个人先完成会议纪要或表格复核；经营团队先做只读日报或渠道利润分析；组织负责人先选一个有明确资料边界和接管人的流程。第 3—5 章补充入口、复用资产与定时边界，第 10—13 章补充企业上下文、运行管理和价值核算。
+
+<span id="claim-v21-summary-03" data-claim-id="claim-v21-summary-03"></span>本版新增 [13 条公开来源材料](/cases/public/)：7 条企业实践报道、1 条第三方实测和 5 条官方演示，并收进 PDF 的[案例札记附录](/bluebook/appendices/public-case-notes)。企业报道证明“有人公开描述了这种实践”，不能替代独立效果评估。V2.0 的 32 条旧候选记录仍按原发布门保存，不能与新增资料合算为成功客户数。
+
+<span id="claim-v21-summary-04" data-claim-id="claim-v21-summary-04"></span>本书建议：阅读顺序仍是：先选相近案例，再看交付与岗位方法，最后安排治理。网页版和 V2.1 PDF 同步修订，V2.0 PDF 保留历史快照。
+
 
 ## 先用一个普通例子开始
 

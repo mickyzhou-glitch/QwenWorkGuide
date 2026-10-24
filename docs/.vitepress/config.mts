@@ -58,12 +58,13 @@ export default defineConfig({
       ] }
     ],
     sidebar: {
-      '/bluebook/': BLUEBOOK_V2_SIDEBAR_GROUPS,
+      '/bluebook/': [...BLUEBOOK_V2_SIDEBAR_GROUPS, { text: 'V2.1 补充', items: [{ text: '公开案例阅读札记', link: '/bluebook/appendices/public-case-notes' }] }],
       '/guides/': GUIDE_SIDEBAR,
       '/tasks/': TASK_SIDEBAR,
       '/updates/': GUIDE_SIDEBAR,
       '/cases/': [{ text: '案例与来源', items: [
         { text: '案例库与阅读边界', link: '/cases/' },
+        { text: '新增 13 条公开案例与实测', link: '/cases/public/' },
         { text: '品胜 · 研究与物料', link: '/cases/submissions/pisen-competitive-research-product-materials' },
         { text: '优克拉 · 研发与薪资', link: '/cases/submissions/youkela-product-rd-payroll' },
         { text: '公开场景线索', link: '/cases/submissions/qwenwork-public-case-atlas' },

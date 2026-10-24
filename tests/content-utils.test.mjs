@@ -1452,7 +1452,7 @@ test("production VitePress config uses the canonical V2 sidebar dependency", asy
   const config = await resolveConfig(docsRoot, "build", "production");
 
   assert.deepEqual(
-    config.site.themeConfig.sidebar["/bluebook/"],
+    config.site.themeConfig.sidebar["/bluebook/"].slice(0, BLUEBOOK_V2_SIDEBAR_GROUPS.length),
     BLUEBOOK_V2_SIDEBAR_GROUPS,
   );
   assert.ok(
@@ -1755,10 +1755,10 @@ test("案例库保留历史案例正文并显式标注证据边界", async () =>
     "utf8",
   );
 
-  assert.match(caseIndex, /当前可阅读：2 个具名客户深度案例（4 个业务场景）\+ 32 个公开场景线索/);
+  assert.match(caseIndex, /原有 2 个具名客户材料与 32 个待核验场景线索/);
   assert.match(caseIndex, /客户陈述|独立审计|证据边界/);
   assert.ok(
-    caseIndex.indexOf("## 先看可阅读案例与场景") <
+    caseIndex.indexOf("## 原有客户材料与场景线索") <
       caseIndex.indexOf("## 证据边界与合格案例"),
   );
   assert.match(pisenCase, /^# 品胜电子：竞品调研与产品物料制作/m);
@@ -1806,15 +1806,15 @@ test("案例库保留历史案例正文并显式标注证据边界", async () =>
     assert.match(publicCaseAtlas, new RegExp(label));
   }
   assert.match(publicCaseAtlas, /低风险草稿|只读分析/);
-  assert.match(publicCaseChapter, /## 可阅读案例/);
+  assert.match(publicCaseChapter, /## 原有可阅读案例/);
   assert.match(publicCaseChapter, /\/cases\//);
   assert.ok(
-    publicCaseChapter.indexOf("## 可阅读案例") <
+    publicCaseChapter.indexOf("## 原有可阅读案例") <
       publicCaseChapter.indexOf("## 怎么读案例") &&
       publicCaseChapter.indexOf("## 怎么读案例") <
         publicCaseChapter.indexOf("## 如何复用") &&
       publicCaseChapter.indexOf("## 如何复用") <
-        publicCaseChapter.indexOf("## 证据统计"),
+        publicCaseChapter.indexOf("## V2.0 历史候选证据门"),
   );
 });
 
@@ -1921,7 +1921,7 @@ test("task-first homepage preserves the historical bluebook reading order", asyn
   for (const taskId of ["presentation", "meeting-notes", "data-analysis"]) {
     assert.ok(tasks.some(task => task.id === taskId && task.link === `/tasks/${taskId}`));
   }
-  assert.match(bluebookIndex, /历史方法版：V2\.0｜内容快照：2026-08-01/);
+  assert.match(bluebookIndex, /当前版：V2\.1｜修订日期：2026-10-25/);
   assert.match(bluebookIndex, /基本介绍/);
   assert.match(bluebookIndex, /案例与场景图谱/);
   assert.match(bluebookIndex, /阶段、治理、权限与组织落地/);

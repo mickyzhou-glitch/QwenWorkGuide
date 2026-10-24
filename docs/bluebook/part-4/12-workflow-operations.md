@@ -2,13 +2,26 @@
 title: 团队工作流运营：把一次成功变成可维护资产
 description: 用工作流卡、变更门、失败记录和复盘节奏管理团队级 AI 工作流
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
+  - https://docs.qwenwork.cn/release-notes/desktop
+  - https://learn.qwenwork.cn/whatsnew/
   - https://qwenwork.cn/docs/features/skills
   - https://qwenwork.cn/docs/features/connectors
 ---
 
 # 团队工作流运营：把一次成功变成可维护资产
+
+## V2.1 运行台账：让升级和失效可追踪
+
+为每条已经复用的流程记录：技能版本、连接器与账号、工作目录、运行位置、输入期间、产物链接、异常情况和维护人。官方更新或连接失效后，先在小样本中复跑，再恢复例行使用。个人分享链接不是团队维护机制。
+
+建议一周复盘一次异常，不只看成功次数：权限变化导致了哪些漏数，模板变化带来了哪些返工，谁接管了漏跑任务。每次失败留下一条能再次验证的样本，并指定完成期限。
+
+[网咖经营报道](/cases/public/pipimao-operations)说明运营与设备问题可能同时进入任务流；复现时要把经营指标异常和设备故障分别分派，避免一个“日报已生成”掩盖没有人处理的工单。重复通知和静默失败都应计入运行质量。
+
+涉及多人网页时，至少实际验证两位授权用户的读写范围和刷新后的数据。保留可独立恢复的资料副本，版本记录不等于恢复能力已经具备。
+
 
 ## 什么时候需要看
 

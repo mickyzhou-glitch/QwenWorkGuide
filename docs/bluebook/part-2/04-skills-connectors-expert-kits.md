@@ -2,13 +2,26 @@
 title: 可复用资产：Skill（技能）、连接器与专家套件
 description: 区分方法资产、授权边界和岗位级工作流组合的发布责任
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
+  - https://docs.qwenwork.cn/release-notes/desktop
+  - https://learn.qwenwork.cn/whatsnew/
   - https://qwenwork.cn/docs/features/skills
   - https://qwenwork.cn/docs/features/connectors
 ---
 
 # 可复用资产：Skill（技能）、连接器与专家套件
+
+## V2.1 复用资产：分享之前先做一次陌生输入测试
+
+9 月官方更新已介绍个人技能市场发布、版本管理和链接分享。技能负责方法和规则，连接器提供访问工具的通道，专家套件组合岗位所需能力；分享技能不会自动赋予接收者业务系统权限。
+
+以[律所经验技能化](/cases/public/deheng-legal-skills)为例，可复用的是审定的方法结构，不应把真实案件材料、访问凭据和个人信息一并发布。每项技能至少附：适用任务、必需输入、输出样例、禁止动作、维护人、版本和一次失败样本。
+
+建议的发布练习：作者用熟悉样本跑通；同事用另一份脱敏材料执行；再移除一个关键字段，观察是否明确要求补充。只有三次结果均符合任务约定，再决定团队共享或公开发布。公开市场上架还需复核模板版权、商业信息和第三方服务费用。
+
+[零售官方演示](/cases/public/retail-stock-refunds)同时依赖商家授权、浏览器连接器与套件。安装成功只是准备完成，不能替代读取一次真实授权范围内数据的检查。
+
 
 ## 30 秒结论
 

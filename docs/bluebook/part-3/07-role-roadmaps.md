@@ -2,11 +2,25 @@
 title: 岗位路线：用统一场景卡选择真实任务
 description: 为 HR、销售、产品、财务法务、内容市场建立可比较的场景卡
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources: []
 ---
 
 # 岗位路线：用统一场景卡选择真实任务
+
+## V2.1 岗位起点：从可核对的工作开始
+
+| 岗位 | 第一项任务 | 建议暂缓的动作 | 可参考材料 |
+| --- | --- | --- | --- |
+| 电商运营 | 一个商品的渠道费用复盘 | 自动改价、批量投放 | [捌比特咖啡](/cases/public/eightbit-coffee) |
+| 门店运营 | 单店异常巡检 | 自动赔付或全店改库存 | [屁屁猫网咖](/cases/public/pipimao-operations) |
+| 销售支持 | 规格核对与报价草稿 | 无审批对客报价 | [富立卡](/cases/public/fulika-quotation) |
+| 财务 | 一个配方的成本复算 | 自动形成付款决策 | [益海嘉里金龙鱼](/cases/public/yihai-sales-costing) |
+| 知识管理 | 一个主题的有效标准问答 | 全库无差别开放 | [古茗](/cases/public/guming-store-knowledge) |
+| 法律专业 | 脱敏事实表与缺件清单 | 未经律师复核出具意见 | [德恒杭州](/cases/public/deheng-legal-skills) |
+
+上述材料提供任务方向，不能证明你所在组织能获得同样效果。每个岗位先约定“谁判对错”，再选工具；跨岗位流程则明确移交资料、状态和责任人。例如销售不能自行替代财务确定成本，模型也不能因为拿到了表格就自动取得付款权限。
+
 
 ## 30 秒结论
 

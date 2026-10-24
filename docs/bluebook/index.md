@@ -1,20 +1,22 @@
 ---
-title: 千问办公蓝皮书 V2.0
+title: 千问办公蓝皮书 V2.1
 description: 从一次交付到组织工作流的开源实践规范
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
   - https://qwenwork.cn/docs/product-introduction
   - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
 ---
 
-# 千问办公蓝皮书 V2.0
+# 千问办公蓝皮书 V2.1
 
 > 非官方、开源、社区共创的实践规范。产品能力以[官方来源](/bluebook/appendices/sources)为准；方法、判断与路线建议属于社区实践。
 
-**历史方法版：V2.0｜内容快照：2026-08-01**
+**当前版：V2.1｜修订日期：2026-10-25｜正文与 PDF 同步更新**
 
-这份蓝皮书保留原有方法、案例来源与证据记录。第一次使用请先读[快速开始](/guides/quick-start)；产品新变化请读[当前能力地图](/guides/capabilities)和[更新记录](/updates/)。下列 PDF 也为历史版本，不包含 10 月新增内容。
+本版更新全部 13 章、执行摘要与结语，补充移动端、企业上下文、技能分享、安全中心、电商经营和云端 / 本地定时任务的差异。新增 13 条公开案例资料及离线附录，区分企业报道、第三方实测与官方演示。产品资料核对范围见[更新记录](/updates/)，旧证据台账保留原日期，不因修订自动升级。
+
+[下载 V2.1 完整 PDF](/downloads/qwenwork-bluebook-v2.1.pdf) · [浏览新增案例](/cases/public/)
 
 这本蓝皮书建议从一件具体的办公工作开始，再逐步扩展到团队。普通办公用户的推荐阅读顺序是：**基本介绍 → 案例与场景图谱 → 方法与操作 → 阶段、治理、权限与组织落地**。书中的方法术语会在对应章节解释，但你可以先按任务和产物来读，不必先掌握全部概念。
 
@@ -38,8 +40,9 @@ sources:
 | 准备团队使用 | [团队试点](/guides/team-adoption) |
 
 
-## PDF 与历史离线版（不随网站自动更新）
+## PDF 下载与历史存档
 
+- [下载 V2.1 PDF（2026-10-25，含案例札记）](/downloads/qwenwork-bluebook-v2.1.pdf)
 - [下载 V2.0 PDF（2026-08-01 快照）](/downloads/qwenwork-bluebook-v2.0.pdf)
 - [下载 V1.3 PDF 离线版](/downloads/qwenwork-bluebook-v1.3.pdf)
 - [下载 V1.2 PDF 离线版（存档）](/downloads/qwenwork-bluebook-v1.pdf)
@@ -81,6 +84,8 @@ sources:
 
 ## 附录
 
+- [V2.1 公开案例阅读札记](/bluebook/appendices/public-case-notes)
+
 - [常用指令模板](/bluebook/appendices/prompt-templates)
 - [场景速查与评分表](/bluebook/appendices/scenario-index)
 - [组织上线验收清单](/bluebook/appendices/launch-checklist)
@@ -88,7 +93,7 @@ sources:
 - [主张证据台账](/bluebook/appendices/evidence-ledger)
 - [案例来源映射](/bluebook/appendices/case-source-map)
 
-> 证据边界：公开演示只能说明产物形态，不能推导客户效果。候选场景仍可阅读，但不代表客户背书；公开案例数量以[案例来源映射](/bluebook/appendices/case-source-map)和[主张证据台账](/bluebook/appendices/evidence-ledger)为准，当前通过案例级发布门为 0。
+> 证据边界：公开演示只能说明产物形态，不能推导客户效果。候选场景仍可阅读，但不代表客户背书；新增资料共 13 条，详见[公开案例目录](/cases/public/)；V2.0 的 32 条旧候选记录仍保留原证据门，未通过条目不作客户背书。
 
 ## 内容状态与阅读边界
 
@@ -96,4 +101,4 @@ sources:
 - `community-practice`：社区方法、案例、判断与建议，使用前需要结合本组织环境验证。
 - `review-needed`：产品变化后需要补充来源或重新核验的内容。
 
-案例阅读不等于案例核验：公开演示只能帮助理解产物形态，不能据此推导客户效果；候选场景仍可阅读，但不代表客户背书。公开案例数量以案例来源映射和证据台账为准，当前通过案例级发布门为 0。
+案例阅读不等于案例核验：公开演示只能帮助理解产物形态，不能据此推导客户效果；候选场景仍可阅读，但不代表客户背书。新案例的来源日期和证据边界逐页列出；历史案例映射仍按原口径记录。

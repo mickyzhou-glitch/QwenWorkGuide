@@ -2,8 +2,10 @@
 title: 产品与生态路线建议：按验证状态讨论下一步
 description: 将公开能力、实测组合、可行推断和路线假设分层，避免把建议写成产品承诺
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
+  - https://docs.qwenwork.cn/release-notes/desktop
+  - https://learn.qwenwork.cn/whatsnew/
   - https://qwenwork.cn/docs/product-introduction
   - https://qwenwork.cn/docs/features/skills
   - https://qwenwork.cn/docs/features/connectors
@@ -11,6 +13,15 @@ sources:
 ---
 
 # 产品与生态路线建议：按验证状态讨论下一步
+
+## V2.1 结语：用开放能力连接具体业务
+
+9—10 月资料把技能、连接器、企业上下文和电商经营放到了同一条工作链上。机会是让业务方法随任务复用，而不只是扩大文档产量。现实约束仍是开放范围、授权、输入质量、专业判断和持续维护。
+
+对个人，选择一个能复算、能保存的交付物；对团队，把稳定做法连同输入约定和失败样本一起分享；对组织，把知识范围、系统权限、运行责任和收益核算同时落地。不要用“已接入工具数量”代替完成任务的质量。
+
+本版的 13 条公开材料是可追溯的学习入口。后续更新应优先增加有完整输入、实施条件、产物和评价方法的案例；若来源撤回或事实变化，应更新案例状态，而不是保留已经失效的宣传结论。产品变化见[更新记录](/updates/)，案例原文和边界见[公开案例目录](/cases/public/)。
+
 
 ## 30 秒结论
 

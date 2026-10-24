@@ -1,0 +1,33 @@
+{
+  "version": "V2.1",
+  "publishedAt": "2026-10-25",
+  "pdf": "docs/public/downloads/qwenwork-bluebook-v2.1.pdf",
+  "sha256": "c41d3697a070c177880fc36cd51062a405d410e000f600ffe42a950568f30a48",
+  "sources": {
+    "scripts/bluebook-v21-manifest.json": "ec9a803082893cf37f113d817d47f382226c9c0246301968fc7496771b4994e2",
+    "scripts/build-bluebook-print.mjs": "5b8d71313e94d3bf7f8343962ea1f3668ce524f68a4a18b91520d423c4045f81",
+    "docs/.vitepress/theme/print.css": "d74c2f9ed514df4178fb15013ffbcb684c2f40d4697329307d16309b115533dc",
+    "docs/bluebook/executive-summary.md": "b6913a9338b41a8f56443fd40c9af5317c04608835154f0405c2b3c931a734f2",
+    "docs/bluebook/part-3/09-public-case-atlas.md": "a09dc4b3dbde14b0dedbf2df9467be6af8fd097377b83dfe378690616175016a",
+    "docs/bluebook/part-3/06-office-delivery.md": "439b38ae3214320bdc5599cdd0390c7c2655b3d2d5301332dc266b09faf2b6e8",
+    "docs/bluebook/part-3/07-role-roadmaps.md": "bccf3426b084f57df266ae8a722354198ba50ac2bea2ec175d2d8c8b29b35a72",
+    "docs/bluebook/part-3/08-research-evidence-chain.md": "0f5b06c5ba41077db769874fea58edd164004337878ffd73b1fad9daa11fa745",
+    "docs/bluebook/part-1/01-delivery-standard.md": "2ae89fe36f702efa99af71b8b58f2d63099fde989360db30d9815d8e23fcdbb1",
+    "docs/bluebook/part-1/02-task-delivery-protocol.md": "0504b0c9c0f06a4bdde6c39987b880b7f326a4f9ea437626d2cb7f3798cc7f80",
+    "docs/bluebook/part-2/03-work-environment-architecture.md": "929e58d45316713ca1bdf3f9707b9ca05df7b3cfaf338df1b8ffa3fcd9f3bcfb",
+    "docs/bluebook/part-2/04-skills-connectors-expert-kits.md": "cabc03328883aa7147ea7be72f6e9f0790cbea904a4421f58dfcfc1d9c8489ed",
+    "docs/bluebook/part-2/05-automation-boundaries.md": "c2cb0a31fd55c5c0479b0510e879da3669ddc9f608aa61d618429a0e10a9f734",
+    "docs/bluebook/part-4/10-pilot-roadmap.md": "f23e7471f22ceac41f206777bffa0f41db11c11d3e1a5efb1ab42a4b82e0c221",
+    "docs/bluebook/part-4/11-security-governance.md": "d8dfa4cde2666d66dd02b8fad64ff79026e4dd3bf2d38a7f8a4a199bc8ac696f",
+    "docs/bluebook/part-4/12-workflow-operations.md": "3b8a6e8e539c08eded6c8a05d5d49237f4de4320e25c53043ac78d2520c725ce",
+    "docs/bluebook/part-4/13-value-measurement.md": "f8a75353c58ef1b6f54e506b1d092f423145ab655ebcb27a9fc860a5277b4e5b",
+    "docs/bluebook/conclusion-product-ecosystem.md": "1a21bbdc3da63743c0094d94ca0108d205898a8368b41db1bbd2edfcfe670b81",
+    "docs/bluebook/appendices/public-case-notes.md": "1bf5711f26250ae06269c8d7cd9fe6192da1ebf30fe9464e30c700f960bfa2fb",
+    "docs/bluebook/appendices/prompt-templates.md": "12d0d5b0c3109bd87741f099d73c60ed96386e791a5a2103def28460b2053096",
+    "docs/bluebook/appendices/scenario-index.md": "ff44cd585b0865ec275a1459aee4a8da209b979d8bcafd3851a3e6bfbe633ae3",
+    "docs/bluebook/appendices/launch-checklist.md": "7b1d0ba3bcc126cc7b765947704ce6edb788411fe0f9b373bf2adb6a708f58a8",
+    "docs/bluebook/appendices/sources.md": "d8437c7fb17a8f4d608fcb658154ca7e584099a1f000d46d203be914b669d664",
+    "docs/bluebook/appendices/evidence-ledger.md": "31b98727054dde9ab6eee23197f26e384d69cfc776d1d646d95338c5ef61c300",
+    "docs/bluebook/appendices/case-source-map.md": "6da976d114f556a8ac0477d35f48ff2a7158c5bd61defa1ade2a07383a50ed34"
+  }
+}

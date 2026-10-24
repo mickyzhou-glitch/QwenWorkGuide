@@ -74,3 +74,15 @@ AlephAITech，[WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide)，
 ## 版权与边界
 
 本蓝皮书基于公开资料形成，未获千问办公官方背书。产品名称和商标归其权利人所有；正文的建议和案例属于独立研究与社区实践。
+
+## V2.1 修订使用的补充来源
+
+以下来源用于本版新增内容；上方 R 编号及历史核验记录保留原义。
+
+- [客户端更新日志](https://docs.qwenwork.cn/release-notes/desktop)：核对到 2026-10-15 / 1.3.1；安全中心、技能和电商入口以各版本条目为准。
+- [产品新鲜事](https://learn.qwenwork.cn/whatsnew/)：核对到 2026-10-14；9 月移动端、技能分享与 10 月电商开放范围。
+- [网页端定时](https://docs.qwenwork.cn/web/scheduled-tasks)、[桌面端定时](https://docs.qwenwork.cn/desktop/scheduled-tasks)：区分执行位置、唤醒和漏跑条件。
+- [我的网页](https://docs.qwenwork.cn/web/pages)：持久化、删除数据库与历史版本切换边界。
+- [V2.1 公开案例札记](/bluebook/appendices/public-case-notes)：逐条记录媒体报道、第三方实测和官方演示的 URL、发布日期、查阅日与原文定位。
+
+上述补充资料查阅于 2026-10-25。官方演示页未标日期时不推定发布日期；媒体报道未经本站独立效果审计。页面修订不代表所有历史主张已重新核验。

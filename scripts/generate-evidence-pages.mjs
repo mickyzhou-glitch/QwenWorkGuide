@@ -67,15 +67,17 @@ ${cell(claim.claim_text)}
       .join("\n\n");
   return `---
 title: 主张证据台账
-description: V2.0 关键主张的来源、状态与适用边界
+description: V2.0 历史主张与 V2.1 补充主张的来源、状态与适用边界
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: ${[...ledger.claims].map(claim => claim.last_verified_at).sort().at(-1)}
 sources: []
 ---
 
 # 主张证据台账
 
 > 本页由结构化数据自动生成，请修改 \`docs/bluebook/data/evidence-ledger.json\`。本文件及其 JSON 源均为公开内容。
+
+本页汇集历史与新增主张，逐条核验日期各自保留，不代表全部在同日重新核验。
 
 已发布主张：${published.length}；待核验线索：${pending.length}。
 

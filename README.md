@@ -16,7 +16,7 @@
 - **按任务找做法：** 六类独立实操，支持站内关键词搜索与分类筛选。
 - **读懂新能力：** 移动入口、多人工作台、技能分享、电商模式、记忆与安全中心。
 - **明确运行条件：** 区分本地与云端定时任务，说明邀测、权限与尚未上线的能力。
-- **保留历史：** 旧章节网址与证据台账仍可访问；蓝皮书 V2.0 和 PDF 标记为 8 月快照。
+- **蓝皮书同步：** V2.1 更新全部 13 章并提供新版 PDF；增加 13 条公开案例资料，旧 PDF 和证据台账继续保留。
 
 ## 今天要做什么
 
@@ -39,7 +39,9 @@
 
 ## 当前指南与历史资料
 
-当前指南独立维护，不把产品更新追写成历史证据。蓝皮书 V2.0 与 [PDF](docs/public/downloads/qwenwork-bluebook-v2.0.pdf)是 **2026-08-01 内容快照**，不含这次新增内容。
+当前版为蓝皮书 V2.1（2026-10-25），[PDF](docs/public/downloads/qwenwork-bluebook-v2.1.pdf)同步 13 章与公开案例札记。历史 V2.0 PDF 保留 2026-08-01 快照，旧证据不追认。
+
+公开案例源数据位于 `docs/cases/data/public-cases.json`。运行 `npm run generate:cases` 同步在线详情、目录和 PDF 附录；`npm run check:cases` 防止遗漏与重复计数；`npm run check:pdf` 比对正文与 PDF 的发布摘要，阻止不同步发布。运行 `npm run build:bluebook-pdf` 导出 V2.1；历史版本请使用对应历史提交重建。
 
 案例库保留 2 个具名客户深度案例（4 个业务场景）与 32 个待核验场景线索。当前通过案例级发布门的公开案例为 0；这些材料不自动构成效果承诺。来源与核验状态见[证据台账](docs/bluebook/appendices/evidence-ledger.md)和[案例来源映射](docs/bluebook/appendices/case-source-map.md)。
 

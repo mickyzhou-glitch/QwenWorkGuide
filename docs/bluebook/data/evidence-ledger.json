@@ -1540,6 +1540,146 @@
       "last_verified_at": "2026-08-01",
       "stale_after": null,
       "reviewer_role": "编辑复核者"
+    },
+    {
+      "claim_id": "claim-v21-summary-01",
+      "claim_type": "product-fact",
+      "claim_text": "这次修订覆盖 2026 年 9—10 月公开资料。客户端日志已核对到 10 月 15 日的 1.3.1；这是资料范围，不代表所有账号已开放全部功能。移动端、技能分享、安全中心和电商经营入口，让试点不再只限于“生成一份文档”。但每条流程仍需回答：资料从哪里来、用什么规则处理、谁验收、执行哪些动作。 局限：公开日志不能证明所有账号已开放相同功能。",
+      "content_path": "docs/bluebook/executive-summary.md",
+      "content_anchor": "claim-v21-summary-01",
+      "is_key": true,
+      "summary_eligible": true,
+      "blocks_release": true,
+      "source": {
+        "source_type": "official-product",
+        "source_ref": null,
+        "title": "QwenWorkGuide V2.1 修订说明",
+        "organization": "QwenWorkGuide 社区",
+        "excerpt": "核对到 2026-10-15 / 1.3.1；移动端等事项另见官方产品新鲜事。",
+        "external_record_id": null,
+        "deep_link": "https://docs.qwenwork.cn/release-notes/desktop",
+        "snapshot_path": null,
+        "content_hash": null,
+        "published_at": null,
+        "accessed_at": "2026-10-25",
+        "captured_at": null
+      },
+      "customer_evidence": null,
+      "measurement_basis": "官方日志与产品新鲜事的公开资料查阅",
+      "applicability": "企业 AI 试点、复用、治理和价值评估",
+      "limitations": [
+        "本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。"
+      ],
+      "conflicts": [],
+      "verification_status": "limited",
+      "last_verified_at": "2026-10-25",
+      "stale_after": null,
+      "reviewer_role": "编辑复核者"
+    },
+    {
+      "claim_id": "claim-v21-summary-02",
+      "claim_type": "community-judgment",
+      "claim_text": "本书建议：推荐三条起步路线：个人先完成会议纪要或表格复核；经营团队先做只读日报或渠道利润分析；组织负责人先选一个有明确资料边界和接管人的流程。第 3—5 章补充入口、复用资产与定时边界，第 10—13 章补充企业上下文、运行管理和价值核算。",
+      "content_path": "docs/bluebook/executive-summary.md",
+      "content_anchor": "claim-v21-summary-02",
+      "is_key": true,
+      "summary_eligible": true,
+      "blocks_release": true,
+      "source": {
+        "source_type": "community-framework",
+        "source_ref": null,
+        "title": "QwenWorkGuide V2.1 修订说明",
+        "organization": "QwenWorkGuide 社区",
+        "excerpt": null,
+        "external_record_id": null,
+        "deep_link": null,
+        "snapshot_path": null,
+        "content_hash": null,
+        "published_at": null,
+        "accessed_at": "2026-10-25",
+        "captured_at": null
+      },
+      "customer_evidence": null,
+      "measurement_basis": "不适用：社区判断",
+      "applicability": "企业 AI 试点、复用、治理和价值评估",
+      "limitations": [
+        "本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。"
+      ],
+      "conflicts": [],
+      "verification_status": "editor-reviewed",
+      "last_verified_at": "2026-10-25",
+      "stale_after": null,
+      "reviewer_role": "编辑复核者"
+    },
+    {
+      "claim_id": "claim-v21-summary-03",
+      "claim_type": "research-finding",
+      "claim_text": "本版新增 [13 条公开来源材料](/cases/public/)：7 条企业实践报道、1 条第三方实测和 5 条官方演示，并收进 PDF 的[案例札记附录](/bluebook/appendices/public-case-notes)。企业报道证明“有人公开描述了这种实践”，不能替代独立效果评估。V2.0 的 32 条旧候选记录仍按原发布门保存，不能与新增资料合算为成功客户数。",
+      "content_path": "docs/bluebook/executive-summary.md",
+      "content_anchor": "claim-v21-summary-03",
+      "is_key": true,
+      "summary_eligible": true,
+      "blocks_release": true,
+      "source": {
+        "source_type": "first-party-disclosure",
+        "source_ref": null,
+        "title": "QwenWorkGuide V2.1 修订说明",
+        "organization": "QwenWorkGuide 社区",
+        "excerpt": "7 条企业实践报道、1 条第三方实测、5 条官方场景演示。",
+        "external_record_id": null,
+        "deep_link": "https://github.com/mickyzhou-glitch/QwenWorkGuide/blob/main/docs/cases/data/public-cases.json",
+        "snapshot_path": null,
+        "content_hash": null,
+        "published_at": null,
+        "accessed_at": "2026-10-25",
+        "captured_at": null
+      },
+      "customer_evidence": null,
+      "measurement_basis": "public-cases.json 的 13 条记录，按三种来源类型去重统计",
+      "applicability": "企业 AI 试点、复用、治理和价值评估",
+      "limitations": [
+        "本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。"
+      ],
+      "conflicts": [],
+      "verification_status": "verified",
+      "last_verified_at": "2026-10-25",
+      "stale_after": null,
+      "reviewer_role": "编辑复核者"
+    },
+    {
+      "claim_id": "claim-v21-summary-04",
+      "claim_type": "community-judgment",
+      "claim_text": "本书建议：阅读顺序仍是：先选相近案例，再看交付与岗位方法，最后安排治理。网页版和 V2.1 PDF 同步修订，V2.0 PDF 保留历史快照。",
+      "content_path": "docs/bluebook/executive-summary.md",
+      "content_anchor": "claim-v21-summary-04",
+      "is_key": true,
+      "summary_eligible": true,
+      "blocks_release": true,
+      "source": {
+        "source_type": "community-framework",
+        "source_ref": null,
+        "title": "QwenWorkGuide V2.1 修订说明",
+        "organization": "QwenWorkGuide 社区",
+        "excerpt": null,
+        "external_record_id": null,
+        "deep_link": null,
+        "snapshot_path": null,
+        "content_hash": null,
+        "published_at": null,
+        "accessed_at": "2026-10-25",
+        "captured_at": null
+      },
+      "customer_evidence": null,
+      "measurement_basis": "不适用：社区判断",
+      "applicability": "企业 AI 试点、复用、治理和价值评估",
+      "limitations": [
+        "本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。"
+      ],
+      "conflicts": [],
+      "verification_status": "editor-reviewed",
+      "last_verified_at": "2026-10-25",
+      "stale_after": null,
+      "reviewer_role": "编辑复核者"
     }
   ]
 }

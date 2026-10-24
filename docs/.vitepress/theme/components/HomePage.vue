@@ -49,7 +49,7 @@ import TaskExplorer from './TaskExplorer.vue'
     </section>
 
     <section class="home-library" aria-labelledby="library-title">
-      <div><p class="eyebrow">GO DEEPER</p><h2 id="library-title">需要完整方法？<br />蓝皮书仍然在这里。</h2><p>保留任务交付、组织治理、价值衡量与案例证据。<br />V2.0 PDF 是 2026 年 8 月历史快照；当前产品变化请看更新页。</p></div>
+      <div><p class="eyebrow">GO DEEPER</p><h2 id="library-title">需要完整方法？<br />蓝皮书更新到 V2.1。</h2><p>更新全部 13 章，补充 13 条公开案例与实测。<br />正文与 PDF 同步，保留原文出处与证据边界。</p></div>
       <div class="library-links"><a :href="withBase('/bluebook/')">深入阅读蓝皮书 <span aria-hidden="true">↗</span></a><a :href="withBase('/cases/')">查看案例与证据 <span aria-hidden="true">↗</span></a><a :href="withBase('/community/contributing')">参与共创与勘误 <span aria-hidden="true">↗</span></a></div>
     </section>
     <p class="home-disclaimer">本项目不代表千问办公或阿里巴巴官方立场。方法为社区实践，功能与权益请结合官方说明及当前账号确认。</p>

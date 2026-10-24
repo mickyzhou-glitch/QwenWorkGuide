@@ -2,13 +2,29 @@
 title: 交付新标准：从回答问题到完成工作
 description: 用可编辑、可验证、可流转判断 AI 是否完成业务交付
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
+  - https://docs.qwenwork.cn/release-notes/desktop
+  - https://learn.qwenwork.cn/whatsnew/
   - https://qwenwork.cn/docs/product-introduction
   - https://alidocs.dingtalk.com/i/nodes/mExel2BLV59rgdDPiPER1ZZDVgk9rpMq
 ---
 
 # 交付新标准：从回答问题到完成工作
+
+## V2.1 实践：把“生成完成”改成“业务可用”
+
+一份经营周报能打开，不代表订单、退款和费用算对。[办公 Agent 实测](/cases/public/office-agent-dirty-data)提示：同一张有歧义的表格可能产生不同口径，验收必须覆盖计算过程。建议把交付包固定为“结果文件 + 数据口径 + 异常清单 + 来源索引”。
+
+| 交付物 | 本次要验收什么 | 不通过时怎样处理 |
+| --- | --- | --- |
+| 经营表格 | 期间、主键、退款、税费、总额勾稽 | 输出差异清单，保留原始行 |
+| 汇报课件 | 结论能否回到表格与来源 | 暂停对外使用，修正图表 |
+| 协作网页 | 权限、保存、刷新后数据是否还在 | 导出数据，回到草稿验证 |
+| 法律或财务草稿 | 专业复核、版本与签审 | 由责任人接管，不能自动定稿 |
+
+把首次生成耗时和达到验收标准的总耗时分别记录，才知道流程是否真正节省工作量。新增工具改变产物形式，不改变业务责任。
+
 
 ## 30 秒结论
 

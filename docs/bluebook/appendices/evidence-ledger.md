@@ -1,8 +1,8 @@
 ---
 title: 主张证据台账
-description: V2.0 关键主张的来源、状态与适用边界
+description: V2.0 历史主张与 V2.1 补充主张的来源、状态与适用边界
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources: []
 ---
 
@@ -10,7 +10,9 @@ sources: []
 
 > 本页由结构化数据自动生成，请修改 `docs/bluebook/data/evidence-ledger.json`。本文件及其 JSON 源均为公开内容。
 
-已发布主张：44；待核验线索：0。
+本页汇集历史与新增主张，逐条核验日期各自保留，不代表全部在同日重新核验。
+
+已发布主张：48；待核验线索：0。
 
 ## 已发布主张
 
@@ -710,6 +712,74 @@ DAU、对话数、Token 和产物数只能说明使用，不能单独证明企�
 | 局限 | 使用指标仍可用于判断采用和负载，但必须与同口径效率、质量、风险和现金证据共同解释。 |
 | 核验日期 | 2026-08-01 |
 | 责任角色 | 价值度量负责人 |
+
+## claim-v21-summary-01
+
+这次修订覆盖 2026 年 9—10 月公开资料。客户端日志已核对到 10 月 15 日的 1.3.1；这是资料范围，不代表所有账号已开放全部功能。移动端、技能分享、安全中心和电商经营入口，让试点不再只限于“生成一份文档”。但每条流程仍需回答：资料从哪里来、用什么规则处理、谁验收、执行哪些动作。 局限：公开日志不能证明所有账号已开放相同功能。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | product-fact |
+| 来源类型 | official-product |
+| 来源定位 | [QwenWorkGuide V2.1 修订说明](https://docs.qwenwork.cn/release-notes/desktop) |
+| 核验状态 | limited |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-v21-summary-01](/bluebook/executive-summary#claim-v21-summary-01) |
+| 统计口径 | 官方日志与产品新鲜事的公开资料查阅 |
+| 适用范围 | 企业 AI 试点、复用、治理和价值评估 |
+| 局限 | 本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。 |
+| 核验日期 | 2026-10-25 |
+| 责任角色 | 编辑复核者 |
+
+## claim-v21-summary-02
+
+本书建议：推荐三条起步路线：个人先完成会议纪要或表格复核；经营团队先做只读日报或渠道利润分析；组织负责人先选一个有明确资料边界和接管人的流程。第 3—5 章补充入口、复用资产与定时边界，第 10—13 章补充企业上下文、运行管理和价值核算。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.1 修订说明 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-v21-summary-02](/bluebook/executive-summary#claim-v21-summary-02) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 试点、复用、治理和价值评估 |
+| 局限 | 本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。 |
+| 核验日期 | 2026-10-25 |
+| 责任角色 | 编辑复核者 |
+
+## claim-v21-summary-03
+
+本版新增 [13 条公开来源材料](/cases/public/)：7 条企业实践报道、1 条第三方实测和 5 条官方演示，并收进 PDF 的[案例札记附录](/bluebook/appendices/public-case-notes)。企业报道证明“有人公开描述了这种实践”，不能替代独立效果评估。V2.0 的 32 条旧候选记录仍按原发布门保存，不能与新增资料合算为成功客户数。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | research-finding |
+| 来源类型 | first-party-disclosure |
+| 来源定位 | [QwenWorkGuide V2.1 修订说明](https://github.com/mickyzhou-glitch/QwenWorkGuide/blob/main/docs/cases/data/public-cases.json) |
+| 核验状态 | verified |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-v21-summary-03](/bluebook/executive-summary#claim-v21-summary-03) |
+| 统计口径 | public-cases.json 的 13 条记录，按三种来源类型去重统计 |
+| 适用范围 | 企业 AI 试点、复用、治理和价值评估 |
+| 局限 | 本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。 |
+| 核验日期 | 2026-10-25 |
+| 责任角色 | 编辑复核者 |
+
+## claim-v21-summary-04
+
+本书建议：阅读顺序仍是：先选相近案例，再看交付与岗位方法，最后安排治理。网页版和 V2.1 PDF 同步修订，V2.0 PDF 保留历史快照。
+
+| 字段 | 内容 |
+|---|---|
+| 主张类型 | community-judgment |
+| 来源类型 | community-framework |
+| 来源定位 | QwenWorkGuide V2.1 修订说明 |
+| 核验状态 | editor-reviewed |
+| 正文位置 | [docs/bluebook/executive-summary.md#claim-v21-summary-04](/bluebook/executive-summary#claim-v21-summary-04) |
+| 统计口径 | 不适用：社区判断 |
+| 适用范围 | 企业 AI 试点、复用、治理和价值评估 |
+| 局限 | 本版修订范围与社区阅读建议；企业报道不是独立效果审计，未追认旧候选。 |
+| 核验日期 | 2026-10-25 |
+| 责任角色 | 编辑复核者 |
 
 ## claim-workflow-card-fields-01
 

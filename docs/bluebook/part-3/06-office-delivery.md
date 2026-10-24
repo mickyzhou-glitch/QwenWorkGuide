@@ -2,12 +2,28 @@
 title: 办公交付：文档、数据、汇报与网页
 description: 用统一工作流和验收证据管理四类常见办公交付
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
+  - https://docs.qwenwork.cn/release-notes/desktop
+  - https://learn.qwenwork.cn/whatsnew/
   - https://qwenwork.cn/docs/product-introduction
 ---
 
 # 办公交付：文档、数据、汇报与网页
+
+## V2.1 交付组合：让文档、表格、网页相互对得上
+
+一个任务往往需要多份产物：经营分析先有底表再有周报，课程设计先有教学目标再有课件，咨询先有事实提取再有建议。先选一个作为事实底稿，再让其他格式引用同一份结果，避免分别生成造成数字漂移。
+
+| 场景 | 事实底稿 | 展示或行动产物 | 对照案例 |
+| --- | --- | --- | --- |
+| 店铺复盘 | 订单、费用与指标表 | 周报与待验证原因 | [经营周报演示](/cases/public/flash-weekly-analysis) |
+| 教师备课 | 目标、知识点与答案 | 教案、课件与练习 | [立体几何演示](/cases/public/education-geometry) |
+| 客户调研 | 带出处的事实表 | 访谈提纲与材料清单 | [餐饮扩张演示](/cases/public/consulting-expansion) |
+| 门店巡检 | 状态、时间与门店 ID | 异常清单与待审回复 | [巡检演示](/cases/public/flash-store-inspection) |
+
+交付前选两处关键数字或结论，在所有文件中交叉查验。网页需要验证授权用户和刷新后持久化，课件需要逐页看图表、换行与来源，不能只按“文件生成成功”验收。
+
 
 ## 30 秒结论
 

@@ -297,12 +297,12 @@ export async function buildPrintDocument({
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="QwenWorkGuide V2.0 print builder">
+<meta name="generator" content="QwenWorkGuide ${manifest.version} print builder">
 <title>${manifest.title}</title>
-<style>${css}</style>
+<style>${css.replaceAll("千问办公蓝皮书 V2.0", manifest.title)}</style>
 </head>
 <body>
-<header class="cover"><p>QwenWorkGuide</p><h1>${manifest.title}</h1><p>本地发布候选 · ${manifest.publishedAt}</p></header>
+<header class="cover"><p>QwenWorkGuide</p><h1>${manifest.title}</h1><p>修订版 · ${manifest.publishedAt}</p></header>
 <nav class="toc" aria-label="目录"><h1>目录</h1><ol>${toc}</ol></nav>
 ${sections.join("\n")}
 </body>

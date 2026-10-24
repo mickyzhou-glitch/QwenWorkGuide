@@ -2,14 +2,32 @@
 title: 自动化边界：让系统可停、可接管、可恢复
 description: 区分机器校验、人审、验收和动作确认，建立自动化故障接管链
 status: community-practice
-verifiedAt: 2026-08-01
+verifiedAt: 2026-10-25
 sources:
+  - https://docs.qwenwork.cn/release-notes/desktop
+  - https://learn.qwenwork.cn/whatsnew/
   - https://qwenwork.cn/docs/desktop/scheduled-tasks
   - https://qwenwork.cn/docs/desktop/computer-use
   - https://qwenwork.cn/docs/desktop/im-channels
 ---
 
 # 自动化边界：让系统可停、可接管、可恢复
+
+## V2.1 定时任务：云端和本机必须分开记录
+
+[网页端定时任务](https://docs.qwenwork.cn/web/scheduled-tasks)说明关闭浏览器后仍可在云端执行；[桌面端](https://docs.qwenwork.cn/desktop/scheduled-tasks)要求电脑保持唤醒，按系统时区运行，错过的任务不自动补执行。任务能否准点完成，取决于实际执行位置和工具依赖。
+
+| 检查点 | 云端流程 | 本地流程 |
+| --- | --- | --- |
+| 执行条件 | 检查云端连接授权和任务状态 | 检查唤醒、登录与目录可访问 |
+| 时间口径 | 核对任务实际显示的时区与周期 | 核对系统时区、休眠设置 |
+| 缺数或漏跑 | 查运行记录后人工决定是否补跑 | 不假设自动补跑，先查是否已执行 |
+| 重复执行 | 用期间与业务主键识别重复结果 | 同样检查重复，外发另行确认 |
+
+建议先定时生成草稿，连续核对正常日、无数据日和权限失效三种情况，再安排通知。定时生成不等于自动发布。
+
+协作网页还要考虑数据恢复：[官方“我的网页”说明](https://docs.qwenwork.cn/web/pages)将切换历史版本标为“即将上线”，删除网页会同时删除其数据库。不要把看得到历史记录写成可一键恢复；上线前保存源文件与数据导出，并实际演练恢复。
+
 
 ## 30 秒结论
 
